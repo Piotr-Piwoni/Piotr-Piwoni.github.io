@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const projectsFolders = ["testProject", "testProject2", "testProject3"];
+const projectsFolders = ["testProject", "testProject2", "testProject3", "testProject4"];
 let allProjectsMeta = [];
 let displayedProjects = 0;
 const batchSize = 3;
@@ -23,7 +23,7 @@ function renderProjects(filteredMetaData) {
 		<a href="projects/${project.folder}/${project.page}" class="project-card">
 		<img src="projects/${project.folder}/${project.cover}" alt="${project.name} Cover">
 		<h3>${project.name}</h3>
-		<p>${project.short}</p>
+		<p class="project-card-short">${project.short}</p>
 		<div class="tags">
 			${project.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
 		</div>
