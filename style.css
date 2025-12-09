@@ -83,4 +83,11 @@ button {
 	flex-wrap: wrap;
 	gap: 8px;
 	margin-bottom: 16px;
+	justify-content: flex-start;
 }
+
+#filter-container button {
+	display: inline-block;
+	margin: 0
+}
+
