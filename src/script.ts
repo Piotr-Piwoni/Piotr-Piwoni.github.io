@@ -1,6 +1,6 @@
 ﻿import {ProjectMetadata} from "./types/types";
 
-const projectsFolders: string[] = ["testUnity", "testUnreal"];
+const projectsFolders: string[] = ["testProject", "testProject2", "testProject3"];
 let allProjectsMeta: ProjectMetadata[] = [];
 let displayedProjects = 0;
 const batchSize = 3;
@@ -58,6 +58,21 @@ function buildFilters(): void {
 	const tags = new Set<string>();
 
 	allProjectsMeta.forEach(project => project.tags.forEach((tag) => tags.add(tag)));
+
+	// Create a checkbox object for each tag.
+	/*	tags.forEach(tag => {
+	 const label = document.createElement("label");
+	 label.classList.add("filter-option");
+
+	 const checkbox = document.createElement("input");
+	 checkbox.type = "checkbox";
+	 checkbox.value = tag;
+	 checkbox.onclick = () => filterByTag(tag);
+
+	 label.appendChild(checkbox);
+	 label.append(tag);
+	 filterContainer.appendChild(label);
+	 });*/
 
 	// Create a button object for each tag.
 	tags.forEach(tag => {

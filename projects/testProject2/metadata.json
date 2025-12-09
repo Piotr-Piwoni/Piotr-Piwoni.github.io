@@ -1,15 +1,11 @@
 ﻿{
-  "name": "Unity Test Project",
+  "name": "Test Project 2",
   "short": "A short description of this test project to show on homepage.",
   "tags": [
-    "C#",
+    "C++",
     "Solo",
     "Personal",
-    "Unity",
-    "Luma",
-    "Doa",
-    "Deta",
-    "Voa"
+    "Unreal"
   ],
   "cover": "cover.png",
   "page": "index.html"

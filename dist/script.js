@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const projectsFolders = ["testUnity", "testUnreal"];
+const projectsFolders = ["testProject", "testProject2", "testProject3"];
 let allProjectsMeta = [];
 let displayedProjects = 0;
 const batchSize = 3;
@@ -55,6 +55,20 @@ function buildFilters() {
     filterContainer.innerHTML = "";
     const tags = new Set();
     allProjectsMeta.forEach(project => project.tags.forEach((tag) => tags.add(tag)));
+    // Create a checkbox object for each tag.
+    /*	tags.forEach(tag => {
+     const label = document.createElement("label");
+     label.classList.add("filter-option");
+
+     const checkbox = document.createElement("input");
+     checkbox.type = "checkbox";
+     checkbox.value = tag;
+     checkbox.onclick = () => filterByTag(tag);
+
+     label.appendChild(checkbox);
+     label.append(tag);
+     filterContainer.appendChild(label);
+     });*/
     // Create a button object for each tag.
     tags.forEach(tag => {
         const button = document.createElement("button");

@@ -3,40 +3,43 @@
 	color: #222;
 	font-family: sans-serif;
 	margin: auto;
-	max-width: 900px;
-	padding: 20px;
+	max-width: 90%;
+	padding: 2rem;
 }
 
 header {
-	margin-bottom: 40px;
+	margin-bottom: 3rem;
 	text-align: center;
 }
 
 .profile-img {
-	border-radius: 60px;
+	border-radius: 50%;
 	display: block;
-	margin: 10px auto;
-	width: 120px;
+	margin: 1rem auto;
+	width: 8rem;
 }
 
 section {
-	margin-bottom: 50px;
+	margin-bottom: 4rem;
 }
+
+/* --- PROJECT GRID (responsive) --- */
 
 #projects {
 	display: grid;
-	gap: 15px;
-	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-	margin-top: 20px;
+	gap: 1.2rem;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1rem));
+	margin-top: 1.5rem;
 }
 
+/* Card */
 .project-card {
 	background: white;
 	border: 1px solid #ccc;
-	border-radius: 10px;
+	border-radius: 0.6rem;
 	color: black;
 	display: block;
-	padding: 10px;
+	padding: 1rem;
 	text-decoration: none;
 	transition: transform 0.2s;
 }
@@ -46,31 +49,29 @@ section {
 }
 
 .project-card img {
-	border-radius: 6px;
+	border-radius: 0.4rem;
 	width: 100%;
 }
 
 .tags {
-	margin-top: 6px;
+	margin-top: 0.4rem;
 }
 
 .tag {
 	background: #eee;
-	border-radius: 6px;
+	border-radius: 0.4rem;
 	display: inline-block;
 	font-size: 0.75rem;
-	margin: 2px;
-	padding: 4px 6px;
+	margin: 0.1rem;
+	padding: 0.3rem 0.4rem;
 }
 
 button {
-	border-radius: 6px;
+	border-radius: 0.4rem;
 	cursor: pointer;
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 20px;
-	padding: 10px 16px;
+	margin: 1.5rem auto 0;
+	padding: 0.6rem 1rem;
 }
 
 .filter-button.active {
@@ -78,16 +79,55 @@ button {
 	color: white;
 }
 
+#projects-layout {
+	display: grid;
+	gap: 2rem;
+	grid-template-columns: minmax(180px, 22%) 1fr;
+	margin-top: 1.5rem;
+}
+
+#filter-sidebar {
+	background: #f0f0f0;
+	border-radius: 0.6rem;
+	height: fit-content;
+	padding: 1rem;
+	position: sticky;
+	top: 1rem;
+}
+
 #filter-container {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-	margin-bottom: 16px;
-	justify-content: flex-start;
+	flex-direction: column;
+	gap: 0.6rem;
 }
 
 #filter-container button {
 	display: inline-block;
-	margin: 0
+	margin: 0;
 }
 
+#projects-container {
+	width: 100%;
+}
+
+@media (max-width: 900px) {
+	#projects-layout {
+		grid-template-columns: 1fr;
+	}
+
+	#filter-sidebar {
+		position: relative;
+		top: 0;
+	}
+}
+
+@media (max-width: 600px) {
+	body {
+		max-width: 95%;
+		padding: 1rem;
+	}
+
+	.profile-img {
+		width: 6rem;
+	}
+}
