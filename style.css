@@ -1,0 +1,86 @@
+﻿body {
+	background: #f8f8f8;
+	color: #222;
+	font-family: sans-serif;
+	margin: auto;
+	max-width: 900px;
+	padding: 20px;
+}
+
+header {
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+.profile-img {
+	border-radius: 60px;
+	display: block;
+	margin: 10px auto;
+	width: 120px;
+}
+
+section {
+	margin-bottom: 50px;
+}
+
+#projects {
+	display: grid;
+	gap: 15px;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	margin-top: 20px;
+}
+
+.project-card {
+	background: white;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	color: black;
+	display: block;
+	padding: 10px;
+	text-decoration: none;
+	transition: transform 0.2s;
+}
+
+.project-card:hover {
+	transform: scale(1.03);
+}
+
+.project-card img {
+	border-radius: 6px;
+	width: 100%;
+}
+
+.tags {
+	margin-top: 6px;
+}
+
+.tag {
+	background: #eee;
+	border-radius: 6px;
+	display: inline-block;
+	font-size: 0.75rem;
+	margin: 2px;
+	padding: 4px 6px;
+}
+
+button {
+	border-radius: 6px;
+	cursor: pointer;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	padding: 10px 16px;
+}
+
+.filter-button.active {
+	background-color: #007bff;
+	color: white;
+}
+
+#filter-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 16px;
+}

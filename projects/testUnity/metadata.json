@@ -1,0 +1,12 @@
+﻿{
+  "name": "Unity Test Project",
+  "short": "A short description of this test project to show on homepage.",
+  "tags": [
+    "C#",
+    "Solo",
+    "Personal",
+    "Unity"
+  ],
+  "cover": "cover.png",
+  "page": "index.html"
+}

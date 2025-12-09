@@ -1,0 +1,12 @@
+﻿{
+  "name": "Unreal Test Project",
+  "short": "A short description of this test project to show on homepage.",
+  "tags": [
+    "C++",
+    "Solo",
+    "Personal",
+    "Unreal"
+  ],
+  "cover": "cover.png",
+  "page": "index.html"
+}
