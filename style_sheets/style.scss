@@ -1,9 +1,10 @@
 ﻿$bg-color: #f8f8f8;
 $text-color: #222;
-$primary-color: #007bff;
+$active-color: #007bff;
 $card-bg: #fff;
 $card-border: #ccc;
 $tag-bg: #eee;
+$button-bg: #dcdcdc;
 
 
 body {
@@ -64,12 +65,14 @@ body {
 
       img {
         width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
         border-radius: 0.5rem;
       }
 
       .promo-btn {
-        border: none;
-        font-weight: 600;
+        @extend .button-important;
+        width: 11rem;
       }
     }
   }
@@ -137,17 +140,33 @@ body {
     padding: 0.3rem 0.4rem;
   }
 
-  button {
+  .button, button {
     border-radius: 0.4rem;
     cursor: pointer;
     display: block;
     margin: 1.5rem auto 0;
     padding: 0.6rem 1rem;
 
+    // Make links behave like buttons.
+    background-color: $button-bg;
+    color: inherit;
+    border: none;
+    text-decoration: none;
+    font-family: inherit;
+
+    &:hover {
+      background-color: darken($button-bg, 10%);
+    }
+
     &.filter-button.active {
-      background-color: $primary-color;
+      background-color: $active-color;
       color: white;
     }
+  }
+
+  .button-important{
+    @extend .button;
+    font-weight: 600;
   }
 
   #projects-layout {

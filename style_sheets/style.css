@@ -50,11 +50,12 @@ body #about-section #about-promotion {
 }
 body #about-section #about-promotion img {
   width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
   border-radius: 0.5rem;
 }
 body #about-section #about-promotion .promo-btn {
-  border: none;
-  font-weight: 600;
+  width: 11rem;
 }
 body #projects {
   display: grid;
@@ -111,16 +112,27 @@ body .tag {
   margin: 0.1rem;
   padding: 0.3rem 0.4rem;
 }
-body button {
+body .button, body .button-important, body #about-section #about-promotion .promo-btn, body button {
   border-radius: 0.4rem;
   cursor: pointer;
   display: block;
   margin: 1.5rem auto 0;
   padding: 0.6rem 1rem;
+  background-color: #dcdcdc;
+  color: inherit;
+  border: none;
+  text-decoration: none;
+  font-family: inherit;
 }
-body button.filter-button.active {
+body .button:hover, body .button-important:hover, body #about-section #about-promotion .promo-btn:hover, body button:hover {
+  background-color: rgb(194.5, 194.5, 194.5);
+}
+body .button.filter-button.active, body .filter-button.active.button-important, body #about-section #about-promotion .filter-button.active.promo-btn, body button.filter-button.active {
   background-color: #007bff;
   color: white;
+}
+body .button-important, body #about-section #about-promotion .promo-btn {
+  font-weight: 600;
 }
 body #projects-layout {
   display: grid;
