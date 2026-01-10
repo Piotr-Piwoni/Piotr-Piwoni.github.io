@@ -60,7 +60,8 @@ body #about-section #about-promotion .promo-btn {
 body #projects {
   display: grid;
   gap: 1.2rem;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  justify-content: start;
+  grid-template-columns: repeat(3, 1fr);
   margin-top: 1.5rem;
 }
 body #projects .project-card {
@@ -74,6 +75,8 @@ body #projects .project-card {
   text-decoration: none;
   transition: transform 0.2s;
   color: black;
+  max-width: 320px;
+  width: 100%;
 }
 body #projects .project-card:hover {
   transform: scale(1.03);

@@ -80,7 +80,8 @@ body {
   #projects {
     display: grid;
     gap: 1.2rem;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    justify-content: start;
+    grid-template-columns: repeat(3,1fr);
     margin-top: 1.5rem;
 
     .project-card {
@@ -94,6 +95,8 @@ body {
       text-decoration: none;
       transition: transform 0.2s;
       color: black;
+      max-width: 320px;
+      width: 100%;
 
       &:hover {
         transform: scale(1.03);
@@ -164,7 +167,7 @@ body {
     }
   }
 
-  .button-important{
+  .button-important {
     @extend .button;
     font-weight: 600;
   }
