@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang = "en">
+<html data-theme = "light" lang = "en">
 <head>
 	<meta charset = "UTF-8">
 	<title>Tusk Games</title>
@@ -11,55 +11,59 @@
 
 <!-- Header. -->
 <header>
-	<div>
+	<div class = "header-left">
 		<a href = "index.html">
 			<img alt = "" id = "logo" src = "assets/Gold_Crest_64×64.png" title = "Tusk Games Logo">
 		</a>
 		<h1>Tusk Games</h1>
 	</div>
+	<button class = "button" id = "theme-toggle">
+		<img alt = "Toggle Dark Mode"src = "assets/night-mode.png">
+	</button>
 </header>
 
 <main>
-<!-- About Me Section. -->
-<section id = "about-section">
-	<div id = "about-info">
-		<img alt = "Profile Image" class = "profile-img" src = "assets/profile.jpg">
-		<h2>Piotr M. Piwoni</h2>
-		<p>Hi I'm Peter! As a gameplay programmer, game developer, and software engineer, I focus on creating engaging
-		   and immersive gaming experiences. You can explore my work and see the projects I've contributed to right
-		   here.</p>
-	</div>
-	<div id = "about-promotion">
-		<img alt = "WIP Promotional Image" src = "assets/self-promotion.jpg">
-		<a class = "promo-btn" href = "">Check this out!</a>
-	</div>
-</section>
-
-<template id = "project-card-template">
-	<a class = "project-card" href = "">
-		<img alt = "Project Cover" src = "">
-		<h3 id = "name">Project Name</h3>
-		<p class = "project-card-short">A short description of this project card.</p>
-		<div class = "tags" id = "tags"></div>
-	</a>
-</template>
-
-<!-- Project Section. -->
-<section id = "projects-section">
-	<h2>Projects</h2>
-	<div id = "projects-layout">
-		<aside id = "filter-sidebar">
-			<h3>Filters</h3>
-			<div id = "filter-container"></div>
-		</aside>
-		<div id = "project-container">
-			<div id = "projects"></div>
-			<button class = "button-important" id = "loadMoreButton">Load More</button>
+	<!-- About Me Section. -->
+	<section id = "about-section">
+		<div id = "about-info">
+			<img alt = "Profile Image" class = "profile-img" src = "assets/profile.jpg">
+			<h2>Piotr M. Piwoni</h2>
+			<p>Hi I'm Peter! As a gameplay programmer, game developer, and software engineer, I focus on creating
+			   engaging
+			   and immersive gaming experiences. You can explore my work and see the projects I've contributed to right
+			   here.</p>
 		</div>
-	</div>
-</section>
+		<div id = "about-promotion">
+			<img alt = "WIP Promotional Image" src = "assets/self-promotion.jpg">
+			<a class = "promo-btn" href = "">Check this out!</a>
+		</div>
+	</section>
+
+	<template id = "project-card-template">
+		<a class = "project-card" href = "">
+			<img alt = "Project Cover" src = "">
+			<h3 id = "name">Project Name</h3>
+			<p class = "project-card-short">A short description of this project card.</p>
+			<div class = "tags" id = "tags"></div>
+		</a>
+	</template>
+
+	<!-- Project Section. -->
+	<section id = "projects-section">
+		<h2>Projects</h2>
+		<div id = "projects-layout">
+			<aside id = "filter-sidebar">
+				<h3>Filters</h3>
+				<div id = "filter-container"></div>
+			</aside>
+			<div id = "project-container">
+				<div id = "projects"></div>
+				<button class = "button-important" id = "loadMoreButton">Load More</button>
+			</div>
+		</div>
+	</section>
 </main>
-	
+
 <!-- Contact Section. -->
 <footer>
 	<h3>Contact Me</h3>

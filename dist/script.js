@@ -141,6 +141,10 @@ function resetFilters() {
     container.replaceChildren();
     renderProjects();
 }
+function updateThemeSwitchIcon(icon, theme) {
+    icon.alt = theme === "light" ? "Toggle Dark Mode" : "Toggle Light Mode";
+    icon.src = theme === "light" ? "assets/night-mode.png" : "assets/sun-mode.png";
+}
 function loadProjects() {
     return __awaiter(this, void 0, void 0, function* () {
         const list = [];
@@ -153,6 +157,21 @@ function loadProjects() {
         }
         // Load Tag categories.
         tagCategories = yield fetch("data/tag-categories.json").then(res => res.json());
+        // Switchable Themes.
+        const themeToggle = document.getElementById("theme-toggle");
+        const toggleIcon = themeToggle.firstElementChild;
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        updateThemeSwitchIcon(toggleIcon, savedTheme);
+        // Toggle theme on button click  .
+        themeToggle.addEventListener("click", () => {
+            const currentTheme = document.documentElement.getAttribute("data-theme");
+            const newTheme = currentTheme === "light" ? "dark" : "light";
+            // Update DOM and localStorage.
+            document.documentElement.setAttribute("data-theme", newTheme);
+            localStorage.setItem("theme", newTheme);
+            updateThemeSwitchIcon(toggleIcon, newTheme);
+        });
         allProjectsMeta = list;
         renderProjects();
         buildFilters();

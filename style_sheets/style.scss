@@ -2,42 +2,53 @@
 $themes: (
         light: (
                 text: #121211,
+                text-invert: invert(#121211),
                 background: #f6f4ef,
                 primary: #5e4921,
+                primary-lighter: lighten(#5e4921, 10%),
                 secondary: #a2abb9,
+                secondary-lighter: lighten(#a2abb9, 10%),
                 accent: #eca409,
+                panel: darken(#f6f4ef, 5%),
+                border: darken(#f6f4ef, 35%),
         ),
         dark: (
                 text: #eeeeed,
+                text-invert: invert(#eeeeed),
                 background: #100e09,
                 primary: #dec9a1,
+                primary-lighter: lighten(#dec9a1, 10%),
                 secondary: #464f5c,
+                secondary-lighter: lighten(#464f5c, 10%),
                 accent: #f6ae13,
+                panel: lighten(#100e09, 5%),
+                border: lighten(#100e09, 35%),
         ),
 );
 
 // Helper to get colors from the theme.
 @function theme($mode, $color) {
-  // Add custom dynamic values.
-  @if ($color == panel) {
-    @if ($mode == "light") {
-      @return darken(theme($active-theme, background), 5%)
-    } @else {
-      @return lighten(theme($active-theme, background), 5%)
-    }
-  } @else if ($color == border) {
-    @if ($mode == "light") {
-      @return darken(theme($active-theme, background), 35%)
-    } @else {
-      @return lighten(theme($active-theme, background), 35%)
-    }
-  }
-
   // Default.
   @return map-get(map-get($themes, $mode), $color);
 }
 
 $active-theme: light;
+
+
+:root {
+  font-family: sans-serif;
+
+  @each $property, $value in map-get($themes, light) {
+    --color-#{$property}: #{$value};
+  }
+}
+
+[data-theme="dark"] {
+  @each $property, $value in map-get($themes, dark) {
+    --color-#{$property}: #{$value};
+  }
+}
+
 
 header, footer {
   width: 100%;
@@ -52,14 +63,33 @@ header, footer {
   z-index: 1000;
   margin: 0;
 
-  background: theme($active-theme, background);
-  border-top: 1px solid theme($active-theme, border);
-  border-bottom: 1px solid theme($active-theme, border);
+  background: var(--color-background);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 header {
   position: sticky;
   border-top: none;
+  justify-content: space-between;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  #theme-toggle {
+    display: inline-block;
+    margin: 0;
+
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
+      object-fit: contain;
+      display: block;
+    }
+  }
 
   div {
     display: flex;
@@ -69,9 +99,8 @@ header {
 }
 
 body {
-  background: theme($active-theme, background);
-  color: theme($active-theme, text);
-  font-family: sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
   margin: 0;
   padding: 0;
 
@@ -109,13 +138,12 @@ body {
     }
 
     #about-promotion {
-      $bg-colour: theme($active-theme, panel);
       flex: 1;
       max-width: 50%;
       padding: 1.5rem;
       border-radius: 0.75rem;
-      background: $bg-colour;
-      border: 1px solid theme($active-theme, accent);
+      background: var(--color-panel);
+      border: 1px solid var(--color-accent);
       text-align: center;
 
       img {
@@ -137,9 +165,9 @@ body {
     gap: 2rem;
     grid-template-columns: minmax(180px, 22%) 1fr;
     padding: 1rem;
-    background: theme($active-theme, panel);
+    background: var(--color-panel);
     border-radius: 0.75rem;
-    border: 1px solid theme($active-theme, border);
+    border: 1px solid var(--color-border);
 
     #filter-sidebar {
       border-radius: 0.6rem;
@@ -172,8 +200,8 @@ body {
         margin-top: 1.5rem;
 
         .project-card {
-          background: theme($active-theme, background);
-          border: 1px solid theme($active-theme, accent);
+          background: var(--color-background);
+          border: 1px solid var(--color-accent);
           border-radius: 0.6rem;
           display: flex;
           flex-direction: column;
@@ -181,7 +209,7 @@ body {
           padding: 1rem;
           text-decoration: none;
           transition: transform 0.2s;
-          color: theme($active-theme, text);
+          color: var(--color-text);
           max-width: 320px;
           width: 100%;
 
@@ -208,7 +236,7 @@ body {
               left: 0;
               width: 100%;
               height: 1rem;
-              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), theme($active-theme, background));
+              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--color-background));
             }
           }
 
@@ -233,7 +261,7 @@ body {
               width: 100%;
               height: 1rem;
               pointer-events: none;
-              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), theme($active-theme, background));
+              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--color-background));
             }
           }
         }
@@ -248,7 +276,7 @@ body {
 
 
   .tag {
-    background: lighten(theme($active-theme, secondary), 5%);
+    background: var(--color-secondary);
     border-radius: 0.4rem;
     display: inline-block;
     font-size: 0.75rem;
@@ -264,38 +292,32 @@ body {
     padding: 0.6rem 1rem;
 
     // Make links behave like buttons.
-    background-color: theme($active-theme, secondary);
-    color: theme($active-theme, text);
+    background-color: var(--color-secondary);
+    color: var(--color-text);
     border: none;
     text-decoration: none;
     font-family: inherit;
 
     &:hover {
-      background-color: darken(theme($active-theme, secondary), 10%);
+      filter: brightness(90%);
     }
 
     &.filter-button.active {
-      background-color: theme($active-theme, accent);
-      color: theme($active-theme, background);
+      background-color: var(--color-accent);
+      color: var(--color-text);
     }
   }
 
   .button-important {
     @extend .button;
-    $bg-colour: lighten(theme($active-theme, primary), 10%);
     font-weight: 600;
-    background-color: $bg-colour;
-    color: invert(theme($active-theme, text));
-
-    &:hover {
-      background-color: darken($bg-colour, 5%);
-    }
+    background-color: var(--color-primary-lighter);
+    color: var(--color-text-invert);
   }
 
   .collapsible {
-    $bg-colour: lighten(theme($active-theme, secondary), 15%);
-    background-color: $bg-colour;
-    color: theme($active-theme, text);
+    background-color: var(--color-secondary-lighter);
+    color: var(--color-text);
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -306,13 +328,9 @@ body {
     font-size: 15px;
     text-align: left;
 
-    &:hover {
-      background-color: darken($bg-colour, 10%);
-    }
-
     .symbol {
       font-size: 25px;
-      color: theme($active-theme, accent);
+      color: var(--color-accent);
       font-weight: 700;
       position: absolute;
       right: 18px;
