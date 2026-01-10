@@ -100,22 +100,20 @@ function buildFilters(): void {
 	// Render grouped filters.
 	for (const category in groupedTags) {
 		// Header for the category.
-		const groupTitle = document.createElement("h4");
+		const groupTitle = document.createElement("button");
 		groupTitle.textContent = category;
-		groupTitle.style.cursor = "pointer";
-		groupTitle.style.userSelect = "none";
+		groupTitle.classList.add("collapsible");
 		filterContainer.appendChild(groupTitle);
 
 		// Container for the buttons.
 		const buttonContainer = document.createElement("div");
-		buttonContainer.style.display = "flex";
-		buttonContainer.style.marginBottom = "1rem";
-		buttonContainer.style.gap = "0.5rem";
-		buttonContainer.style.flexWrap = "wrap";
+		buttonContainer.classList.add("content");
 		filterContainer.appendChild(buttonContainer);
 
 		groupTitle.onclick = () => {
-			buttonContainer.style.display = buttonContainer.style.display === "none" ? "flex" : "none";
+			groupTitle.classList.toggle("active");
+			buttonContainer.classList.toggle("is-open");
+
 		};
 
 		const tags = groupedTags[category];

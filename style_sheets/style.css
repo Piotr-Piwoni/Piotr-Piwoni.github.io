@@ -180,6 +180,33 @@ body #projects-layout #project-container #loadMoreButton {
   display: inline-block;
   margin: 1.5rem auto 0;
 }
+body .collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+body .collapsible:hover, body .collapsible:active {
+  background-color: rgb(212.5, 212.5, 212.5);
+}
+body .content {
+  display: none;
+  margin-bottom: 1rem;
+}
+body .content button {
+  display: inline-flex;
+  margin: 0;
+}
+body .content.is-open {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
 @media (max-width: 900px) {
   body #projects-layout {
     grid-template-columns: 1fr;
