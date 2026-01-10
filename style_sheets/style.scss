@@ -243,8 +243,16 @@ body {
   }
 
   .content {
-    display: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
     margin-bottom: 1rem;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+
+    transition: max-height 0.25s ease, opacity 0.2s ease;
 
     button {
       display: inline-flex;
@@ -252,9 +260,7 @@ body {
     }
 
     &.is-open {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      opacity: 1;
     }
   }
 

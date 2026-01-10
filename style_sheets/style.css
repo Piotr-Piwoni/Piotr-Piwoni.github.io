@@ -195,17 +195,21 @@ body .collapsible:hover, body .collapsible:active {
   background-color: rgb(212.5, 212.5, 212.5);
 }
 body .content {
-  display: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-bottom: 1rem;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.2s ease;
 }
 body .content button {
   display: inline-flex;
   margin: 0;
 }
 body .content.is-open {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  opacity: 1;
 }
 @media (max-width: 900px) {
   body #projects-layout {

@@ -112,8 +112,8 @@ function buildFilters(): void {
 
 		groupTitle.onclick = () => {
 			groupTitle.classList.toggle("active");
-			buttonContainer.classList.toggle("is-open");
-
+			const isOpen = buttonContainer.classList.toggle("is-open");
+			buttonContainer.style.maxHeight = isOpen ? buttonContainer.scrollHeight + "px" : "0";
 		};
 
 		const tags = groupedTags[category];
