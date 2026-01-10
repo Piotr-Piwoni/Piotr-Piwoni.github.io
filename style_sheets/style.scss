@@ -1,30 +1,84 @@
-﻿$bg-color: #f8f8f8;
-$text-color: #222;
-$active-color: #007bff;
-$card-bg: #fff;
-$card-border: #ccc;
-$tag-bg: #eee;
-$button-bg: #dcdcdc;
+﻿// Theme from: https://www.realtimecolors.com/?colors=121211-f6f4ef-5e4921-a2abb9-eca409&fonts=Inter-Inter
+$themes: (
+        light: (
+                text: #121211,
+                background: #f6f4ef,
+                primary: #5e4921,
+                secondary: #a2abb9,
+                accent: #eca409,
+        ),
+        dark: (
+                text: #eeeeed,
+                background: #100e09,
+                primary: #dec9a1,
+                secondary: #464f5c,
+                accent: #f6ae13,
+        ),
+);
 
+// Helper to get colors from the theme.
+@function theme($mode, $color) {
+  // Add custom dynamic values.
+  @if ($color == panel) {
+    @if ($mode == "light") {
+      @return darken(theme($active-theme, background), 5%)
+    } @else {
+      @return lighten(theme($active-theme, background), 5%)
+    }
+  } @else if ($color == border) {
+    @if ($mode == "light") {
+      @return darken(theme($active-theme, background), 35%)
+    } @else {
+      @return lighten(theme($active-theme, background), 35%)
+    }
+  }
 
-body {
-  background: $bg-color;
-  color: $text-color;
-  font-family: sans-serif;
-  margin: auto;
-  max-width: 90%;
-  padding: 2rem;
+  // Default.
+  @return map-get(map-get($themes, $mode), $color);
+}
 
-  header {
-    margin-bottom: 3rem;
+$active-theme: light;
+
+header, footer {
+  width: 100%;
+  padding: 0.35rem 2rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  margin: 0;
+
+  background: theme($active-theme, background);
+  border-top: 1px solid theme($active-theme, border);
+  border-bottom: 1px solid theme($active-theme, border);
+}
+
+header {
+  position: sticky;
+  border-top: none;
+
+  div {
     display: flex;
     align-items: center;
+    gap: 1rem;
+  }
+}
 
-    div {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+body {
+  background: theme($active-theme, background);
+  color: theme($active-theme, text);
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+
+  main {
+    padding: 2rem;
+    max-width: 90%;
+    margin: 0 auto;
   }
 
   #about-section {
@@ -55,12 +109,13 @@ body {
     }
 
     #about-promotion {
+      $bg-colour: theme($active-theme, panel);
       flex: 1;
       max-width: 50%;
       padding: 1.5rem;
       border-radius: 0.75rem;
-      background: $card-bg;
-      border: 1px solid $card-border;
+      background: $bg-colour;
+      border: 1px solid theme($active-theme, accent);
       text-align: center;
 
       img {
@@ -81,9 +136,12 @@ body {
     display: grid;
     gap: 2rem;
     grid-template-columns: minmax(180px, 22%) 1fr;
+    padding: 1rem;
+    background: theme($active-theme, panel);
+    border-radius: 0.75rem;
+    border: 1px solid theme($active-theme, border);
 
     #filter-sidebar {
-      background: #f0f0f0;
       border-radius: 0.6rem;
       height: fit-content;
       padding: 1rem;
@@ -114,8 +172,8 @@ body {
         margin-top: 1.5rem;
 
         .project-card {
-          background: $card-bg;
-          border: 1px solid $card-border;
+          background: theme($active-theme, background);
+          border: 1px solid theme($active-theme, accent);
           border-radius: 0.6rem;
           display: flex;
           flex-direction: column;
@@ -123,7 +181,7 @@ body {
           padding: 1rem;
           text-decoration: none;
           transition: transform 0.2s;
-          color: black;
+          color: theme($active-theme, text);
           max-width: 320px;
           width: 100%;
 
@@ -150,7 +208,7 @@ body {
               left: 0;
               width: 100%;
               height: 1rem;
-              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), theme($active-theme, background));
             }
           }
 
@@ -175,7 +233,7 @@ body {
               width: 100%;
               height: 1rem;
               pointer-events: none;
-              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), theme($active-theme, background));
             }
           }
         }
@@ -190,7 +248,7 @@ body {
 
 
   .tag {
-    background: $tag-bg;
+    background: lighten(theme($active-theme, secondary), 5%);
     border-radius: 0.4rem;
     display: inline-block;
     font-size: 0.75rem;
@@ -206,54 +264,63 @@ body {
     padding: 0.6rem 1rem;
 
     // Make links behave like buttons.
-    background-color: $button-bg;
-    color: inherit;
+    background-color: theme($active-theme, secondary);
+    color: theme($active-theme, text);
     border: none;
     text-decoration: none;
     font-family: inherit;
 
     &:hover {
-      background-color: darken($button-bg, 10%);
+      background-color: darken(theme($active-theme, secondary), 10%);
     }
 
     &.filter-button.active {
-      background-color: $active-color;
-      color: white;
+      background-color: theme($active-theme, accent);
+      color: theme($active-theme, background);
     }
   }
 
   .button-important {
     @extend .button;
+    $bg-colour: lighten(theme($active-theme, primary), 10%);
     font-weight: 600;
+    background-color: $bg-colour;
+    color: invert(theme($active-theme, text));
+
+    &:hover {
+      background-color: darken($bg-colour, 5%);
+    }
   }
 
   .collapsible {
-    background-color: #eee;
-    color: #444;
+    $bg-colour: lighten(theme($active-theme, secondary), 15%);
+    background-color: $bg-colour;
+    color: theme($active-theme, text);
     cursor: pointer;
     padding: 18px;
     width: 100%;
     border: none;
-    text-align: left;
     outline: none;
+    position: relative;
+
     font-size: 15px;
+    text-align: left;
 
-    &:hover{
-      background-color: darken(#eee, 10%);
+    &:hover {
+      background-color: darken($bg-colour, 10%);
     }
 
-    &::after {
-      content: '\02795'; //< Unicode character for "plus" sign (+).
-      font-size: 13px;
-      color: white;
-      float: right;
-      margin-left: 5px;
-    }
-
-    &.active:after {
-      content: "\2796"; //< Unicode character for "minus" sign (-).
+    .symbol {
+      font-size: 25px;
+      color: theme($active-theme, accent);
+      font-weight: 700;
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
+
 
   .content {
     display: flex;
@@ -306,4 +373,11 @@ body {
       width: 6rem;
     }
   }
+}
+
+footer {
+  margin-top: 3rem;
+  align-items: flex-start;
+  flex-direction: column;
+  border-bottom: none;
 }

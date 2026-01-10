@@ -105,7 +105,13 @@ function buildFilters(): void {
 		groupTitle.classList.add("collapsible");
 		filterContainer.appendChild(groupTitle);
 
-		// Container for the buttons.
+		// Symbol.
+		const collapsibleIcon = document.createElement("span");
+		collapsibleIcon.textContent = "+";
+		collapsibleIcon.classList.add("symbol");
+		groupTitle.appendChild(collapsibleIcon);
+
+		// Collapsible content.
 		const buttonContainer = document.createElement("div");
 		buttonContainer.classList.add("content");
 		filterContainer.appendChild(buttonContainer);
@@ -114,6 +120,7 @@ function buildFilters(): void {
 			groupTitle.classList.toggle("active");
 			const isOpen = buttonContainer.classList.toggle("is-open");
 			buttonContainer.style.maxHeight = isOpen ? buttonContainer.scrollHeight + "px" : "0";
+			collapsibleIcon.textContent = isOpen ? "−" : "+";
 		};
 
 		const tags = groupedTags[category];
