@@ -31,7 +31,7 @@ body #about-section #about-info .profile-img {
   border-radius: 50%;
   display: block;
   margin: 1rem auto;
-  width: 8rem;
+  width: 13rem;
 }
 body #about-section #about-info h2 {
   margin-top: 0.5rem;
@@ -44,26 +44,22 @@ body #about-section #about-promotion {
   max-width: 50%;
   padding: 1.5rem;
   border-radius: 0.75rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: #fff;
+  border: 1px solid #ccc;
   text-align: center;
 }
 body #about-section #about-promotion img {
   width: 100%;
   border-radius: 0.5rem;
-  margin: 1rem 0;
 }
 body #about-section #about-promotion .promo-btn {
-  margin-top: 1rem;
-  padding: 0.6rem 1.4rem;
   border: none;
-  border-radius: 0.4rem;
-  cursor: pointer;
   font-weight: 600;
 }
 body #projects {
   display: grid;
   gap: 1.2rem;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1rem));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   margin-top: 1.5rem;
 }
 body #projects .project-card {
@@ -173,11 +169,11 @@ body #projects-layout #project-container #loadMoreButton {
   }
 }
 @media (max-width: 600px) {
-  body body {
+  body {
     max-width: 95%;
     padding: 1rem;
   }
-  body body .profile-img {
+  body .profile-img {
     width: 6rem;
   }
 }
