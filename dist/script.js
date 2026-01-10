@@ -12,6 +12,7 @@ let allProjectsMeta = [];
 let displayedProjects = 0;
 const batchSize = 3;
 const activeTags = new Set();
+let tagCategories = {};
 function renderProjects(filteredMetaData) {
     const cardContainer = document.getElementById("projects");
     const list = filteredMetaData || allProjectsMeta;
@@ -59,20 +60,63 @@ function filterByTag(tag) {
 }
 function buildFilters() {
     const filterContainer = document.getElementById("filter-container");
-    filterContainer.innerHTML = "";
-    const tags = new Set();
-    allProjectsMeta.forEach(project => project.tags.forEach((tag) => tags.add(tag)));
-    // Create a button object for each tag.
-    tags.forEach(tag => {
-        const button = document.createElement("button");
-        button.textContent = tag;
-        button.classList.add("filter-button");
-        button.onclick = () => {
-            filterByTag(tag);
-            button.classList.toggle("active");
-        };
-        filterContainer.appendChild(button);
+    filterContainer.replaceChildren();
+    // Group project tags by category.
+    const groupedTags = {};
+    allProjectsMeta.forEach(project => {
+        project.tags.forEach(tag => {
+            // Search through tagCategories to find the matching full tag and category.
+            let found = false;
+            for (const category in tagCategories) {
+                const fullTags = tagCategories[category];
+                for (let i = 0; i < fullTags.length; i++) {
+                    if (fullTags[i].includes(tag)) {
+                        if (!groupedTags[category])
+                            groupedTags[category] = new Set();
+                        groupedTags[category].add(tag);
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                    break;
+            }
+            // If not found in tagCategories, put under "Other".
+            if (!found) {
+                if (!groupedTags["Other"])
+                    groupedTags["Other"] = new Set();
+                groupedTags["Other"].add(tag);
+            }
+        });
     });
+    // Render grouped filters.
+    for (const category in groupedTags) {
+        const groupTitle = document.createElement("h4");
+        groupTitle.textContent = category;
+        filterContainer.appendChild(groupTitle);
+        const tags = groupedTags[category];
+        tags.forEach(tag => {
+            // Find the full display name in tagCategories.
+            let displayName = tag;
+            for (const cat in tagCategories) {
+                const fullTags = tagCategories[cat];
+                for (let i = 0; i < fullTags.length; i++) {
+                    if (fullTags[i].includes(tag)) {
+                        displayName = fullTags[i];
+                        break;
+                    }
+                }
+            }
+            const button = document.createElement("button");
+            button.textContent = displayName;
+            button.classList.add("filter-button");
+            button.onclick = () => {
+                filterByTag(tag);
+                button.classList.toggle("active");
+            };
+            filterContainer.appendChild(button);
+        });
+    }
 }
 function resetFilters() {
     displayedProjects = 0;
@@ -83,12 +127,15 @@ function resetFilters() {
 function loadProjects() {
     return __awaiter(this, void 0, void 0, function* () {
         const list = [];
+        // Load Projects meta data.
         for (const folder of projectsFolders) {
             const meta = yield fetch(`projects/${folder}/metadata.json`)
                 .then(res => res.json());
             meta.folder = folder;
             list.push(meta);
         }
+        // Load Tag categories.
+        tagCategories = yield fetch("data/tag-categories.json").then(res => res.json());
         allProjectsMeta = list;
         renderProjects();
         buildFilters();

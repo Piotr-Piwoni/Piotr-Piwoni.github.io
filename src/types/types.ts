@@ -7,3 +7,7 @@
 	page: string;
 	folder: string;
 }
+
+export interface TagCategories {
+	[category: string]: string[];
+}

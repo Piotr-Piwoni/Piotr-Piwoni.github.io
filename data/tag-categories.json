@@ -1,0 +1,59 @@
+﻿{
+  "Languages": [
+    "TypeScript",
+    "JavaScript",
+    "C#",
+    "C++",
+    "Python",
+    "Java",
+    "GDScript",
+    "Rust",
+    "Lua",
+    "Swift",
+    "Kotlin",
+    "Ruby",
+    "Go",
+    "Haskell",
+    "C",
+    "Objective-C",
+    "PHP",
+    "Dart",
+    "Scala",
+    "Perl"
+  ],
+  "Engines": [
+    "Unity",
+    "Unreal",
+    "Godot",
+    "Custom Engine",
+    "Phaser",
+    "Skateboard"
+  ],
+  "Origin": [
+    "Personal Project",
+    "Organization Project",
+    "Client Project",
+    "School Project"
+  ],
+  "Collaboration": [
+    "Solo Project",
+    "Team Project",
+    "Pair Project"
+  ],
+  "Project Type": [
+    "2D",
+    "3D",
+    "Game",
+    "Tool",
+    "Feature",
+    "Software",
+    "Prototype",
+    "VR/AR"
+  ],
+  "Platforms": [
+    "PC",
+    "PS5",
+    "IOS",
+    "Android"
+  ]
+}
