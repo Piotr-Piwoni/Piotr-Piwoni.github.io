@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   background: #f8f8f8;
   color: #222;
@@ -191,8 +192,18 @@ body .collapsible {
   outline: none;
   font-size: 15px;
 }
-body .collapsible:hover, body .collapsible:active {
+body .collapsible:hover {
   background-color: rgb(212.5, 212.5, 212.5);
+}
+body .collapsible::after {
+  content: "➕";
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+body .collapsible.active:after {
+  content: "➖";
 }
 body .content {
   display: flex;
