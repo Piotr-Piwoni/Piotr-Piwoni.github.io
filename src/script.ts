@@ -26,12 +26,13 @@ function renderProjects(filteredMetaData?: ProjectMetadata[]): void {
 		cardClone.querySelector("#name")!.textContent = project.name;
 		cardClone.querySelector("p")!.textContent = project.short;
 		const tagsContainer = cardClone.querySelector(".tags")!;
-		project.tags.forEach(tag => {
+		[...new Set(project.tags)].forEach(tag => { //< remove duplicates.
 			const span = document.createElement("span");
 			span.className = "tag";
 			span.textContent = tag;
 			tagsContainer.appendChild(span);
 		});
+
 		cardContainer.appendChild(cardClone);
 	});
 
@@ -110,6 +111,7 @@ function buildFilters(): void {
 		buttonContainer.style.display = "flex";
 		buttonContainer.style.marginBottom = "1rem";
 		buttonContainer.style.gap = "0.5rem";
+		buttonContainer.style.flexWrap = "wrap";
 		filterContainer.appendChild(buttonContainer);
 
 		groupTitle.onclick = () => {

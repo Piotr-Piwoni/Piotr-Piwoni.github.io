@@ -15,10 +15,10 @@ function loadProjectPage() {
         document.getElementById("project-description").textContent = meta.long || meta.short;
         document.getElementById("project-cover").src = meta.cover;
         const tagsDiv = document.getElementById("tags");
-        meta.tags.forEach(tag => {
+        [...new Set(meta.tags)].forEach(tag => {
             const span = document.createElement("span");
-            span.textContent = tag;
             span.className = "tag";
+            span.textContent = tag;
             tagsDiv.appendChild(span);
         });
     });

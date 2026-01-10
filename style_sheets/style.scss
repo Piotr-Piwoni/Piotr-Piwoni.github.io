@@ -81,7 +81,7 @@ body {
     display: grid;
     gap: 1.2rem;
     justify-content: start;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
     margin-top: 1.5rem;
 
     .project-card {
@@ -129,7 +129,25 @@ body {
         margin-top: 0.4rem;
         display: flex;
         flex-wrap: wrap;
-        gap: 0.2rem;
+        $gap-size: 0.2rem;
+        $height-size: 1.6rem;
+
+        gap: $gap-size;
+
+        max-height: calc($gap-size + $height-size * 2);
+        overflow: hidden;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 1rem;
+          pointer-events: none;
+          background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+        }
       }
     }
   }

@@ -9,10 +9,10 @@ async function loadProjectPage(): Promise<void> {
 	(document.getElementById("project-cover") as HTMLImageElement).src = meta.cover;
 
 	const tagsDiv = document.getElementById("tags") as HTMLElement;
-	meta.tags.forEach(tag => {
+	[...new Set(meta.tags)].forEach(tag => { //< remove duplicates.
 		const span = document.createElement("span");
-		span.textContent = tag;
 		span.className = "tag";
+		span.textContent = tag;
 		tagsDiv.appendChild(span);
 	});
 }
