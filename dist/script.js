@@ -91,9 +91,21 @@ function buildFilters() {
     });
     // Render grouped filters.
     for (const category in groupedTags) {
+        // Header for the category.
         const groupTitle = document.createElement("h4");
         groupTitle.textContent = category;
+        groupTitle.style.cursor = "pointer";
+        groupTitle.style.userSelect = "none";
         filterContainer.appendChild(groupTitle);
+        // Container for the buttons.
+        const buttonContainer = document.createElement("div");
+        buttonContainer.style.display = "flex";
+        buttonContainer.style.marginBottom = "1rem";
+        buttonContainer.style.gap = "0.5rem";
+        filterContainer.appendChild(buttonContainer);
+        groupTitle.onclick = () => {
+            buttonContainer.style.display = buttonContainer.style.display === "none" ? "flex" : "none";
+        };
         const tags = groupedTags[category];
         tags.forEach(tag => {
             // Find the full display name in tagCategories.
@@ -114,7 +126,7 @@ function buildFilters() {
                 filterByTag(tag);
                 button.classList.toggle("active");
             };
-            filterContainer.appendChild(button);
+            buttonContainer.appendChild(button);
         });
     }
 }
