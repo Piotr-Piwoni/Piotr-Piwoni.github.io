@@ -77,80 +77,117 @@ body {
     }
   }
 
-  #projects {
+  #projects-layout {
     display: grid;
-    gap: 1.2rem;
-    justify-content: start;
-    grid-template-columns: repeat(3, 1fr);
-    margin-top: 1.5rem;
+    gap: 2rem;
+    grid-template-columns: minmax(180px, 22%) 1fr;
 
-    .project-card {
-      background: $card-bg;
-      border: 1px solid $card-border;
+    #filter-sidebar {
+      background: #f0f0f0;
       border-radius: 0.6rem;
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 0.5rem;
+      height: fit-content;
       padding: 1rem;
-      text-decoration: none;
-      transition: transform 0.2s;
-      color: black;
-      max-width: 320px;
-      width: 100%;
+      position: sticky;
+      top: 1rem;
 
-      &:hover {
-        transform: scale(1.03);
-      }
-
-      img {
-        border-radius: 0.4rem;
-        width: 100%;
-      }
-
-      .project-card-short {
-        line-height: 1.4rem;
-        margin: 0.5rem 0 0;
-        max-height: 4.2rem;
-        overflow: hidden;
-        position: relative;
-
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 1rem;
-          background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
-        }
-      }
-
-      .tags {
-        margin-top: 0.4rem;
+      #filter-container {
         display: flex;
-        flex-wrap: wrap;
-        $gap-size: 0.2rem;
-        $height-size: 1.6rem;
+        flex-direction: column;
+        gap: 0.6rem;
 
-        gap: $gap-size;
-
-        max-height: calc($gap-size + $height-size * 2);
-        overflow: hidden;
-        position: relative;
-
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 1rem;
-          pointer-events: none;
-          background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+        button {
+          display: inline-block;
+          margin: 0;
         }
       }
     }
+
+    #project-container {
+      width: 100%;
+      text-align: center;
+
+      #projects {
+        display: grid;
+        gap: 1.2rem;
+        justify-content: start;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 1.5rem;
+
+        .project-card {
+          background: $card-bg;
+          border: 1px solid $card-border;
+          border-radius: 0.6rem;
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 0.5rem;
+          padding: 1rem;
+          text-decoration: none;
+          transition: transform 0.2s;
+          color: black;
+          max-width: 320px;
+          width: 100%;
+
+          &:hover {
+            transform: scale(1.03);
+          }
+
+          img {
+            border-radius: 0.4rem;
+            width: 100%;
+          }
+
+          .project-card-short {
+            line-height: 1.4rem;
+            margin: 0.5rem 0 0;
+            max-height: 4.2rem;
+            overflow: hidden;
+            position: relative;
+
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 1rem;
+              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+            }
+          }
+
+          .tags {
+            margin-top: 0.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            $gap-size: 0.2rem;
+            $height-size: 1.6rem;
+
+            gap: $gap-size;
+
+            max-height: calc($gap-size + $height-size * 2);
+            overflow: hidden;
+            position: relative;
+
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              height: 1rem;
+              pointer-events: none;
+              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+            }
+          }
+        }
+      }
+
+      #loadMoreButton {
+        display: inline-block;
+        margin: 1.5rem auto 0;
+      }
+    }
   }
+
 
   .tag {
     background: $tag-bg;
@@ -190,42 +227,6 @@ body {
     font-weight: 600;
   }
 
-  #projects-layout {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: minmax(180px, 22%) 1fr;
-
-    #filter-sidebar {
-      background: #f0f0f0;
-      border-radius: 0.6rem;
-      height: fit-content;
-      padding: 1rem;
-      position: sticky;
-      top: 1rem;
-
-      #filter-container {
-        display: flex;
-        flex-direction: column;
-        gap: 0.6rem;
-
-        button {
-          display: inline-block;
-          margin: 0;
-        }
-      }
-    }
-
-    #project-container {
-      width: 100%;
-      text-align: center;
-
-      #loadMoreButton {
-        display: inline-block;
-        margin: 1.5rem auto 0;
-      }
-    }
-  }
-
   .collapsible {
     background-color: #eee;
     color: #444;
@@ -263,6 +264,7 @@ body {
       opacity: 1;
     }
   }
+
 
   @media (max-width: 900px) {
     #projects-layout {
