@@ -433,8 +433,22 @@ body {
   }
 
   @media (max-width: 600px) {
-    max-width: 95%;
-    padding: 1rem;
+    body {
+      font-size: 0.95rem;
+    }
+
+    main {
+      max-width: 85%;
+      padding: 1rem;
+    }
+
+    .button, .button-important {
+      margin: 1rem auto 0;
+    }
+
+    .project-card-short {
+      font-size: 0.9rem;
+    }
 
     .profile-img {
       width: 6rem;
@@ -447,4 +461,5 @@ footer {
   align-items: flex-start;
   flex-direction: column;
   border-bottom: none;
+  bottom: 0;
 }

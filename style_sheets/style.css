@@ -384,9 +384,18 @@ body .content button {
   }
 }
 @media (max-width: 600px) {
-  body {
-    max-width: 95%;
+  body body {
+    font-size: 0.95rem;
+  }
+  body main {
+    max-width: 85%;
     padding: 1rem;
+  }
+  body .button, body .button-important {
+    margin: 1rem auto 0;
+  }
+  body .project-card-short {
+    font-size: 0.9rem;
   }
   body .profile-img {
     width: 6rem;
@@ -398,6 +407,7 @@ footer {
   align-items: flex-start;
   flex-direction: column;
   border-bottom: none;
+  bottom: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
