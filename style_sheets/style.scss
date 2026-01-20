@@ -1,4 +1,6 @@
-﻿// Theme from: https://www.realtimecolors.com/?colors=121211-f6f4ef-5e4921-a2abb9-eca409&fonts=Inter-Inter
+﻿@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&display=swap');
+
+// Theme from: https://www.realtimecolors.com/?colors=121211-f6f4ef-5e4921-a2abb9-eca409&fonts=Inter-Inter
 $themes: (
         light: (
                 text: #121211,
@@ -98,7 +100,7 @@ $highlight-strength: 85%;
 
 
 :root {
-  font-family: sans-serif;
+  font-family: "Ubuntu San Mono", monospace;
 }
 
 @include ExportTheme(light, ":root");
@@ -215,6 +217,13 @@ body {
     }
   }
 
+  #projects-section {
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+    }
+  }
+
   #projects-layout {
     display: grid;
     gap: 2rem;
@@ -277,20 +286,26 @@ body {
             width: 100%;
           }
 
+          h3 {
+            margin: .5rem 0.2rem 0.2rem;
+          }
+
           .project-card-short {
-            line-height: 1.4rem;
-            margin: 0.5rem 0 0;
-            max-height: 4.2rem;
+            $line-height: 1.4rem;
+            line-height: $line-height;
+            max-height: $line-height * 3;
             overflow: hidden;
             position: relative;
+            margin-top: 1rem;
+            margin-bottom: 0.75rem;
 
-            &::after {
+            &.has-fade::after {
               @include BottomFadeOverlay(1.1rem, $bg-colour);
+              bottom: 0;
             }
           }
 
           .tags {
-            margin-top: 0.4rem;
             display: flex;
             flex-wrap: wrap;
             $gap-size: 0.2rem;
@@ -300,8 +315,9 @@ body {
             overflow: hidden;
             position: relative;
 
-            &::after {
+            &.has-fade::after {
               @include BottomFadeOverlay(1rem, $bg-colour);
+              bottom: 0;
             }
           }
         }

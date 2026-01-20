@@ -39,6 +39,20 @@ function renderProjects(filteredMetaData?: ProjectMetadata[]): void {
 	// Show/hide the "Load More" button based if all projects are loaded.
 	const button = document.getElementById("loadMoreButton") as HTMLButtonElement;
 	button.style.display = displayedProjects >= list.length ? "none" : "block";
+
+	// Add fade only if overflowing.
+	// Project card description.
+	document.querySelectorAll(".project-card-short").forEach(card => {
+		if (card.scrollHeight > card.clientHeight) {
+			card.classList.add("has-fade");
+		}
+	});
+	// Project card tags.
+	document.querySelectorAll(".tags").forEach(tag => {
+		if (tag.scrollHeight > tag.clientHeight) {
+			tag.classList.add("has-fade");
+		}
+	});
 }
 
 function filterByTag(tag: string): void {
@@ -170,7 +184,6 @@ function GetInitialTheme(): string {
 		   ? "dark"
 		   : "light";
 }
-
 
 async function loadProjects(): Promise<void> {
 	const list: ProjectMetadata[] = [];

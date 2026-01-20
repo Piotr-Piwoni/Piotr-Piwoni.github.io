@@ -1,5 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&display=swap");
 :root {
-  font-family: sans-serif;
+  font-family: "Ubuntu San Mono", monospace;
 }
 
 :root {
@@ -153,6 +154,10 @@ body #about-section #about-promotion img {
 body #about-section #about-promotion a {
   display: inline-block;
 }
+body #projects-section h2 {
+  text-align: center;
+  font-size: 2rem;
+}
 body #projects-layout {
   display: grid;
   gap: 2rem;
@@ -209,23 +214,27 @@ body #projects-layout #project-container #projects .project-card img {
   border-radius: 0.4rem;
   width: 100%;
 }
+body #projects-layout #project-container #projects .project-card h3 {
+  margin: 0.5rem 0.2rem 0.2rem;
+}
 body #projects-layout #project-container #projects .project-card .project-card-short {
   line-height: 1.4rem;
-  margin: 0.5rem 0 0;
   max-height: 4.2rem;
   overflow: hidden;
   position: relative;
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
 }
-body #projects-layout #project-container #projects .project-card .project-card-short::after {
+body #projects-layout #project-container #projects .project-card .project-card-short.has-fade::after {
   content: "";
   position: absolute;
   inset: auto 0 0 0;
   height: 1.1rem;
   pointer-events: none;
   background: linear-gradient(to bottom, transparent, var(--colour-background-lighter));
+  bottom: 0;
 }
 body #projects-layout #project-container #projects .project-card .tags {
-  margin-top: 0.4rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.2rem;
@@ -233,13 +242,14 @@ body #projects-layout #project-container #projects .project-card .tags {
   overflow: hidden;
   position: relative;
 }
-body #projects-layout #project-container #projects .project-card .tags::after {
+body #projects-layout #project-container #projects .project-card .tags.has-fade::after {
   content: "";
   position: absolute;
   inset: auto 0 0 0;
   height: 1rem;
   pointer-events: none;
   background: linear-gradient(to bottom, transparent, var(--colour-background-lighter));
+  bottom: 0;
 }
 body #projects-layout #project-container #loadMoreButton {
   display: inline-block;
