@@ -161,6 +161,17 @@ function updateThemeSwitchIcon(icon: HTMLImageElement, theme: string): void {
 	icon.src = theme === "light" ? "assets/night-mode.png" : "assets/sun-mode.png";
 }
 
+function GetInitialTheme(): string {
+	const saved = localStorage.getItem("theme");
+	if (saved === "light" || saved === "dark")
+		return saved;
+
+	return window.matchMedia("(prefers-color-scheme: dark)").matches
+		   ? "dark"
+		   : "light";
+}
+
+
 async function loadProjects(): Promise<void> {
 	const list: ProjectMetadata[] = [];
 
@@ -178,13 +189,13 @@ async function loadProjects(): Promise<void> {
 	// Switchable Themes.
 	const themeToggle = document.getElementById("theme-toggle") as HTMLButtonElement;
 	const toggleIcon = themeToggle.firstElementChild as HTMLImageElement;
-	const savedTheme = localStorage.getItem("theme") || "light";
-	document.documentElement.setAttribute("data-theme", savedTheme);
-	updateThemeSwitchIcon(toggleIcon, savedTheme);
+	const initialTheme = GetInitialTheme();
+	document.documentElement.setAttribute("data-theme", initialTheme);
+	updateThemeSwitchIcon(toggleIcon, initialTheme);
 
-	// Toggle theme on button click  .
+	// Toggle theme on button click .
 	themeToggle.addEventListener("click", () => {
-		const currentTheme = document.documentElement.getAttribute("data-theme");
+		const currentTheme = document.documentElement.dataset.theme ?? "light";
 		const newTheme = currentTheme === "light" ? "dark" : "light";
 
 		// Update DOM and localStorage.

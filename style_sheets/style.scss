@@ -2,52 +2,77 @@
 $themes: (
         light: (
                 text: #121211,
-                text-invert: invert(#121211),
                 background: #f6f4ef,
                 primary: #5e4921,
-                primary-lighter: lighten(#5e4921, 10%),
                 secondary: #a2abb9,
-                secondary-lighter: lighten(#a2abb9, 10%),
                 accent: #eca409,
-                panel: darken(#f6f4ef, 5%),
-                border: darken(#f6f4ef, 35%),
         ),
         dark: (
                 text: #eeeeed,
-                text-invert: invert(#eeeeed),
                 background: #100e09,
                 primary: #dec9a1,
-                primary-lighter: lighten(#dec9a1, 10%),
                 secondary: #464f5c,
-                secondary-lighter: lighten(#464f5c, 10%),
                 accent: #f6ae13,
-                panel: lighten(#100e09, 5%),
-                border: lighten(#100e09, 35%),
         ),
 );
+$highlight-strength: 85%;
 
-// Helper to get colors from the theme.
-@function theme($mode, $color) {
-  // Default.
-  @return map-get(map-get($themes, $mode), $color);
+
+@mixin BottomFadeOverlay($height: 1rem, $colour: white) {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: $height;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, $colour);
 }
 
-$active-theme: light;
+@mixin ButtonBase {
+  background-color: var(--colour-secondary);
+  color: var(--colour-text);
+  border-radius: 0.4rem;
+  cursor: pointer;
+  display: block;
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  border: none;
+  margin: 1.5rem auto 0;
+
+  &:hover {
+    filter: brightness($highlight-strength);
+  }
+}
+
+@mixin ExportTheme($theme-name, $selector) {
+  #{$selector} {
+    color-scheme: #{$theme-name};
+
+    @each $property, $value in map-get($themes, $theme-name) {
+      --colour-#{$property}: #{$value};
+
+      @if $property == background {
+        --colour-#{$property}-lighter: #{lighten($value, 5%)};
+        --colour-#{$property}-darker: #{darken($value, 5%)};
+      }
+
+      @if $property == primary or $property == secondary {
+        --colour-#{$property}-lighter: #{lighten($value, 5%)};
+      }
+
+      @if $property == text {
+        --colour-#{$property}-invert: #{if(lightness($value) > 50%, #000, #fff)};
+      }
+    }
+  }
+}
 
 
 :root {
   font-family: sans-serif;
-
-  @each $property, $value in map-get($themes, light) {
-    --color-#{$property}: #{$value};
-  }
 }
 
-[data-theme="dark"] {
-  @each $property, $value in map-get($themes, dark) {
-    --color-#{$property}: #{$value};
-  }
-}
+@include ExportTheme(light, ":root");
+@include ExportTheme(dark, '[data-theme="dark"]');
 
 
 header, footer {
@@ -56,16 +81,14 @@ header, footer {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   z-index: 1000;
   margin: 0;
 
-  background: var(--color-background);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  $border-size: 0.2rem;
+  background: var(--colour-background);
+  border: $border-size solid var(--colour-background-lighter);
+  border-left: 0;
+  border-right: 0;
 }
 
 header {
@@ -99,8 +122,8 @@ header {
 }
 
 body {
-  background: var(--color-background);
-  color: var(--color-text);
+  background: var(--colour-background-darker);
+  color: var(--colour-text);
   margin: 0;
   padding: 0;
 
@@ -128,12 +151,14 @@ body {
         width: 13rem;
       }
 
+      $top-margin-width: 1.5rem;
+
       h2 {
-        margin-top: 0.5rem;
+        margin-top: $top-margin-width/3;
       }
 
       p {
-        margin-top: 1.5rem;
+        margin-top: $top-margin-width;
       }
     }
 
@@ -142,8 +167,8 @@ body {
       max-width: 50%;
       padding: 1.5rem;
       border-radius: 0.75rem;
-      background: var(--color-panel);
-      border: 1px solid var(--color-accent);
+      background: var(--colour-background);
+      border: 1px solid var(--colour-accent);
       text-align: center;
 
       img {
@@ -165,9 +190,9 @@ body {
     gap: 2rem;
     grid-template-columns: minmax(180px, 22%) 1fr;
     padding: 1rem;
-    background: var(--color-panel);
+    background: var(--colour-background);
     border-radius: 0.75rem;
-    border: 1px solid var(--color-border);
+    //border: 0.2rem solid var(--colour-background-lighter);
 
     #filter-sidebar {
       border-radius: 0.6rem;
@@ -200,8 +225,9 @@ body {
         margin-top: 1.5rem;
 
         .project-card {
-          background: var(--color-background);
-          border: 1px solid var(--color-accent);
+          $bg-colour: var(--colour-background-lighter);
+          background: $bg-colour;
+          //border: 1px solid var(--colour-accent);
           border-radius: 0.6rem;
           display: flex;
           flex-direction: column;
@@ -209,7 +235,7 @@ body {
           padding: 1rem;
           text-decoration: none;
           transition: transform 0.2s;
-          color: var(--color-text);
+          color: var(--colour-text);
           max-width: 320px;
           width: 100%;
 
@@ -230,13 +256,7 @@ body {
             position: relative;
 
             &::after {
-              content: "";
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              width: 100%;
-              height: 1rem;
-              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--color-background));
+              @include BottomFadeOverlay(1.1rem, $bg-colour);
             }
           }
 
@@ -254,14 +274,7 @@ body {
             position: relative;
 
             &::after {
-              content: "";
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              width: 100%;
-              height: 1rem;
-              pointer-events: none;
-              background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--color-background));
+              @include BottomFadeOverlay(1rem, $bg-colour);
             }
           }
         }
@@ -276,7 +289,7 @@ body {
 
 
   .tag {
-    background: var(--color-secondary);
+    background: var(--colour-secondary);
     border-radius: 0.4rem;
     display: inline-block;
     font-size: 0.75rem;
@@ -284,40 +297,26 @@ body {
     padding: 0.3rem 0.4rem;
   }
 
+  // .button class is to be used on non-button objects like hyperlinks.
   .button, button {
-    border-radius: 0.4rem;
-    cursor: pointer;
-    display: block;
-    margin: 1.5rem auto 0;
-    padding: 0.6rem 1rem;
-
-    // Make links behave like buttons.
-    background-color: var(--color-secondary);
-    color: var(--color-text);
-    border: none;
-    text-decoration: none;
-    font-family: inherit;
-
-    &:hover {
-      filter: brightness(90%);
-    }
+    @include ButtonBase;
 
     &.filter-button.active {
-      background-color: var(--color-accent);
-      color: var(--color-text);
+      background-color: var(--colour-accent);
+      color: var(--colour-text);
     }
   }
 
   .button-important {
-    @extend .button;
+    @include ButtonBase;
     font-weight: 600;
-    background-color: var(--color-primary-lighter);
-    color: var(--color-text-invert);
+    background-color: var(--colour-primary);
+    color: var(--colour-text-invert);
   }
 
   .collapsible {
-    background-color: var(--color-secondary-lighter);
-    color: var(--color-text);
+    background-color: var(--colour-background-lighter);
+    color: var(--colour-text);
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -330,7 +329,7 @@ body {
 
     .symbol {
       font-size: 25px;
-      color: var(--color-accent);
+      color: var(--colour-accent);
       font-weight: 700;
       position: absolute;
       right: 18px;
@@ -338,7 +337,6 @@ body {
       transform: translateY(-50%);
     }
   }
-
 
   .content {
     display: flex;

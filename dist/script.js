@@ -145,6 +145,14 @@ function updateThemeSwitchIcon(icon, theme) {
     icon.alt = theme === "light" ? "Toggle Dark Mode" : "Toggle Light Mode";
     icon.src = theme === "light" ? "assets/night-mode.png" : "assets/sun-mode.png";
 }
+function GetInitialTheme() {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark")
+        return saved;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+}
 function loadProjects() {
     return __awaiter(this, void 0, void 0, function* () {
         const list = [];
@@ -160,12 +168,13 @@ function loadProjects() {
         // Switchable Themes.
         const themeToggle = document.getElementById("theme-toggle");
         const toggleIcon = themeToggle.firstElementChild;
-        const savedTheme = localStorage.getItem("theme") || "light";
-        document.documentElement.setAttribute("data-theme", savedTheme);
-        updateThemeSwitchIcon(toggleIcon, savedTheme);
-        // Toggle theme on button click  .
+        const initialTheme = GetInitialTheme();
+        document.documentElement.setAttribute("data-theme", initialTheme);
+        updateThemeSwitchIcon(toggleIcon, initialTheme);
+        // Toggle theme on button click .
         themeToggle.addEventListener("click", () => {
-            const currentTheme = document.documentElement.getAttribute("data-theme");
+            var _a;
+            const currentTheme = (_a = document.documentElement.dataset.theme) !== null && _a !== void 0 ? _a : "light";
             const newTheme = currentTheme === "light" ? "dark" : "light";
             // Update DOM and localStorage.
             document.documentElement.setAttribute("data-theme", newTheme);
