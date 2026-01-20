@@ -184,9 +184,19 @@ body #projects-layout #project-container {
 body #projects-layout #project-container #projects {
   display: grid;
   gap: 1.2rem;
+  margin-top: 1.5rem;
   justify-content: start;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 1.5rem;
+}
+@media (max-width: 1600px) {
+  body #projects-layout #project-container #projects {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  body #projects-layout #project-container #projects {
+    grid-template-columns: 1fr;
+  }
 }
 body #projects-layout #project-container #projects .project-card {
   background: var(--colour-background-lighter);
@@ -338,7 +348,6 @@ body .collapsible {
   position: relative;
   box-shadow: var(--shadow-m);
   margin: 0;
-  font-size: 15px;
   text-align: left;
 }
 body .collapsible .symbol {

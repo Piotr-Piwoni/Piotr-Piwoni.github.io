@@ -252,9 +252,18 @@ body {
       #projects {
         display: grid;
         gap: 1.2rem;
+        margin-top: 1.5rem;
         justify-content: start;
         grid-template-columns: repeat(3, 1fr);
-        margin-top: 1.5rem;
+
+        // Tablet / smaller screens: 2 columns.
+        @media (max-width: 1600px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        // Mobile: 1 column.
+        @media (max-width: 600px) {
+          grid-template-columns: 1fr;
+        }
 
         .project-card {
           $bg-colour: var(--colour-background-lighter);
@@ -376,7 +385,6 @@ body {
     position: relative;
     box-shadow: var(--shadow-m);
     margin: 0;
-    font-size: 15px;
     text-align: left;
 
     .symbol {
