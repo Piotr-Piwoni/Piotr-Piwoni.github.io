@@ -6,6 +6,9 @@ $themes: (
                 primary: #5e4921,
                 secondary: #a2abb9,
                 accent: #eca409,
+                shadow-highlight: #ffffff30,
+                shadow-dark: #00000030,
+                shadow-soft: #00000015,
         ),
         dark: (
                 text: #eeeeed,
@@ -13,6 +16,9 @@ $themes: (
                 primary: #dec9a1,
                 secondary: #464f5c,
                 accent: #f6ae13,
+                shadow-highlight: rgba(255, 255, 255, 0.25),
+                shadow-dark: rgba(0, 0, 0, 0.25),
+                shadow-soft: rgba(0, 0, 0, 0.13),
         ),
 );
 $highlight-strength: 85%;
@@ -29,7 +35,6 @@ $highlight-strength: 85%;
 
 @mixin ButtonBase {
   background-color: var(--colour-secondary);
-  color: var(--colour-text);
   border-radius: 0.4rem;
   cursor: pointer;
   display: block;
@@ -37,17 +42,23 @@ $highlight-strength: 85%;
   text-decoration: none;
   border: none;
   margin: 1.5rem auto 0;
+  box-shadow: var(--shadow-s);
+  transition: transform 0.1s;
 
   &:hover {
     filter: brightness($highlight-strength);
+    box-shadow: var(--shadow-l);
+    transform: scale(1.01);
   }
 }
 
 @mixin ExportTheme($theme-name, $selector) {
+  $theme: map-get($themes, $theme-name);
+
   #{$selector} {
     color-scheme: #{$theme-name};
 
-    @each $property, $value in map-get($themes, $theme-name) {
+    @each $property, $value in $theme {
       --colour-#{$property}: #{$value};
 
       @if $property == background {
@@ -63,6 +74,25 @@ $highlight-strength: 85%;
         --colour-#{$property}-invert: #{if(lightness($value) > 50%, #000, #fff)};
       }
     }
+
+    // Precomputed highlight ramps.
+    $shadow-highlight: map-get($theme, shadow-highlight);
+    --shadow-highlight-s: #{$shadow-highlight};
+    --shadow-highlight-m: #{lighten($shadow-highlight, 6%)};
+    --shadow-highlight-l: #{lighten($shadow-highlight, 12%)};
+
+    // Final shadows.
+    --shadow-s: inset 0 3px 6px var(--shadow-highlight-s),
+    0 1px 2px var(--colour-shadow-dark),
+    0 2px 4px var(--colour-shadow-soft);
+
+    --shadow-m: inset 0 3px 6px var(--shadow-highlight-m),
+    0 2px 4px var(--colour-shadow-dark),
+    0 4px 8px var(--colour-shadow-soft);
+
+    --shadow-l: inset 0 3px 6px var(--shadow-highlight-l),
+    0 4px 8px var(--colour-shadow-dark),
+    0 8px 16px var(--colour-shadow-soft);
   }
 }
 
@@ -149,6 +179,7 @@ body {
         display: block;
         margin: 1rem auto;
         width: 13rem;
+        box-shadow: var(--shadow-l);
       }
 
       $top-margin-width: 1.5rem;
@@ -168,8 +199,8 @@ body {
       padding: 1.5rem;
       border-radius: 0.75rem;
       background: var(--colour-background);
-      border: 1px solid var(--colour-accent);
       text-align: center;
+      box-shadow: var(--shadow-l);
 
       img {
         width: 100%;
@@ -178,9 +209,8 @@ body {
         border-radius: 0.5rem;
       }
 
-      .promo-btn {
-        @extend .button-important;
-        width: 11rem;
+      a {
+        display: inline-block;
       }
     }
   }
@@ -192,7 +222,7 @@ body {
     padding: 1rem;
     background: var(--colour-background);
     border-radius: 0.75rem;
-    //border: 0.2rem solid var(--colour-background-lighter);
+    box-shadow: var(--shadow-s);
 
     #filter-sidebar {
       border-radius: 0.6rem;
@@ -208,7 +238,6 @@ body {
 
         button {
           display: inline-block;
-          margin: 0;
         }
       }
     }
@@ -227,20 +256,20 @@ body {
         .project-card {
           $bg-colour: var(--colour-background-lighter);
           background: $bg-colour;
-          //border: 1px solid var(--colour-accent);
           border-radius: 0.6rem;
           display: flex;
           flex-direction: column;
           margin-bottom: 0.5rem;
           padding: 1rem;
-          text-decoration: none;
           transition: transform 0.2s;
-          color: var(--colour-text);
           max-width: 320px;
           width: 100%;
+          box-shadow: var(--shadow-m);
 
           &:hover {
             transform: scale(1.03);
+            box-shadow: var(--shadow-l);
+            border: 1px solid var(--colour-accent);
           }
 
           img {
@@ -266,9 +295,7 @@ body {
             flex-wrap: wrap;
             $gap-size: 0.2rem;
             $height-size: 1.6rem;
-
             gap: $gap-size;
-
             max-height: calc($gap-size + $height-size * 2);
             overflow: hidden;
             position: relative;
@@ -282,11 +309,14 @@ body {
 
       #loadMoreButton {
         display: inline-block;
-        margin: 1.5rem auto 0;
       }
     }
   }
 
+  a {
+    color: var(--colour-text);
+    text-decoration: none;
+  }
 
   .tag {
     background: var(--colour-secondary);
@@ -295,6 +325,7 @@ body {
     font-size: 0.75rem;
     margin: 0.1rem;
     padding: 0.3rem 0.4rem;
+    box-shadow: var(--shadow-s);
   }
 
   // .button class is to be used on non-button objects like hyperlinks.
@@ -303,7 +334,6 @@ body {
 
     &.filter-button.active {
       background-color: var(--colour-accent);
-      color: var(--colour-text);
     }
   }
 
@@ -312,18 +342,24 @@ body {
     font-weight: 600;
     background-color: var(--colour-primary);
     color: var(--colour-text-invert);
+    box-shadow: var(--shadow-m);
+    transition: 0.1s;
+
+    &:hover {
+      filter: none;
+      box-shadow: var(--shadow-l);
+      transform: scale(1.01);
+    }
   }
 
   .collapsible {
+    @include ButtonBase;
     background-color: var(--colour-background-lighter);
-    color: var(--colour-text);
-    cursor: pointer;
     padding: 18px;
     width: 100%;
-    border: none;
-    outline: none;
     position: relative;
-
+    box-shadow: var(--shadow-m);
+    margin: 0;
     font-size: 15px;
     text-align: left;
 
@@ -342,21 +378,20 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-
-    margin-bottom: 1rem;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
-
+    $padding-size: 0.8rem;
+    padding: 0 $padding-size $padding-size;
     transition: max-height 0.25s ease, opacity 0.2s ease;
+
+    &.is-open {
+      opacity: 1;
+    }
 
     button {
       display: inline-flex;
       margin: 0;
-    }
-
-    &.is-open {
-      opacity: 1;
     }
   }
 
