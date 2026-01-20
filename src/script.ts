@@ -170,21 +170,6 @@ function resetFilters(): void {
 	renderProjects();
 }
 
-function updateThemeSwitchIcon(icon: HTMLImageElement, theme: string): void {
-	icon.alt = theme === "light" ? "Toggle Dark Mode" : "Toggle Light Mode";
-	icon.src = theme === "light" ? "assets/night-mode.png" : "assets/sun-mode.png";
-}
-
-function GetInitialTheme(): string {
-	const saved = localStorage.getItem("theme");
-	if (saved === "light" || saved === "dark")
-		return saved;
-
-	return window.matchMedia("(prefers-color-scheme: dark)").matches
-		   ? "dark"
-		   : "light";
-}
-
 async function loadProjects(): Promise<void> {
 	const list: ProjectMetadata[] = [];
 
@@ -199,31 +184,18 @@ async function loadProjects(): Promise<void> {
 	// Load Tag categories.
 	tagCategories = await fetch("data/tag-categories.json").then(res => res.json());
 
-	// Switchable Themes.
-	const themeToggle = document.getElementById("theme-toggle") as HTMLButtonElement;
-	const toggleIcon = themeToggle.firstElementChild as HTMLImageElement;
-	const initialTheme = GetInitialTheme();
-	document.documentElement.setAttribute("data-theme", initialTheme);
-	updateThemeSwitchIcon(toggleIcon, initialTheme);
-
-	// Toggle theme on button click .
-	themeToggle.addEventListener("click", () => {
-		const currentTheme = document.documentElement.dataset.theme ?? "light";
-		const newTheme = currentTheme === "light" ? "dark" : "light";
-
-		// Update DOM and localStorage.
-		document.documentElement.setAttribute("data-theme", newTheme);
-		localStorage.setItem("theme", newTheme);
-		updateThemeSwitchIcon(toggleIcon, newTheme);
-	});
-
 	allProjectsMeta = list;
 	renderProjects();
 	buildFilters();
 }
 
-const loadMoreButton = document.getElementById("loadMoreButton") as HTMLButtonElement;
-loadMoreButton.onclick = () => renderProjects();
+document.addEventListener("DOMContentLoaded", async () => {
+	// Load projects.
+	await loadProjects();
 
-// Initialize homepage.
-loadProjects();
+	// Attach load more button AFTER it exists.
+	const loadMoreButton = document.getElementById("loadMoreButton") as HTMLButtonElement;
+	if (loadMoreButton) {
+		loadMoreButton.onclick = () => renderProjects();
+	}
+});

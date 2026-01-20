@@ -154,18 +154,6 @@ function resetFilters() {
     container.replaceChildren();
     renderProjects();
 }
-function updateThemeSwitchIcon(icon, theme) {
-    icon.alt = theme === "light" ? "Toggle Dark Mode" : "Toggle Light Mode";
-    icon.src = theme === "light" ? "assets/night-mode.png" : "assets/sun-mode.png";
-}
-function GetInitialTheme() {
-    const saved = localStorage.getItem("theme");
-    if (saved === "light" || saved === "dark")
-        return saved;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-}
 function loadProjects() {
     return __awaiter(this, void 0, void 0, function* () {
         const list = [];
@@ -178,29 +166,18 @@ function loadProjects() {
         }
         // Load Tag categories.
         tagCategories = yield fetch("data/tag-categories.json").then(res => res.json());
-        // Switchable Themes.
-        const themeToggle = document.getElementById("theme-toggle");
-        const toggleIcon = themeToggle.firstElementChild;
-        const initialTheme = GetInitialTheme();
-        document.documentElement.setAttribute("data-theme", initialTheme);
-        updateThemeSwitchIcon(toggleIcon, initialTheme);
-        // Toggle theme on button click .
-        themeToggle.addEventListener("click", () => {
-            var _a;
-            const currentTheme = (_a = document.documentElement.dataset.theme) !== null && _a !== void 0 ? _a : "light";
-            const newTheme = currentTheme === "light" ? "dark" : "light";
-            // Update DOM and localStorage.
-            document.documentElement.setAttribute("data-theme", newTheme);
-            localStorage.setItem("theme", newTheme);
-            updateThemeSwitchIcon(toggleIcon, newTheme);
-        });
         allProjectsMeta = list;
         renderProjects();
         buildFilters();
     });
 }
-const loadMoreButton = document.getElementById("loadMoreButton");
-loadMoreButton.onclick = () => renderProjects();
-// Initialize homepage.
-loadProjects();
+document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
+    // Load projects.
+    yield loadProjects();
+    // Attach load more button AFTER it exists.
+    const loadMoreButton = document.getElementById("loadMoreButton");
+    if (loadMoreButton) {
+        loadMoreButton.onclick = () => renderProjects();
+    }
+}));
 export {};
