@@ -152,11 +152,15 @@ body {
   color: var(--colour-text);
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 
   main {
     padding: 2rem;
     max-width: 90%;
     margin: 0 auto;
+    flex: 1;
   }
 
   #about-section {
@@ -469,5 +473,4 @@ footer {
   align-items: flex-start;
   flex-direction: column;
   border-bottom: none;
-  bottom: 0;
 }

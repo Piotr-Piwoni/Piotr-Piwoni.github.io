@@ -101,11 +101,15 @@ body {
   color: var(--colour-text);
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 body main {
   padding: 2rem;
   max-width: 90%;
   margin: 0 auto;
+  flex: 1;
 }
 body #about-section {
   display: flex;
@@ -416,7 +420,6 @@ footer {
   align-items: flex-start;
   flex-direction: column;
   border-bottom: none;
-  bottom: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
