@@ -128,21 +128,38 @@ header {
   border-top: none;
   justify-content: space-between;
 
-  .header-left a {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  .header-left {
+    a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    svg {
+      margin: 0;
+      height: 64px;
+      width: 64px;
+      padding: 0;
+    }
   }
 
   #theme-toggle {
-    display: inline-block;
+    display: flex;
     margin: 0;
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow-m);
 
-    img {
-      width: 1.5rem;
-      height: 1.5rem;
-      object-fit: contain;
-      display: block;
+    svg {
+      fill: var(--colour-accent);
+
+      &:last-child {
+        display: none;
+      }
     }
   }
 }

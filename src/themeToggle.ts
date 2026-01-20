@@ -3,9 +3,19 @@
 
 	const toggleIcon = toggleBtn.firstElementChild as HTMLImageElement;
 
+	// Grab both SVG children.
+	const darkIcon = toggleBtn.children[0] as SVGElement;
+	const lightIcon = toggleBtn.children[1] as SVGElement;
+
 	const updateIcon = (theme: string) => {
-		toggleIcon.alt = theme === "light" ? "Toggle Dark Mode" : "Toggle Light Mode";
-		toggleIcon.src = theme === "light" ? "assets/night-mode.png" : "assets/sun-mode.png";
+		if (theme === "light") {
+			darkIcon.style.display = "block";
+			lightIcon.style.display = "none";
+		}
+		else {
+			darkIcon.style.display = "none";
+			lightIcon.style.display = "block";
+		}
 	};
 
 	const getInitialTheme = (): string => {

@@ -85,15 +85,28 @@ header .header-left a {
   align-items: center;
   gap: 1rem;
 }
-header #theme-toggle {
-  display: inline-block;
+header .header-left svg {
   margin: 0;
+  height: 64px;
+  width: 64px;
+  padding: 0;
 }
-header #theme-toggle img {
-  width: 1.5rem;
-  height: 1.5rem;
-  object-fit: contain;
-  display: block;
+header #theme-toggle {
+  display: flex;
+  margin: 0;
+  height: 50px;
+  width: 50px;
+  padding: 0;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-m);
+}
+header #theme-toggle svg {
+  fill: var(--colour-accent);
+}
+header #theme-toggle svg:last-child {
+  display: none;
 }
 
 body {
