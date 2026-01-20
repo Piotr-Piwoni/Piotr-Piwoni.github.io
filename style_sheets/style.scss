@@ -128,7 +128,7 @@ header {
   border-top: none;
   justify-content: space-between;
 
-  .header-left {
+  .header-left a {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -144,12 +144,6 @@ header {
       object-fit: contain;
       display: block;
     }
-  }
-
-  div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
   }
 }
 
@@ -332,6 +326,12 @@ body {
   a {
     color: var(--colour-text);
     text-decoration: none;
+  }
+
+  .link {
+    &:hover {
+      color: var(--colour-accent);
+    }
   }
 
   .tag {

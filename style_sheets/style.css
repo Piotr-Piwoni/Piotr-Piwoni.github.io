@@ -80,7 +80,7 @@ header {
   border-top: none;
   justify-content: space-between;
 }
-header .header-left {
+header .header-left a {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -94,11 +94,6 @@ header #theme-toggle img {
   height: 1.5rem;
   object-fit: contain;
   display: block;
-}
-header div {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 body {
@@ -257,6 +252,9 @@ body #projects-layout #project-container #loadMoreButton {
 body a {
   color: var(--colour-text);
   text-decoration: none;
+}
+body .link:hover {
+  color: var(--colour-accent);
 }
 body .tag {
   background: var(--colour-secondary);
