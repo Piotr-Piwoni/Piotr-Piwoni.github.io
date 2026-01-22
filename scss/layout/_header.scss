@@ -1,0 +1,49 @@
+﻿header{
+  width: 100%;
+  padding: 0.35rem 2rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  margin: 0;
+  position: sticky;
+  justify-content: space-between;
+
+  background: var(--colour-background);
+  border-bottom: $header-footer-border-size solid var(--colour-background-lighter);
+
+  .header-left {
+    a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    svg {
+      margin: 0;
+      height: 64px;
+      width: 64px;
+      padding: 0;
+    }
+  }
+
+  #theme-toggle {
+    display: flex;
+    margin: 0;
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow-m);
+
+    svg {
+      fill: var(--colour-accent);
+
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+}

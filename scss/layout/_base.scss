@@ -1,0 +1,27 @@
+﻿body {
+  background: var(--colour-background-darker);
+  color: var(--colour-text);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  main {
+    padding: 2rem;
+    max-width: 90%;
+    margin: 0 auto;
+    flex: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 0.95rem;
+  }
+
+  main {
+    max-width: 85%;
+    padding: 1rem;
+  }
+}

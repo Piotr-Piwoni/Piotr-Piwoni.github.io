@@ -1,0 +1,41 @@
+﻿.collapsible {
+  @include ButtonBase;
+  background-color: var(--colour-background-lighter);
+  padding: 18px;
+  width: 100%;
+  position: relative;
+  box-shadow: var(--shadow-m);
+  margin: 0;
+  text-align: left;
+
+  .symbol {
+    font-size: 25px;
+    color: var(--colour-accent);
+    font-weight: 700;
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  $padding-size: 0.8rem;
+  padding: 0 $padding-size $padding-size;
+  transition: max-height 0.25s ease, opacity 0.2s ease;
+
+  &.is-open {
+    opacity: 1;
+  }
+
+  button {
+    display: inline-flex;
+    margin: 0;
+  }
+}

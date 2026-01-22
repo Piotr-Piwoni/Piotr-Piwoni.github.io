@@ -1,0 +1,59 @@
+﻿.project-card {
+  $bg-colour: var(--colour-background-lighter);
+  background: $bg-colour;
+  border-radius: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  transition: transform 0.2s;
+  max-width: $card-size;
+  width: 100%;
+  box-shadow: var(--shadow-m);
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-l);
+    border: 1px solid var(--colour-accent);
+  }
+
+  img {
+    border-radius: 0.4rem;
+    width: 100%;
+  }
+
+  h3 {
+    margin: .5rem 0.2rem 0.2rem;
+  }
+
+  .project-card-short {
+    $line-height: 1.4rem;
+    line-height: $line-height;
+    max-height: $line-height * 3;
+    overflow: hidden;
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+
+    &.has-fade::after {
+      @include BottomFadeOverlay(1.1rem, $bg-colour);
+      bottom: 0;
+    }
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    $gap-size: 0.2rem;
+    $height-size: 1.6rem;
+    gap: $gap-size;
+    max-height: calc($gap-size + $height-size * 2);
+    overflow: hidden;
+    position: relative;
+
+    &.has-fade::after {
+      @include BottomFadeOverlay(1rem, $bg-colour);
+      bottom: 0;
+    }
+  }
+}

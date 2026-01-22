@@ -1,0 +1,67 @@
+﻿// Theme from: https://www.realtimecolors.com/?colors=121211-f6f4ef-5e4921-a2abb9-eca409&fonts=Inter-Inter
+$themes: (
+        light: (
+                text: #121211,
+                background: #f6f4ef,
+                primary: #5e4921,
+                secondary: #a2abb9,
+                accent: #eca409,
+                shadow-highlight: #ffffff30,
+                shadow-dark: #00000030,
+                shadow-soft: #00000015,
+        ),
+        dark: (
+                text: #eeeeed,
+                background: #100e09,
+                primary: #dec9a1,
+                secondary: #464f5c,
+                accent: #f6ae13,
+                shadow-highlight: rgba(255, 255, 255, 0.25),
+                shadow-dark: rgba(0, 0, 0, 0.25),
+                shadow-soft: rgba(0, 0, 0, 0.13),
+        ),
+);
+
+@mixin ExportTheme($theme-name, $selector) {
+  $theme: map-get($themes, $theme-name);
+
+  #{$selector} {
+    color-scheme: #{$theme-name};
+
+    @each $property, $value in $theme {
+      --colour-#{$property}: #{$value};
+
+      @if $property == background {
+        --colour-#{$property}-lighter: #{lighten($value, 5%)};
+        --colour-#{$property}-darker: #{darken($value, 5%)};
+      }
+
+      @if $property == primary or $property == secondary {
+        --colour-#{$property}-lighter: #{lighten($value, 5%)};
+      }
+
+      @if $property == text {
+        --colour-#{$property}-invert: #{if(lightness($value) > 50%, #000, #fff)};
+      }
+    }
+
+    // Precomputed highlight ramps.
+    $shadow-highlight: map-get($theme, shadow-highlight);
+    --shadow-highlight-s: #{$shadow-highlight};
+    --shadow-highlight-m: #{lighten($shadow-highlight, 6%)};
+    --shadow-highlight-l: #{lighten($shadow-highlight, 12%)};
+
+    // Final shadows.
+    --shadow-s: inset 0 3px 6px var(--shadow-highlight-s),
+    0 1px 2px var(--colour-shadow-dark),
+    0 2px 4px var(--colour-shadow-soft);
+
+    --shadow-m: inset 0 3px 6px var(--shadow-highlight-m),
+    0 2px 4px var(--colour-shadow-dark),
+    0 4px 8px var(--colour-shadow-soft);
+
+    --shadow-l: inset 0 3px 6px var(--shadow-highlight-l),
+    0 4px 8px var(--colour-shadow-dark),
+    0 8px 16px var(--colour-shadow-soft);
+  }
+}

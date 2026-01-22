@@ -1,0 +1,29 @@
+﻿a {
+  color: var(--colour-text);
+  text-decoration: none;
+}
+
+.link {
+  &:hover {
+    color: var(--colour-accent);
+  }
+}
+
+// .button class is to be used on non-button objects like hyperlinks.
+.button, button {
+  @include ButtonBase;
+
+  &.filter-button.active {
+    background-color: var(--colour-accent);
+  }
+}
+
+.tag {
+  background: var(--colour-secondary);
+  border-radius: 0.4rem;
+  display: inline-block;
+  font-size: 0.75rem;
+  margin: 0.1rem;
+  padding: 0.3rem 0.4rem;
+  box-shadow: var(--shadow-s);
+}

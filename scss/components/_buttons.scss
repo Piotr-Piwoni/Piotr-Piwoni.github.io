@@ -1,0 +1,14 @@
+﻿.button-important {
+  @include ButtonBase;
+  font-weight: 600;
+  background-color: var(--colour-primary);
+  color: var(--colour-text-invert);
+  box-shadow: var(--shadow-m);
+  transition: 0.1s;
+
+  &:hover {
+    filter: none;
+    box-shadow: var(--shadow-l);
+    transform: scale(1.01);
+  }
+}
