@@ -4,6 +4,8 @@ import {InitThemeToggle} from "../dist/themeToggle.js";
 // @ts-ignore
 import {InstanceHTMLElementTemplate} from "../dist/utilities.js";
 
+console.log(import.meta.url);
+
 const projectsFolders: string[] = [
 	"testProject",
 	"testProject2",

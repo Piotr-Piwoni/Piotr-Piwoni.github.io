@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { InitThemeToggle } from "../dist/themeToggle.js";
 // @ts-ignore
 import { InstanceHTMLElementTemplate } from "../dist/utilities.js";
+console.log(import.meta.url);
 const projectsFolders = [
     "testProject",
     "testProject2",
