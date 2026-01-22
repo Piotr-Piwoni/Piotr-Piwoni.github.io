@@ -54,6 +54,13 @@ function loadProjectPage() {
             tagsDiv.appendChild(span);
         });
         CreateActionButtons(meta);
+        // Load addition project assets.
+        const gallery = document.getElementById("gallery");
+        meta.additionalAssets.forEach(asset => {
+            const assetImage = document.createElement("img");
+            assetImage.src = asset;
+            gallery.appendChild(assetImage);
+        });
     });
 }
 loadProjectPage();

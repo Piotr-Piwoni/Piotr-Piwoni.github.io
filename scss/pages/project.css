@@ -390,12 +390,14 @@ footer {
 #project-container #grid #content #gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-auto-rows: 150px;
   gap: 1rem;
 }
 #project-container #grid #content #gallery img {
   width: 100%;
-  border-radius: 0.4rem;
+  height: 100%;
   object-fit: cover;
+  border-radius: 0.4rem;
 }
 
 /*# sourceMappingURL=project.css.map */

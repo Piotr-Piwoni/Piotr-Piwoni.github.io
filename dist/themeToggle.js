@@ -1,5 +1,4 @@
-"use strict";
-function InitThemeToggle(toggleBtn) {
+export function InitThemeToggle(toggleBtn) {
     if (!toggleBtn)
         return;
     const toggleIcon = toggleBtn.firstElementChild;

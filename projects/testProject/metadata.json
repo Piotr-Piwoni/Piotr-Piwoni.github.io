@@ -57,7 +57,16 @@
     }
   ],
   "cover": "assets/images/cover.png",
-  "additionalAssets": [],
+  "additionalAssets": [
+    "assets/images/profile.jpg",
+    "assets/images/profile.jpg",
+    "assets/images/self-promotion.jpg",
+    "assets/images/profile.jpg",
+    "assets/images/profile.jpg",
+    "assets/images/self-promotion.jpg",
+    "assets/images/self-promotion.jpg",
+    "assets/images/self-promotion.jpg"
+  ],
   "downloadFiles": [
     "assets/images/cover.png",
     "assets/images/profile.jpg"

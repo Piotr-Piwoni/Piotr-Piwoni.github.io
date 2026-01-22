@@ -54,8 +54,16 @@ async function loadProjectPage(): Promise<void> {
 		span.textContent = tag;
 		tagsDiv.appendChild(span);
 	});
-	
+
 	CreateActionButtons(meta);
+
+	// Load addition project assets.
+	const gallery = document.getElementById("gallery") as HTMLElement;
+	meta.additionalAssets.forEach(asset => {
+		const assetImage = document.createElement("img");
+		assetImage.src = asset;
+		gallery.appendChild(assetImage);
+	});
 }
 
 loadProjectPage();
