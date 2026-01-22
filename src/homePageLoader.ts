@@ -1,12 +1,7 @@
 ﻿import {ProjectMetadata, TagCategories} from "./types/types";
 
-console.log(import.meta.url);
-
 const projectsFolders: string[] = [
-	"testProject",
-	"testProject2",
-	"testProject3",
-	"testProject4",
+	"John"
 ];
 let allProjectsMeta: ProjectMetadata[] = [];
 let displayedProjects = 0;
@@ -28,7 +23,7 @@ function renderProjects(filteredMetaData?: ProjectMetadata[]): void {
 
 		cardClone.querySelector("a")!.href = `projects/${project.folder}/${project.page}`;
 		const coverImg = cardClone.querySelector("img")!;
-		coverImg.src = `projects/${project.folder}/${project.cover}`;
+		coverImg.src = `projects/${project.folder}/assets/${project.cover}`;
 		coverImg.alt = `${project.name} Cover`;
 		cardClone.querySelector("#name")!.textContent = project.name;
 		cardClone.querySelector("p")!.textContent = project.short;

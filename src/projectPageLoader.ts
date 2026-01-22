@@ -55,7 +55,7 @@ async function loadProjectPage(): Promise<void> {
 
 	document.title = meta.name;
 	(document.getElementById("title") as HTMLElement).textContent = meta.name;
-	(document.getElementById("cover") as HTMLImageElement).src = meta.cover;
+	(document.getElementById("cover") as HTMLImageElement).src = `assets/${meta.cover}`;
 	const descriptionEl = document.getElementById("description")!;
 	renderFormattedText(descriptionEl, meta.long || meta.short);
 

@@ -7,12 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-console.log(import.meta.url);
 const projectsFolders = [
-    "testProject",
-    "testProject2",
-    "testProject3",
-    "testProject4",
+    "John"
 ];
 let allProjectsMeta = [];
 let displayedProjects = 0;
@@ -30,7 +26,7 @@ function renderProjects(filteredMetaData) {
         const cardClone = cardTemplate.content.cloneNode(true);
         cardClone.querySelector("a").href = `projects/${project.folder}/${project.page}`;
         const coverImg = cardClone.querySelector("img");
-        coverImg.src = `projects/${project.folder}/${project.cover}`;
+        coverImg.src = `projects/${project.folder}/assets/${project.cover}`;
         coverImg.alt = `${project.name} Cover`;
         cardClone.querySelector("#name").textContent = project.name;
         cardClone.querySelector("p").textContent = project.short;

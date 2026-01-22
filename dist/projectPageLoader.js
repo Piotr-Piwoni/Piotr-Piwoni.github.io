@@ -52,7 +52,7 @@ function loadProjectPage() {
         const meta = yield fetch("metadata.json").then(res => res.json());
         document.title = meta.name;
         document.getElementById("title").textContent = meta.name;
-        document.getElementById("cover").src = meta.cover;
+        document.getElementById("cover").src = `assets/${meta.cover}`;
         const descriptionEl = document.getElementById("description");
         renderFormattedText(descriptionEl, meta.long || meta.short);
         // Create tag elements.
