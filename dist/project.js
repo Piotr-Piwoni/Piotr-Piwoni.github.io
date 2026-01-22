@@ -21,7 +21,7 @@ function CreateActionButtons(meta) {
             e.preventDefault();
             meta.downloadFiles.forEach(file => {
                 const link = document.createElement("a");
-                link.href = file;
+                link.href = `assets/${file}`;
                 link.download = file.split("/").pop() || "file";
                 link.click();
             });
@@ -38,13 +38,23 @@ function CreateActionButtons(meta) {
         outlinkContainer.appendChild(outlinkClone);
     });
 }
+function renderFormattedText(container, text) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(`<div>${text}</div>`, "text/html");
+    const fragment = document.createDocumentFragment();
+    Array.from(doc.body.firstElementChild.childNodes).forEach(node => {
+        fragment.appendChild(node.cloneNode(true));
+    });
+    container.replaceChildren(fragment);
+}
 function loadProjectPage() {
     return __awaiter(this, void 0, void 0, function* () {
         const meta = yield fetch("metadata.json").then(res => res.json());
         document.title = meta.name;
         document.getElementById("title").textContent = meta.name;
-        document.getElementById("description").textContent = meta.long || meta.short;
         document.getElementById("cover").src = meta.cover;
+        const descriptionEl = document.getElementById("description");
+        renderFormattedText(descriptionEl, meta.long || meta.short);
         // Create tag elements.
         const tagsDiv = document.getElementById("tags");
         [...new Set(meta.tags)].forEach(tag => {
@@ -57,9 +67,18 @@ function loadProjectPage() {
         // Load addition project assets.
         const gallery = document.getElementById("gallery");
         meta.additionalAssets.forEach(asset => {
-            const assetImage = document.createElement("img");
-            assetImage.src = asset;
-            gallery.appendChild(assetImage);
+            if (asset.endsWith(".mp4") || asset.endsWith(".webm")) {
+                const video = document.createElement("video");
+                video.src = `assets/${asset}`;
+                video.controls = true;
+                video.width = 150;
+                gallery.appendChild(video);
+            }
+            else {
+                const img = document.createElement("img");
+                img.src = `assets/${asset}`;
+                gallery.appendChild(img);
+            }
         });
     });
 }

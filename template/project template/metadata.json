@@ -58,19 +58,18 @@
   ],
   "cover": "assets/images/cover.png",
   "additionalAssets": [
-    "images/profile.jpg",
-    "images/profile.jpg",
-    "images/self-promotion.jpg",
-    "images/profile.jpg",
-    "images/profile.jpg",
-    "images/self-promotion.jpg",
-    "images/self-promotion.jpg",
-    "images/self-promotion.jpg",
-    "videos/giphy.gif"
+    "assets/images/profile.jpg",
+    "assets/images/profile.jpg",
+    "assets/images/self-promotion.jpg",
+    "assets/images/profile.jpg",
+    "assets/images/profile.jpg",
+    "assets/images/self-promotion.jpg",
+    "assets/images/self-promotion.jpg",
+    "assets/images/self-promotion.jpg"
   ],
   "downloadFiles": [
-    "images/cover.png",
-    "images/profile.jpg"
+    "assets/images/cover.png",
+    "assets/images/profile.jpg"
   ],
   "page": "index.html"
 }

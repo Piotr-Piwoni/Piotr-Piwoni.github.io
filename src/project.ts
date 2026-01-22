@@ -16,7 +16,7 @@ function CreateActionButtons(meta: ProjectMetadata) {
 			e.preventDefault();
 			meta.downloadFiles.forEach(file => {
 				const link = document.createElement("a");
-				link.href = file;
+				link.href = `assets/${file}`;
 				link.download = file.split("/").pop() || "file";
 				link.click();
 			});
@@ -38,13 +38,26 @@ function CreateActionButtons(meta: ProjectMetadata) {
 	});
 }
 
+function renderFormattedText(container: HTMLElement, text: string) {
+	const parser = new DOMParser();
+	const doc = parser.parseFromString(`<div>${text}</div>`, "text/html");
+	const fragment = document.createDocumentFragment();
+
+	Array.from(doc.body.firstElementChild!.childNodes).forEach(node => {
+		fragment.appendChild(node.cloneNode(true));
+	});
+
+	container.replaceChildren(fragment);
+}
+
 async function loadProjectPage(): Promise<void> {
 	const meta = await fetch("metadata.json").then(res => res.json()) as ProjectMetadata;
 
 	document.title = meta.name;
 	(document.getElementById("title") as HTMLElement).textContent = meta.name;
-	(document.getElementById("description") as HTMLElement).textContent = meta.long || meta.short;
 	(document.getElementById("cover") as HTMLImageElement).src = meta.cover;
+	const descriptionEl = document.getElementById("description")!;
+	renderFormattedText(descriptionEl, meta.long || meta.short);
 
 	// Create tag elements.
 	const tagsDiv = document.getElementById("tags") as HTMLElement;
@@ -60,9 +73,18 @@ async function loadProjectPage(): Promise<void> {
 	// Load addition project assets.
 	const gallery = document.getElementById("gallery") as HTMLElement;
 	meta.additionalAssets.forEach(asset => {
-		const assetImage = document.createElement("img");
-		assetImage.src = asset;
-		gallery.appendChild(assetImage);
+		if (asset.endsWith(".mp4") || asset.endsWith(".webm")) {
+			const video = document.createElement("video");
+			video.src = `assets/${asset}`;
+			video.controls = true;
+			video.width = 150;
+			gallery.appendChild(video);
+		}
+		else {
+			const img = document.createElement("img");
+			img.src = `assets/${asset}`;
+			gallery.appendChild(img);
+		}
 	});
 }
 
