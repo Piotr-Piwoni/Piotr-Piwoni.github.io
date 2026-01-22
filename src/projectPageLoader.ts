@@ -1,43 +1,91 @@
-﻿// @ts-ignore
-import {InitThemeToggle} from "../dist/themeToggle.js";
-// @ts-ignore
-import {InstanceHTMLElementTemplate} from "../dist/utilities.js";
+﻿import {ProjectMetadata} from "./types/types";
 
-async function InstancePage(pageInstanceContainer: HTMLElement) {
-	const response = await fetch("../../template/html/_projectPageTemplate.html");
-	const htmlText = await response.text();
+function CreateActionButtons(meta: ProjectMetadata) {
+	// Get the required containers for the action buttons.
+	const actionsContainer = document.getElementById("actions")!;
+	const outlinkContainer = document.getElementById("outlinks")!;
 
+	// Create a download button if there are files.
+	const downloadTemplate = document.getElementById("download-all-template") as HTMLTemplateElement;
+	if (meta.downloadFiles && meta.downloadFiles.length > 0) {
+		const downloadClone = downloadTemplate.content.cloneNode(true) as HTMLElement;
+		const downloadButton = downloadClone.querySelector("a")!;
+
+		// On click, download each file.
+		downloadButton.onclick = (e) => {
+			e.preventDefault();
+			meta.downloadFiles.forEach(file => {
+				const link = document.createElement("a");
+				link.href = `assets/${file}`;
+				link.download = file.split("/").pop() || "file";
+				link.click();
+			});
+		};
+		actionsContainer.insertBefore(downloadClone, outlinkContainer);
+	}
+
+
+	// Create out links if any.
+	const outlinkTemplate = document.getElementById("outlink-template") as HTMLTemplateElement;
+	meta.outLinks.forEach(outlink => {
+		const outlinkClone = outlinkTemplate.content.cloneNode(true) as HTMLElement;
+		const link = outlinkClone.querySelector("a")!;
+
+		link.href = outlink.url;
+		link.textContent = outlink.name;
+
+		outlinkContainer.appendChild(outlinkClone);
+	});
+}
+
+function renderFormattedText(container: HTMLElement, text: string) {
 	const parser = new DOMParser();
-	const doc = parser.parseFromString(htmlText, "text/html");
+	const doc = parser.parseFromString(`<div>${text}</div>`, "text/html");
+	const fragment = document.createDocumentFragment();
 
-	// Move all <body> children from the template and replace the placeholder with all template content.
-	const children = Array.from(doc.body.children);
-	pageInstanceContainer.replaceWith(...children);
+	Array.from(doc.body.firstElementChild!.childNodes).forEach(node => {
+		fragment.appendChild(node.cloneNode(true));
+	});
 
-	// Scripts needed.
-	const script = document.createElement("script");
-	script.src = "../../dist/project.js";
-	script.type = "module";
-	document.body.appendChild(script);
+	container.replaceChildren(fragment);
 }
 
-async function loadProjectTemplate(): Promise<void> {
-	const pageInstanceContainer = document.getElementById("page-instance");
-	if (!pageInstanceContainer) return;
-	await InstancePage(pageInstanceContainer);
+async function loadProjectPage(): Promise<void> {
+	const meta = await fetch("metadata.json").then(res => res.json()) as ProjectMetadata;
 
-	const headerInstanceContainer = document.getElementById("header-instance");
-	if (!headerInstanceContainer) return;
-	await InstanceHTMLElementTemplate(headerInstanceContainer, "../../template/html/_headerTemplate.html");
+	document.title = meta.name;
+	(document.getElementById("title") as HTMLElement).textContent = meta.name;
+	(document.getElementById("cover") as HTMLImageElement).src = meta.cover;
+	const descriptionEl = document.getElementById("description")!;
+	renderFormattedText(descriptionEl, meta.long || meta.short);
 
-	const footerInstanceContainer = document.getElementById("footer-instance");
-	if (!footerInstanceContainer) return;
-	await InstanceHTMLElementTemplate(footerInstanceContainer, "../../template/html/_footerTemplate.html");
-	
-	// Handle theme toggling.
-	const themeBtn = document.getElementById("theme-toggle") as HTMLButtonElement | null;
-	InitThemeToggle(themeBtn);
+	// Create tag elements.
+	const tagsDiv = document.getElementById("tags") as HTMLElement;
+	[...new Set(meta.tags)].forEach(tag => { //< remove duplicates.
+		const span = document.createElement("span");
+		span.className = "tag";
+		span.textContent = tag;
+		tagsDiv.appendChild(span);
+	});
 
+	CreateActionButtons(meta);
+
+	// Load addition project assets.
+	const gallery = document.getElementById("gallery") as HTMLElement;
+	meta.additionalAssets.forEach(asset => {
+		if (asset.endsWith(".mp4") || asset.endsWith(".webm")) {
+			const video = document.createElement("video");
+			video.src = `assets/${asset}`;
+			video.controls = true;
+			video.width = 150;
+			gallery.appendChild(video);
+		}
+		else {
+			const img = document.createElement("img");
+			img.src = `assets/${asset}`;
+			gallery.appendChild(img);
+		}
+	});
 }
 
-document.addEventListener("DOMContentLoaded", loadProjectTemplate);
+loadProjectPage();

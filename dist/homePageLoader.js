@@ -7,10 +7,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// @ts-ignore
-import { InitThemeToggle } from "../dist/themeToggle.js";
-// @ts-ignore
-import { InstanceHTMLElementTemplate } from "../dist/utilities.js";
 console.log(import.meta.url);
 const projectsFolders = [
     "testProject",
@@ -181,24 +177,7 @@ function loadProjects() {
         buildFilters();
     });
 }
-function loadTemplates() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const headerInstanceContainer = document.getElementById("header-instance");
-        if (!headerInstanceContainer)
-            return;
-        yield InstanceHTMLElementTemplate(headerInstanceContainer, "../template/html/_headerTemplate");
-        const footerInstanceContainer = document.getElementById("footer-instance");
-        if (!footerInstanceContainer)
-            return;
-        yield InstanceHTMLElementTemplate(footerInstanceContainer, "../template/html/_footerTemplate.html");
-        // Handle theme toggling.
-        const themeBtn = document.getElementById("theme-toggle");
-        InitThemeToggle(themeBtn);
-    });
-}
 document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
-    loadTemplates();
-    // Load projects.
     yield loadProjects();
     // Attach load more button AFTER it exists.
     const loadMoreButton = document.getElementById("loadMoreButton");
@@ -206,3 +185,4 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         loadMoreButton.onclick = () => renderProjects();
     }
 }));
+export {};

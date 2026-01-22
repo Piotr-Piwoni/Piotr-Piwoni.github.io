@@ -1,8 +1,4 @@
 ﻿import {ProjectMetadata, TagCategories} from "./types/types";
-// @ts-ignore
-import {InitThemeToggle} from "../dist/themeToggle.js";
-// @ts-ignore
-import {InstanceHTMLElementTemplate} from "../dist/utilities.js";
 
 console.log(import.meta.url);
 
@@ -200,25 +196,7 @@ async function loadProjects(): Promise<void> {
 	buildFilters();
 }
 
-async function loadTemplates(): Promise<void> {
-	const headerInstanceContainer = document.getElementById("header-instance");
-	if (!headerInstanceContainer) return;
-	await InstanceHTMLElementTemplate(headerInstanceContainer, "../template/html/_headerTemplate");
-
-	const footerInstanceContainer = document.getElementById("footer-instance");
-	if (!footerInstanceContainer) return;
-	await InstanceHTMLElementTemplate(footerInstanceContainer, "../template/html/_footerTemplate.html");
-
-	// Handle theme toggling.
-	const themeBtn = document.getElementById("theme-toggle") as HTMLButtonElement | null;
-	InitThemeToggle(themeBtn);
-
-}
-
 document.addEventListener("DOMContentLoaded", async () => {
-	loadTemplates();
-
-	// Load projects.
 	await loadProjects();
 
 	// Attach load more button AFTER it exists.
