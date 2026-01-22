@@ -197,23 +197,15 @@ body #projects-layout #filter-sidebar #filter-container button {
 body #projects-layout #project-container {
   width: 100%;
   text-align: center;
+  max-width: calc(960px + 6rem);
+  margin: 0 auto;
 }
 body #projects-layout #project-container #projects {
   display: grid;
-  gap: 1.2rem;
   margin-top: 1.5rem;
+  gap: 3rem;
   justify-content: start;
-  grid-template-columns: repeat(3, 1fr);
-}
-@media (max-width: 1600px) {
-  body #projects-layout #project-container #projects {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 600px) {
-  body #projects-layout #project-container #projects {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(auto-fit, 320px);
 }
 body #projects-layout #project-container #projects .project-card {
   background: var(--colour-background-lighter);

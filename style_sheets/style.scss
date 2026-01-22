@@ -267,24 +267,19 @@ body {
     }
 
     #project-container {
+      $card-size: 320px;
+      $gap: 3rem;
       width: 100%;
       text-align: center;
+      max-width: calc(($card-size * 3) + ($gap * 2));
+      margin: 0 auto;
 
       #projects {
         display: grid;
-        gap: 1.2rem;
         margin-top: 1.5rem;
+        gap: $gap;
         justify-content: start;
-        grid-template-columns: repeat(3, 1fr);
-
-        // Tablet / smaller screens: 2 columns.
-        @media (max-width: 1600px) {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        // Mobile: 1 column.
-        @media (max-width: 600px) {
-          grid-template-columns: 1fr;
-        }
+        grid-template-columns: repeat(auto-fit, $card-size);
 
         .project-card {
           $bg-colour: var(--colour-background-lighter);
@@ -295,7 +290,7 @@ body {
           margin-bottom: 0.5rem;
           padding: 1rem;
           transition: transform 0.2s;
-          max-width: 320px;
+          max-width: $card-size;
           width: 100%;
           box-shadow: var(--shadow-m);
 
