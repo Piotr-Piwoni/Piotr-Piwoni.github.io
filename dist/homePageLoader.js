@@ -185,11 +185,11 @@ function loadTemplates() {
         const headerInstanceContainer = document.getElementById("header-instance");
         if (!headerInstanceContainer)
             return;
-        yield InstanceHTMLElementTemplate(headerInstanceContainer, "template/html/_headerTemplate.html");
+        yield InstanceHTMLElementTemplate(headerInstanceContainer, "../template/html/_headerTemplate.html");
         const footerInstanceContainer = document.getElementById("footer-instance");
         if (!footerInstanceContainer)
             return;
-        yield InstanceHTMLElementTemplate(footerInstanceContainer, "template/html/_footerTemplate.html");
+        yield InstanceHTMLElementTemplate(footerInstanceContainer, "../template/html/_footerTemplate.html");
         // Handle theme toggling.
         const themeBtn = document.getElementById("theme-toggle");
         InitThemeToggle(themeBtn);

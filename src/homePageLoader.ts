@@ -201,11 +201,11 @@ async function loadProjects(): Promise<void> {
 async function loadTemplates(): Promise<void> {
 	const headerInstanceContainer = document.getElementById("header-instance");
 	if (!headerInstanceContainer) return;
-	await InstanceHTMLElementTemplate(headerInstanceContainer, "template/html/_headerTemplate.html");
+	await InstanceHTMLElementTemplate(headerInstanceContainer, "../template/html/_headerTemplate.html");
 
 	const footerInstanceContainer = document.getElementById("footer-instance");
 	if (!footerInstanceContainer) return;
-	await InstanceHTMLElementTemplate(footerInstanceContainer, "template/html/_footerTemplate.html");
+	await InstanceHTMLElementTemplate(footerInstanceContainer, "../template/html/_footerTemplate.html");
 
 	// Handle theme toggling.
 	const themeBtn = document.getElementById("theme-toggle") as HTMLButtonElement | null;

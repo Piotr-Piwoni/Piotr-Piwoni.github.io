@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 export function InstanceHTMLElementTemplate(container, templatePath) {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch(templatePath);
+        const templateUrl = new URL(templatePath, import.meta.url);
+        const response = yield fetch(templateUrl);
         const htmlText = yield response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlText, "text/html");

@@ -1,5 +1,10 @@
 ﻿export async function InstanceHTMLElementTemplate(container: HTMLElement, templatePath: string) {
-	const response = await fetch(templatePath);
+	const templateUrl = new URL(
+		templatePath,
+		import.meta.url
+	);
+
+	const response = await fetch(templateUrl);
 	const htmlText = await response.text();
 
 	const parser = new DOMParser();
