@@ -1,6 +1,11 @@
 ﻿import {ProjectMetadata, TagCategories} from "./types/types";
 
-const projectsFolders: string[] = ["testProject", "testProject2", "testProject3", "testProject4"];
+const projectsFolders: string[] = [
+	"testProject",
+	"testProject2",
+	"testProject3",
+	"testProject4",
+];
 let allProjectsMeta: ProjectMetadata[] = [];
 let displayedProjects = 0;
 const batchSize = 3;

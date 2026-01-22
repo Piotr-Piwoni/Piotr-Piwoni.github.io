@@ -66,6 +66,7 @@
 
     a {
       display: inline-block;
+      margin-top: 1rem;
     }
   }
 }
@@ -145,10 +146,6 @@
 }
 
 @media (max-width: 600px) {
-
-  .button, .button-important {
-    margin: 1rem auto 0;
-  }
 
   .project-card-short {
     font-size: 0.9rem;

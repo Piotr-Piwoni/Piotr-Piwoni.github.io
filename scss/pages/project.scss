@@ -18,144 +18,82 @@
 @include ExportTheme(dark, '[data-theme="dark"]');
 
 
-#about-section {
+#project-title {
+  text-align: center;
+  margin-bottom: 3.5rem;
+
+  #title {
+    margin-bottom: 1rem;
+  }
+
+  #tags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.15rem;
+
+    // Shrink down the tags.
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.3rem;
+      border-radius: 0.3rem;
+    }
+  }
+}
+
+#project-container {
   display: flex;
-  align-items: flex-start;
-  gap: 3rem;
-  margin-bottom: 4rem;
+  flex-direction: column;
+  gap: 1rem;
 
-  #about-info {
-    flex: 1;
-    max-width: 50%;
-    text-align: center;
+  #actions {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-end;
 
-    .profile-img {
-      border-radius: 50%;
-      display: block;
-      margin: 1rem auto;
-      width: 13rem;
-      box-shadow: var(--shadow-l);
-    }
-
-    $top-margin-width: 1.5rem;
-
-    h2 {
-      margin-top: $top-margin-width/3;
-    }
-
-    p {
-      margin-top: $top-margin-width;
+    a.button, a.button-important {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      margin: 0.2rem;
     }
   }
 
-  #about-promotion {
-    flex: 1;
-    max-width: 50%;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    background: var(--colour-background);
-    text-align: center;
-    box-shadow: var(--shadow-l);
+  #grid {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 2rem;
 
-    img {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      border-radius: 0.5rem;
-    }
-
-    a {
-      display: inline-block;
-    }
-  }
-}
-
-#projects-section {
-  h2 {
-    text-align: center;
-    font-size: 2rem;
-  }
-}
-
-#projects-layout {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: minmax(180px, 22%) 1fr;
-  padding: 1rem;
-  background: var(--colour-background);
-  border-radius: 0.75rem;
-  box-shadow: var(--shadow-s);
-
-  #filter-sidebar {
-    border-radius: 0.6rem;
-    height: fit-content;
-    padding: 1rem;
-    position: sticky;
-    top: 1rem;
-
-    #filter-container {
+    #information {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 1rem;
+      line-height: 1.6rem;
+    }
 
-      button {
-        display: inline-block;
+    #content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      #cover {
+        width: 100%;
+        border-radius: 0.5rem;
+        box-shadow: var(--shadow-l);
+        object-fit: cover;
+      }
+
+      #gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+
+        img {
+          width: 100%;
+          border-radius: 0.4rem;
+          object-fit: cover;
+        }
       }
     }
-  }
-
-  #project-container {
-    width: 100%;
-    text-align: center;
-    max-width: calc(($card-size * 3) + ($project-card-gap * 2));
-    margin: 0 auto;
-
-    #projects {
-      display: grid;
-      margin-top: 1.5rem;
-      gap: $project-card-gap;
-      justify-content: start;
-      grid-template-columns: repeat(auto-fit, $card-size);
-    }
-
-    #loadMoreButton {
-      display: block;
-      margin: 2rem auto 0;
-    }
-  }
-}
-
-@media (max-width: 900px) {
-  #projects-layout {
-    grid-template-columns: 1fr;
-
-    #filter-sidebar {
-      position: relative;
-      top: 0;
-    }
-  }
-
-  #about-section {
-    flex-direction: column;
-  }
-
-  #about-info,
-  #about-promotion {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 600px) {
-
-  .button, .button-important {
-    margin: 1rem auto 0;
-  }
-
-  .project-card-short {
-    font-size: 0.9rem;
-  }
-
-  .profile-img {
-    width: 6rem;
   }
 }

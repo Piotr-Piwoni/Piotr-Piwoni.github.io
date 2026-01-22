@@ -1,6 +1,7 @@
 ﻿{
   "name": "Test Project",
   "short": "A short description of this test project to show on homepage. A short description of this test project to show on homepage.",
+  "long": "",
   "tags": [
     "Solo",
     "Personal",
@@ -41,6 +42,25 @@
     "Scala",
     "Perl"
   ],
-  "cover": "cover.png",
+  "outLinks": [
+    {
+      "name": "Github",
+      "url": "https://github.com/your-repo"
+    },
+    {
+      "name": "Github",
+      "url": "https://github.com/your-repo"
+    },
+    {
+      "name": "Github",
+      "url": "https://github.com/your-repo"
+    }
+  ],
+  "cover": "assets/images/cover.png",
+  "additionalAssets": [],
+  "downloadFiles": [
+    "assets/images/cover.png",
+    "assets/images/profile.jpg"
+  ],
   "page": "index.html"
 }

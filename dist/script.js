@@ -7,7 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const projectsFolders = ["testProject", "testProject2", "testProject3", "testProject4"];
+const projectsFolders = [
+    "testProject",
+    "testProject2",
+    "testProject3",
+    "testProject4",
+];
 let allProjectsMeta = [];
 let displayedProjects = 0;
 const batchSize = 3;

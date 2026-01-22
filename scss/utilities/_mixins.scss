@@ -11,12 +11,13 @@
   background-color: var(--colour-secondary);
   border-radius: 0.4rem;
   cursor: pointer;
-  display: block;
+  display: inline-block;
   padding: 0.6rem 1rem;
   text-decoration: none;
   border: none;
   box-shadow: var(--shadow-s);
   transition: transform 0.1s;
+  margin: 0.5rem;
 
   &:hover {
     filter: brightness($highlight-strength);

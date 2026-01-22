@@ -16,7 +16,7 @@ a {
   background-color: var(--colour-secondary);
   border-radius: 0.4rem;
   cursor: pointer;
-  display: block;
+  display: inline-block;
   padding: 0.6rem 1rem;
   text-decoration: none;
   border: none;
@@ -65,6 +65,9 @@ body main {
   main {
     max-width: 85%;
     padding: 1rem;
+  }
+  .button, .button-important {
+    margin: 1rem auto 0;
   }
 }
 header {
@@ -127,7 +130,7 @@ footer {
   background-color: var(--colour-secondary);
   border-radius: 0.4rem;
   cursor: pointer;
-  display: block;
+  display: inline-block;
   padding: 0.6rem 1rem;
   text-decoration: none;
   border: none;
@@ -156,7 +159,7 @@ footer {
   background-color: var(--colour-secondary);
   border-radius: 0.4rem;
   cursor: pointer;
-  display: block;
+  display: inline-block;
   padding: 0.6rem 1rem;
   text-decoration: none;
   border: none;
@@ -365,6 +368,7 @@ footer {
 }
 #about-section #about-promotion a {
   display: inline-block;
+  margin-top: 1rem;
 }
 
 #projects-section h2 {
@@ -430,9 +434,6 @@ footer {
   }
 }
 @media (max-width: 600px) {
-  .button, .button-important {
-    margin: 1rem auto 0;
-  }
   .project-card-short {
     font-size: 0.9rem;
   }
