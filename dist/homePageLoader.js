@@ -165,7 +165,7 @@ function loadProjects() {
         const list = [];
         // Load Projects meta data.
         for (const folder of projectsFolders) {
-            const meta = yield fetch(`projects/${folder}/metadata.json`)
+            const meta = yield fetch(`pages/projects/${folder}/metadata.json`)
                 .then(res => res.json());
             meta.folder = folder;
             list.push(meta);
