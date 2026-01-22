@@ -180,32 +180,16 @@ function loadProjects() {
         buildFilters();
     });
 }
-function InstancePage(pageInstanceContainer) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch("../../template/html/_projectPageTemplate.html");
-        const htmlText = yield response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlText, "text/html");
-        // Move all <body> children from the template and replace the placeholder with all template content.
-        const children = Array.from(doc.body.children);
-        pageInstanceContainer.replaceWith(...children);
-        // Scripts needed.
-        const script = document.createElement("script");
-        script.src = "../../dist/project.js";
-        script.type = "module";
-        document.body.appendChild(script);
-    });
-}
 function loadTemplates() {
     return __awaiter(this, void 0, void 0, function* () {
         const headerInstanceContainer = document.getElementById("header-instance");
         if (!headerInstanceContainer)
             return;
-        yield InstanceHTMLElementTemplate(headerInstanceContainer, "../../template/html/_headerTemplate.html");
+        yield InstanceHTMLElementTemplate(headerInstanceContainer, "template/html/_headerTemplate.html");
         const footerInstanceContainer = document.getElementById("footer-instance");
         if (!footerInstanceContainer)
             return;
-        yield InstanceHTMLElementTemplate(footerInstanceContainer, "../../template/html/_footerTemplate.html");
+        yield InstanceHTMLElementTemplate(footerInstanceContainer, "template/html/_footerTemplate.html");
         // Handle theme toggling.
         const themeBtn = document.getElementById("theme-toggle");
         InitThemeToggle(themeBtn);
