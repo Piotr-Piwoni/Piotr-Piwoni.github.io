@@ -383,7 +383,6 @@ footer {
   border-radius: 0.6rem;
   height: fit-content;
   padding: 1rem;
-  position: sticky;
   top: 1rem;
 }
 #projects-layout #filter-sidebar #filter-container {
