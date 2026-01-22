@@ -9,25 +9,39 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 // @ts-ignore
 import { InitThemeToggle } from "../dist/themeToggle.js";
-function loadProjectTemplate() {
+// @ts-ignore
+import { InstanceHTMLElementTemplate } from "../dist/utilities.js";
+function InstancePage(pageInstanceContainer) {
     return __awaiter(this, void 0, void 0, function* () {
-        const instanceContainer = document.getElementById("Page Instance");
-        if (!instanceContainer)
-            return;
         const response = yield fetch("../../template/html/_projectPageTemplate.html");
         const htmlText = yield response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlText, "text/html");
-        // Move all <body> children from the template
-        const templateBody = doc.body;
-        const children = Array.from(templateBody.children);
-        // Replace the placeholder with all template content
-        instanceContainer.replaceWith(...children);
-        // Scripts need to be added after content exists
+        // Move all <body> children from the template and replace the placeholder with all template content.
+        const children = Array.from(doc.body.children);
+        pageInstanceContainer.replaceWith(...children);
+        // Scripts needed.
         const script = document.createElement("script");
         script.src = "../../dist/project.js";
         script.type = "module";
         document.body.appendChild(script);
+    });
+}
+function loadProjectTemplate() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const pageInstanceContainer = document.getElementById("page-instance");
+        if (!pageInstanceContainer)
+            return;
+        yield InstancePage(pageInstanceContainer);
+        const headerInstanceContainer = document.getElementById("header-instance");
+        if (!headerInstanceContainer)
+            return;
+        yield InstanceHTMLElementTemplate(headerInstanceContainer, "../../template/html/_headerTemplate.html");
+        const footerInstanceContainer = document.getElementById("footer-instance");
+        if (!footerInstanceContainer)
+            return;
+        yield InstanceHTMLElementTemplate(footerInstanceContainer, "../../template/html/_footerTemplate.html");
+        // Handle theme toggling.
         const themeBtn = document.getElementById("theme-toggle");
         InitThemeToggle(themeBtn);
     });
