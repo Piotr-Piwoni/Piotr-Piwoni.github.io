@@ -182,7 +182,7 @@ async function loadProjects(): Promise<void> {
 
 	// Load Projects meta data.
 	for (const folder of projectsFolders) {
-		const meta = await fetch(`pages/projects/${folder}/metadata.json`)
+		const meta = await fetch(`projects/${folder}/metadata.json`)
 			.then(res => res.json()) as ProjectMetadata;
 		meta.folder = folder;
 		list.push(meta);
