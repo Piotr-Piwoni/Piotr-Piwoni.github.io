@@ -186,7 +186,7 @@ function loadTemplates() {
         const headerInstanceContainer = document.getElementById("header-instance");
         if (!headerInstanceContainer)
             return;
-        yield InstanceHTMLElementTemplate(headerInstanceContainer, "tree/master/template/html/_headerTemplate.html");
+        yield InstanceHTMLElementTemplate(headerInstanceContainer, "../template/html/_headerTemplate");
         const footerInstanceContainer = document.getElementById("footer-instance");
         if (!footerInstanceContainer)
             return;
