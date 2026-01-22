@@ -2,16 +2,15 @@
 <html lang = "en">
 <head>
 	<meta charset = "UTF-8">
-	<title>Tusk Games</title>
-	<link href = "scss/pages/home.css" rel = "stylesheet">
-	<link href = "assets/favicon.png" rel = "icon" sizes = "16x16" type = "image/png">
+	<title>Loading...</title>
+	<link href = "../../../scss/pages/project.css" rel = "stylesheet">
+	<link href = "../../../assets/favicon.png" rel = "icon" sizes = "16x16" type = "image/png">
 </head>
 
 <body>
-
 <header>
 	<div class = "header-left">
-		<a href = "index.html">
+		<a href = "../../index.html">
 			<svg height = "100%" style = "fill-rule:evenodd;clip-rule:evenodd;" version = "1.1" viewBox = "0 0 65 65"
 				 width = "100%" xml:space = "preserve"
 				 xmlns = "http://www.w3.org/2000/svg"
@@ -62,48 +61,34 @@
 	</button>
 </header>
 
+<template id = "outlink-template"><a class = "button" href = "">Out Link Name</a></template>
+<template id = "download-all-template"><a class = "button-important" download href = "">Download</a></template>
+
+
 <main>
-	<!-- About Me Section. -->
-	<section id = "about-section">
-		<div id = "about-info">
-			<img alt = "Profile Image" class = "profile-img" src = "assets/profile.jpg">
-			<h2>Piotr M. Piwoni</h2>
-			<p>
-				Hi I'm Peter! As a gameplay programmer, game developer, and software engineer, I focus on creating
-				engaging
-				and immersive gaming experiences. You can explore my work and see the projects I've contributed to right
-				here.
-			</p>
-		</div>
-		<div id = "about-promotion">
-			<img alt = "WIP Promotional Image" src = "assets/self-promotion.jpg">
-			<a class = "button-important" href = "">Check this out!</a>
-		</div>
-	</section>
+	<div id = "project-title">
+		<h1 id = "title">Loading...</h1>
+		<div id = "tags"></div>
+	</div>
 
-	<template id = "project-card-template">
-		<a class = "project-card" href = "">
-			<img alt = "Project Cover" src = "">
-			<h3 id = "name">Project Name</h3>
-			<p class = "project-card-short">A short description of this project card.</p>
-			<div class = "tags" id = "tags"></div>
-		</a>
-	</template>
+	<div id = "project-container">
+		<div id = "actions">
+			<div id = "outlinks"></div>
+		</div>
 
-	<!-- Project Section. -->
-	<section id = "projects-section">
-		<h2>Projects TEST</h2>
-		<div id = "projects-layout">
-			<aside id = "filter-sidebar">
-				<h3>Filters</h3>
-				<div id = "filter-container"></div>
-			</aside>
-			<div id = "project-container">
-				<div id = "projects"></div>
-				<button class = "button-important" id = "loadMoreButton">Load More</button>
+		<div id = "grid">
+			<div id = "information">
+				<p id = "description"></p>
+			</div>
+
+			<div id = "content">
+				<img alt = "Project Cover" id = "cover" src = "">
+				<div id = "gallery"></div>
 			</div>
 		</div>
-	</section>
+	</div>
+
+	<a class = "button" href = "../../index.html" id = "returnBtn">Back to homepage</a>
 </main>
 
 <!-- Contact Section. -->
@@ -112,7 +97,7 @@
 	<p>Email: <a class = "link" href = "mailto:piotrpiwonibiz@gmail.com">piotrpiwonibiz@gmail.com</a></p>
 </footer>
 
-<script src = "dist/homePageLoader.js" type = "module"></script>
-<script src = "dist/themeToggle.js" type = "module"></script>
+<script src = "../../../dist/projectPageLoader.js" type = "module"></script>
+<script src = "../../../dist/themeToggle.js" type = "module"></script>
 </body>
 </html>

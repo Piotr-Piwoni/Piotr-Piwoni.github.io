@@ -1,75 +1,22 @@
 ﻿{
-  "name": "Test Project",
-  "short": "A short description of this test project to show on homepage. A short description of this test project to show on homepage.",
+  "name": "Project Name",
+  "short": "A short description of this project.",
   "long": "Welcome to the <strong>Test Project</strong>! This project represents months of dedication and experimentation in software development. The main goal was to build a <em>fully functional, user-friendly application</em> demonstrating best practices.<p>We focused on several key aspects:</p><ul><li><strong>Responsive design</strong> to ensure seamless experience across devices.</li><li><em>Interactive components</em> like buttons, collapsible menus, and modals.</li><li><u>Optimised performance</u> with minimal load times.</li></ul><p>This project also emphasises <strong>readability</strong>, <em>maintainability</em>, and <u>scalability</u>, so future improvements can be implemented easily. Users can explore the features, try out demos, and learn how each part of the project works.</p><p>Whether you are looking for inspiration, a reference implementation, or simply want to explore the codebase, this project provides a comprehensive example of combining <strong>modern web technologies</strong> with <em>practical development patterns</em>.</p>",
   "tags": [
     "Solo",
     "Personal",
     "Unity",
     "3D",
-    "Game",
-    "Tool",
-    "Feature",
-    "Software",
-    "TypeScript",
-    "JavaScript",
-    "C#",
-    "C++",
-    "Python",
-    "Java",
-    "GDScript",
-    "Rust",
-    "Lua",
-    "Swift",
-    "Kotlin",
-    "Ruby",
-    "Go",
-    "Haskell",
-    "C",
-    "Objective-C",
-    "PHP",
-    "Dart",
-    "Scala",
-    "Perl",
-    "Dart",
-    "Scala",
-    "Perl",
-    "PHP",
-    "Dart",
-    "Scala",
-    "Perl",
-    "Dart",
-    "Scala",
-    "Perl"
+    "Game"
   ],
   "outLinks": [
     {
       "name": "Github",
-      "url": "https://github.com/your-repo"
-    },
-    {
-      "name": "Github",
-      "url": "https://github.com/your-repo"
-    },
-    {
-      "name": "Github",
-      "url": "https://github.com/your-repo"
+      "url": "https://github.com/Piotr-Piwoni"
     }
   ],
-  "cover": "assets/images/cover.png",
-  "additionalAssets": [
-    "assets/images/profile.jpg",
-    "assets/images/profile.jpg",
-    "assets/images/self-promotion.jpg",
-    "assets/images/profile.jpg",
-    "assets/images/profile.jpg",
-    "assets/images/self-promotion.jpg",
-    "assets/images/self-promotion.jpg",
-    "assets/images/self-promotion.jpg"
-  ],
-  "downloadFiles": [
-    "assets/images/cover.png",
-    "assets/images/profile.jpg"
-  ],
+  "cover": "images/cover.png",
+  "additionalAssets": [],
+  "downloadFiles": [],
   "page": "index.html"
 }
