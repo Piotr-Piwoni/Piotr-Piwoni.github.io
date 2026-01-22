@@ -216,6 +216,7 @@ footer {
   max-width: 320px;
   width: 100%;
   box-shadow: var(--shadow-m);
+  text-align: start;
 }
 .project-card:hover {
   transform: scale(1.03);
@@ -230,12 +231,13 @@ footer {
   margin: 0.5rem 0.2rem 0.2rem;
 }
 .project-card .project-card-short {
-  line-height: 1.4rem;
-  max-height: 4.2rem;
+  line-height: 1.3rem;
+  max-height: 4.55rem;
   overflow: hidden;
   position: relative;
   margin-top: 1rem;
   margin-bottom: 0.75rem;
+  font-size: 0.9rem;
 }
 .project-card .project-card-short.has-fade::after {
   content: "";

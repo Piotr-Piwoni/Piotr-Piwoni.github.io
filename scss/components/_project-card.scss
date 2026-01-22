@@ -10,6 +10,7 @@
   max-width: $card-size;
   width: 100%;
   box-shadow: var(--shadow-m);
+  text-align: start;
 
   &:hover {
     transform: scale(1.03);
@@ -27,13 +28,15 @@
   }
 
   .project-card-short {
-    $line-height: 1.4rem;
+    $font-size: 0.9rem;
+    $line-height: $font-size + 0.4rem;
     line-height: $line-height;
-    max-height: $line-height * 3;
+    max-height: $line-height * 3.5;
     overflow: hidden;
     position: relative;
     margin-top: 1rem;
     margin-bottom: 0.75rem;
+    font-size: $font-size;
 
     &.has-fade::after {
       @include BottomFadeOverlay(1.1rem, $bg-colour);
