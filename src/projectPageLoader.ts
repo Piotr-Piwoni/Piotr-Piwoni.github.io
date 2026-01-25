@@ -1,6 +1,6 @@
-﻿import {ProjectMetadata} from "./types/types";
-// @ts-ignore
-import * as Vars from "../dist/variables.js";
+﻿import {ProjectMetadata} from "./types/types.js";
+import * as Vars from "./variables.js";
+import {InitThemeToggle} from "./themeToggle.js";
 
 
 function CreateActionButtons(meta: ProjectMetadata) {
@@ -53,7 +53,7 @@ function renderFormattedText(container: HTMLElement, text: string) {
 	container.replaceChildren(fragment);
 }
 
-async function loadProjectPage(): Promise<void> {
+async function loadPage(): Promise<void> {
 	const meta = await fetch("metadata.json").then(res => res.json()) as ProjectMetadata;
 
 	// Update page title.
@@ -94,4 +94,8 @@ async function loadProjectPage(): Promise<void> {
 	});
 }
 
-loadProjectPage();
+document.addEventListener("DOMContentLoaded", async () => {
+	await loadPage();
+
+	InitThemeToggle(document.getElementById("theme-toggle") as HTMLButtonElement);
+});

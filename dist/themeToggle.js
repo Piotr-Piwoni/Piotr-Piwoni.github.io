@@ -35,7 +35,3 @@ export function InitThemeToggle(toggleBtn) {
         updateIcon(next);
     });
 }
-document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.getElementById("theme-toggle");
-    InitThemeToggle(btn);
-});

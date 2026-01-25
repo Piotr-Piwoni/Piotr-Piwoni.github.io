@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// @ts-ignore
-import * as Vars from "../dist/variables.js";
+import * as Vars from "./variables.js";
+import { InitThemeToggle } from "./themeToggle.js";
 function CreateActionButtons(meta) {
     // Get the required containers for the action buttons.
     const actionsContainer = document.getElementById("actions");
@@ -49,7 +49,7 @@ function renderFormattedText(container, text) {
     });
     container.replaceChildren(fragment);
 }
-function loadProjectPage() {
+function loadPage() {
     return __awaiter(this, void 0, void 0, function* () {
         const meta = yield fetch("metadata.json").then(res => res.json());
         // Update page title.
@@ -86,4 +86,7 @@ function loadProjectPage() {
         });
     });
 }
-loadProjectPage();
+document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
+    yield loadPage();
+    InitThemeToggle(document.getElementById("theme-toggle"));
+}));

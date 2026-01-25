@@ -38,8 +38,3 @@
 		updateIcon(next);
 	});
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-	const btn = document.getElementById("theme-toggle") as HTMLButtonElement | null;
-	InitThemeToggle(btn);
-});

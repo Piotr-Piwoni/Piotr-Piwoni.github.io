@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// @ts-ignore
-import * as Vars from "../dist/variables.js";
+import * as Vars from "./variables.js";
+import { InitThemeToggle } from "./themeToggle.js";
 let allProjectsMeta = [];
 let displayedProjects = 0;
 const batchSize = 3;
@@ -177,6 +177,7 @@ function loadProjects() {
 }
 document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
     yield loadProjects();
+    InitThemeToggle(document.getElementById("theme-toggle"));
     // Attach load more button AFTER it exists.
     const loadMoreButton = document.getElementById("loadMoreButton");
     if (loadMoreButton) {
