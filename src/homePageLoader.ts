@@ -8,7 +8,17 @@ let displayedProjects = 0;
 const batchSize = 3;
 const activeTags = new Set<string>();
 let tagCategories: TagCategories = {};
+let searchQuery: string = "";
 
+function filterBySearch(): ProjectMetadata[] {
+	const lowerQuery = searchQuery.toLowerCase();
+
+	return allProjectsMeta.filter(project => {
+		const matchesSearch: boolean = project.name.toLowerCase().includes(lowerQuery);
+		const matchesTags: boolean = activeTags.size === 0 || project.tags.some(tag => activeTags.has(tag));
+		return matchesSearch && matchesTags;
+	});
+}
 
 function renderProjects(filteredMetaData?: ProjectMetadata[]): void {
 	const cardContainer = document.getElementById("projects") as HTMLElement;
@@ -67,14 +77,7 @@ function filterByTag(tag: string): void {
 	const container = document.getElementById("projects") as HTMLElement;
 	container.replaceChildren();
 
-	// If no tags are selected, load all projects.
-	if (activeTags.size === 0) {
-		resetFilters();
-		return;
-	}
-
-	const filtered = allProjectsMeta.filter(project => project.tags
-															  .some(tag => activeTags.has(tag)));
+	const filtered = filterBySearch();
 	renderProjects(filtered);
 }
 
@@ -205,4 +208,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 	if (loadMoreButton) {
 		loadMoreButton.onclick = () => renderProjects();
 	}
+
+	//Set up the search bar.
+	const searchInput = document.getElementById("project-search") as HTMLInputElement;
+	searchInput.addEventListener("input", () => {
+		searchQuery = searchInput.value;
+		displayedProjects = 0;
+		const container = document.getElementById("projects") as HTMLElement;
+		container.replaceChildren();
+
+		const filtered = filterBySearch();
+		renderProjects(filtered);
+	});
 });

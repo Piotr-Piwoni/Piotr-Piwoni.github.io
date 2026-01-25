@@ -14,6 +14,15 @@ let displayedProjects = 0;
 const batchSize = 3;
 const activeTags = new Set();
 let tagCategories = {};
+let searchQuery = "";
+function filterBySearch() {
+    const lowerQuery = searchQuery.toLowerCase();
+    return allProjectsMeta.filter(project => {
+        const matchesSearch = project.name.toLowerCase().includes(lowerQuery);
+        const matchesTags = activeTags.size === 0 || project.tags.some(tag => activeTags.has(tag));
+        return matchesSearch && matchesTags;
+    });
+}
 function renderProjects(filteredMetaData) {
     const cardContainer = document.getElementById("projects");
     const list = filteredMetaData || allProjectsMeta;
@@ -63,13 +72,7 @@ function filterByTag(tag) {
     displayedProjects = 0;
     const container = document.getElementById("projects");
     container.replaceChildren();
-    // If no tags are selected, load all projects.
-    if (activeTags.size === 0) {
-        resetFilters();
-        return;
-    }
-    const filtered = allProjectsMeta.filter(project => project.tags
-        .some(tag => activeTags.has(tag)));
+    const filtered = filterBySearch();
     renderProjects(filtered);
 }
 function buildFilters() {
@@ -183,4 +186,14 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
     if (loadMoreButton) {
         loadMoreButton.onclick = () => renderProjects();
     }
+    //Set up the search bar.
+    const searchInput = document.getElementById("project-search");
+    searchInput.addEventListener("input", () => {
+        searchQuery = searchInput.value;
+        displayedProjects = 0;
+        const container = document.getElementById("projects");
+        container.replaceChildren();
+        const filtered = filterBySearch();
+        renderProjects(filtered);
+    });
 }));

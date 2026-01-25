@@ -58,7 +58,7 @@ async function loadPage(): Promise<void> {
 
 	// Update page title.
 	let titleStr = document.title.split(" - ");
-	document.title = `${Vars.websiteName || titleStr[0]} -${meta.name || titleStr[1]}`;
+	document.title = `${Vars.websiteName || titleStr[0]} - ${meta.name || titleStr[1]}`;
 
 	(document.getElementById("title") as HTMLElement).textContent = meta.name;
 	(document.getElementById("cover") as HTMLImageElement).src = `assets/${meta.cover}`;

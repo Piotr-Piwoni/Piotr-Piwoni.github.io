@@ -54,7 +54,7 @@ function loadPage() {
         const meta = yield fetch("metadata.json").then(res => res.json());
         // Update page title.
         let titleStr = document.title.split(" - ");
-        document.title = `${Vars.websiteName || titleStr[0]} -${meta.name || titleStr[1]}`;
+        document.title = `${Vars.websiteName || titleStr[0]} - ${meta.name || titleStr[1]}`;
         document.getElementById("title").textContent = meta.name;
         document.getElementById("cover").src = `assets/${meta.cover}`;
         const descriptionEl = document.getElementById("description");
