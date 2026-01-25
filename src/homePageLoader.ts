@@ -85,29 +85,29 @@ function buildFilters(): void {
 	const groupedTags: Record<string, Set<string>> = {};
 	allProjectsMeta.forEach(project => {
 		project.tags.forEach(tag => {
-			// Search through tagCategories to find the matching full tag and category.
 			let found = false;
 			for (const category in tagCategories) {
 				const fullTags = tagCategories[category];
-				for (let i = 0; i < fullTags.length; i++) {
-					if (fullTags[i].includes(tag)) {
-						if (!groupedTags[category])
-							groupedTags[category] = new Set();
+				for (const fullTag of fullTags) {
+					if (!fullTag.includes(tag)) continue;
 
-						groupedTags[category].add(tag);
-						found = true;
-						break;
+					if (!groupedTags[category]) groupedTags[category] = new Set();
+
+					// Only add if the "fullTag" is not already in the Set.
+					if (!groupedTags[category].has(fullTag)) {
+						groupedTags[category].add(fullTag);
 					}
+
+					found = true;
+					break;
 				}
 				if (found) break;
 			}
 
-			// If not found in tagCategories, put under "Other".
+			// In case a tag exists without a category.
 			if (!found) {
-				if (!groupedTags["Other"])
-					groupedTags["Other"] = new Set();
-
-				groupedTags["Other"].add(tag);
+				if (!groupedTags["Other"]) groupedTags["Other"] = new Set();
+				if (!groupedTags["Other"].has(tag)) groupedTags["Other"].add(tag);
 			}
 		});
 	});
@@ -140,20 +140,8 @@ function buildFilters(): void {
 
 		const tags = groupedTags[category];
 		tags.forEach(tag => {
-			// Find the full display name in tagCategories.
-			let displayName = tag;
-			for (const cat in tagCategories) {
-				const fullTags = tagCategories[cat];
-				for (let i = 0; i < fullTags.length; i++) {
-					if (fullTags[i].includes(tag)) {
-						displayName = fullTags[i];
-						break;
-					}
-				}
-			}
-
 			const button = document.createElement("button");
-			button.textContent = displayName;
+			button.textContent = tag;
 			button.classList.add("filter-button");
 			button.onclick = () => {
 				filterByTag(tag);
@@ -161,6 +149,7 @@ function buildFilters(): void {
 			};
 			buttonContainer.appendChild(button);
 		});
+
 	}
 }
 
