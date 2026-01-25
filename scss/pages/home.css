@@ -14,7 +14,7 @@ a {
 
 .button, button {
   background-color: var(--colour-secondary);
-  border-radius: 0.4rem;
+  border-radius: 0.75rem;
   cursor: pointer;
   display: inline-block;
   padding: 0.6rem 1rem;
@@ -35,7 +35,7 @@ a {
 
 .tag {
   background: var(--colour-secondary);
-  border-radius: 0.4rem;
+  border-radius: 0.75rem;
   display: inline-block;
   font-size: 0.75rem;
   margin: 0.1rem;
@@ -129,7 +129,7 @@ footer {
 
 .button-important {
   background-color: var(--colour-secondary);
-  border-radius: 0.4rem;
+  border-radius: 0.75rem;
   cursor: pointer;
   display: inline-block;
   padding: 0.6rem 1rem;
@@ -159,7 +159,7 @@ footer {
 
 .collapsible {
   background-color: var(--colour-secondary);
-  border-radius: 0.4rem;
+  border-radius: 0.75rem;
   cursor: pointer;
   display: inline-block;
   padding: 0.6rem 1rem;
@@ -212,25 +212,30 @@ footer {
 }
 
 .project-card {
+  transition: transform 0.2s;
+  border: none;
+}
+.project-card:hover {
+  transform: scale(1.03);
+  border: 2px solid var(--colour-accent);
+}
+.project-card {
   background: var(--colour-background-lighter);
-  border-radius: 0.6rem;
+  border-radius: 0.75rem;
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
   padding: 1rem;
-  transition: transform 0.2s;
   max-width: 320px;
   width: 100%;
   box-shadow: var(--shadow-m);
   text-align: start;
 }
 .project-card:hover {
-  transform: scale(1.03);
   box-shadow: var(--shadow-l);
-  border: 1px solid var(--colour-accent);
 }
 .project-card img {
-  border-radius: 0.4rem;
+  border-radius: 0.75rem;
   width: 100%;
 }
 .project-card h3 {
@@ -367,7 +372,7 @@ footer {
   width: 100%;
   aspect-ratio: 16/9;
   object-fit: cover;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
 }
 #about-section #about-promotion a {
   display: inline-block;
@@ -389,7 +394,7 @@ footer {
   box-shadow: var(--shadow-s);
 }
 #projects-layout #filter-sidebar {
-  border-radius: 0.6rem;
+  border-radius: 0.75rem;
   height: fit-content;
   padding: 1rem;
   top: 1rem;

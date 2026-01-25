@@ -8,20 +8,29 @@
 }
 
 @mixin ButtonBase {
+  @include SelectOnHover(1.01, 0, black, 0.1s);
+
   background-color: var(--colour-secondary);
-  border-radius: 0.4rem;
+  border-radius: $border-radius;
   cursor: pointer;
   display: inline-block;
   padding: 0.6rem 1rem;
   text-decoration: none;
-  border: none;
   box-shadow: var(--shadow-s);
-  transition: transform 0.1s;
   margin: 0.5rem;
 
   &:hover {
     filter: brightness($highlight-strength);
     box-shadow: var(--shadow-l);
-    transform: scale(1.01);
+  }
+}
+
+@mixin SelectOnHover($scale: 1.03, $thickness: 2px, $colour: var(--colour-accent), $speed: 0.2s) {
+  transition: transform $speed;
+  border: none;
+
+  &:hover {
+    transform: scale($scale);
+    border: $thickness solid $colour;
   }
 }

@@ -1,25 +1,23 @@
 ﻿.project-card {
+  @include SelectOnHover;
   $bg-colour: var(--colour-background-lighter);
   background: $bg-colour;
-  border-radius: 0.6rem;
+  border-radius: $border-radius;
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
   padding: 1rem;
-  transition: transform 0.2s;
   max-width: $card-size;
   width: 100%;
   box-shadow: var(--shadow-m);
   text-align: start;
 
   &:hover {
-    transform: scale(1.03);
     box-shadow: var(--shadow-l);
-    border: 1px solid var(--colour-accent);
   }
 
   img {
-    border-radius: 0.4rem;
+    border-radius: $border-radius;
     width: 100%;
   }
 

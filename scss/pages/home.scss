@@ -52,7 +52,7 @@
     flex: 1;
     max-width: 50%;
     padding: 1.5rem;
-    border-radius: 0.75rem;
+    border-radius: $border-radius;
     background: var(--colour-background);
     text-align: center;
     box-shadow: var(--shadow-l);
@@ -61,7 +61,7 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       object-fit: cover;
-      border-radius: 0.5rem;
+      border-radius: $border-radius;
     }
 
     a {
@@ -84,11 +84,11 @@
   grid-template-columns: minmax(180px, 22%) 1fr;
   padding: 1rem;
   background: var(--colour-background);
-  border-radius: 0.75rem;
+  border-radius: $border-radius;
   box-shadow: var(--shadow-s);
 
   #filter-sidebar {
-    border-radius: 0.6rem;
+    border-radius: $border-radius;
     height: fit-content;
     padding: 1rem;
     top: 1rem;
