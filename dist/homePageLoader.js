@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         loadMoreButton.onclick = () => renderProjects();
     }
     //Set up the search bar.
-    const searchInput = document.getElementById("project-search");
+    const searchInput = document.getElementById("project-search-bar");
     searchInput.addEventListener("input", () => {
         searchQuery = searchInput.value;
         const filtered = filterBySearch();

@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 
 	//Set up the search bar.
-	const searchInput = document.getElementById("project-search") as HTMLInputElement;
+	const searchInput = document.getElementById("project-search-bar") as HTMLInputElement;
 	searchInput.addEventListener("input", () => {
 		searchQuery = searchInput.value;
 		const filtered = filterBySearch();

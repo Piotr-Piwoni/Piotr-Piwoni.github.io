@@ -9,7 +9,6 @@
 
 @mixin ButtonBase {
   @include SelectOnHover(1.01, 0, black, 0.1s);
-
   background-color: var(--colour-secondary);
   border-radius: $border-radius;
   cursor: pointer;
