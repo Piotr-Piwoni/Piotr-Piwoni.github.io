@@ -1,4 +1,7 @@
 ﻿import {ProjectMetadata} from "./types/types";
+// @ts-ignore
+import * as Vars from "../dist/variables.js";
+
 
 function CreateActionButtons(meta: ProjectMetadata) {
 	// Get the required containers for the action buttons.
@@ -53,7 +56,10 @@ function renderFormattedText(container: HTMLElement, text: string) {
 async function loadProjectPage(): Promise<void> {
 	const meta = await fetch("metadata.json").then(res => res.json()) as ProjectMetadata;
 
-	document.title = meta.name;
+	// Update page title.
+	let titleStr = document.title.split(" - ");
+	document.title = `${Vars.websiteName || titleStr[0]} -${meta.name || titleStr[1]}`;
+
 	(document.getElementById("title") as HTMLElement).textContent = meta.name;
 	(document.getElementById("cover") as HTMLImageElement).src = `assets/${meta.cover}`;
 	const descriptionEl = document.getElementById("description")!;

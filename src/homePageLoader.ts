@@ -1,8 +1,8 @@
 ﻿import {ProjectMetadata, TagCategories} from "./types/types";
+// @ts-ignore
+import * as Vars from "../dist/variables.js";
 
-const projectsFolders: string[] = [
-	"John"
-];
+
 let allProjectsMeta: ProjectMetadata[] = [];
 let displayedProjects = 0;
 const batchSize = 3;
@@ -173,10 +173,14 @@ function resetFilters(): void {
 }
 
 async function loadProjects(): Promise<void> {
+	// Update page title.
+	if (Vars.websiteName)
+		document.title = Vars.websiteName;
+
 	const list: ProjectMetadata[] = [];
 
 	// Load Projects meta data.
-	for (const folder of projectsFolders) {
+	for (const folder of Vars.viewableProjects) {
 		const meta = await fetch(`projects/${folder}/metadata.json`)
 			.then(res => res.json()) as ProjectMetadata;
 		meta.folder = folder;

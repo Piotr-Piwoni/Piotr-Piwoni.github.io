@@ -7,9 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const projectsFolders = [
-    "John"
-];
+// @ts-ignore
+import * as Vars from "../dist/variables.js";
 let allProjectsMeta = [];
 let displayedProjects = 0;
 const batchSize = 3;
@@ -158,9 +157,12 @@ function resetFilters() {
 }
 function loadProjects() {
     return __awaiter(this, void 0, void 0, function* () {
+        // Update page title.
+        if (Vars.websiteName)
+            document.title = Vars.websiteName;
         const list = [];
         // Load Projects meta data.
-        for (const folder of projectsFolders) {
+        for (const folder of Vars.viewableProjects) {
             const meta = yield fetch(`projects/${folder}/metadata.json`)
                 .then(res => res.json());
             meta.folder = folder;
@@ -181,4 +183,3 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         loadMoreButton.onclick = () => renderProjects();
     }
 }));
-export {};

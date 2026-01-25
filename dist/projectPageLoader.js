@@ -7,6 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+// @ts-ignore
+import * as Vars from "../dist/variables.js";
 function CreateActionButtons(meta) {
     // Get the required containers for the action buttons.
     const actionsContainer = document.getElementById("actions");
@@ -50,7 +52,9 @@ function renderFormattedText(container, text) {
 function loadProjectPage() {
     return __awaiter(this, void 0, void 0, function* () {
         const meta = yield fetch("metadata.json").then(res => res.json());
-        document.title = meta.name;
+        // Update page title.
+        let titleStr = document.title.split(" - ");
+        document.title = `${Vars.websiteName || titleStr[0]} -${meta.name || titleStr[1]}`;
         document.getElementById("title").textContent = meta.name;
         document.getElementById("cover").src = `assets/${meta.cover}`;
         const descriptionEl = document.getElementById("description");
@@ -83,4 +87,3 @@ function loadProjectPage() {
     });
 }
 loadProjectPage();
-export {};
