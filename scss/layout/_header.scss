@@ -46,4 +46,12 @@
       }
     }
   }
+
+  #navigation {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }

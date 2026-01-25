@@ -3,14 +3,14 @@
 <head>
 	<meta charset = "UTF-8">
 	<title>Portfolio Site - Loading...</title>
-	<link href = "../../../scss/pages/project.css" rel = "stylesheet">
-	<link href = "../../../assets/favicon.png" rel = "icon" sizes = "16x16" type = "image/png">
+	<link href = "../scss/pages/project.css" rel = "stylesheet">
+	<link href = "../assets/favicon.png" rel = "icon" sizes = "16x16" type = "image/png">
 </head>
 
 <body>
 <header>
 	<div class = "header-left">
-		<a href = "index.html">
+		<a href = "../index.html">
 			<svg height = "100%" style = "fill-rule:evenodd;clip-rule:evenodd;" version = "1.1" viewBox = "0 0 65 65"
 				 width = "100%" xml:space = "preserve"
 				 xmlns = "http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@
 		</a>
 	</div>
 	<div id = "navigation">
-		<a class = "nav" download href = "../../assets/files/cv.pdf">Get CV</a>
+		<a class = "nav" download href = "../assets/files/cv.pdf">Get CV</a>
 	</div>
 	<button class = "button" id = "theme-toggle">
 		<svg fill = "#e3e3e3" height = "24px" viewBox = "0 -960 960 960" width = "24px"
@@ -62,34 +62,10 @@
 	</button>
 </header>
 
-<template id = "outlink-template"><a class = "button" href = "">Out Link Name</a></template>
-<template id = "download-all-template"><a class = "button-important" download href = "">Download</a></template>
-
-
 <main>
-	<div id = "project-title">
-		<h1 id = "title">Loading...</h1>
-		<div id = "tags"></div>
-	</div>
+	<h1 id = "title">Loading...</h1>
 
-	<div id = "project-container">
-		<div id = "actions">
-			<div id = "outlinks"></div>
-		</div>
-
-		<div id = "grid">
-			<div id = "information">
-				<p id = "description"></p>
-			</div>
-
-			<div id = "content">
-				<img alt = "Project Cover" id = "cover" src = "">
-				<div id = "gallery"></div>
-			</div>
-		</div>
-	</div>
-
-	<a class = "button" href = "../../index.html" id = "returnBtn">Back to homepage</a>
+	<a class = "button" href = "../index.html" id = "returnBtn">Back to homepage</a>
 </main>
 
 <!-- Contact Section. -->
@@ -98,6 +74,6 @@
 	<p>Email: <a class = "link" href = "mailto:piotrpiwonibiz@gmail.com">piotrpiwonibiz@gmail.com</a></p>
 </footer>
 
-<script src = "../../dist/projectPageLoader.js" type = "module"></script>
+<!--<script src = "../dist/pageLoader.js" type = "module"></script>-->
 </body>
 </html>
