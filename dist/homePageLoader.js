@@ -69,11 +69,8 @@ function filterByTag(tag) {
         activeTags.delete(tag);
     else
         activeTags.add(tag);
-    displayedProjects = 0;
-    const container = document.getElementById("projects");
-    container.replaceChildren();
     const filtered = filterBySearch();
-    renderProjects(filtered);
+    updateFilters(filtered);
 }
 function buildFilters() {
     const filterContainer = document.getElementById("filter-container");
@@ -152,11 +149,11 @@ function buildFilters() {
         });
     }
 }
-function resetFilters() {
+function updateFilters(filters) {
     displayedProjects = 0;
     const container = document.getElementById("projects");
     container.replaceChildren();
-    renderProjects();
+    renderProjects(filters);
 }
 function loadProjects() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -190,10 +187,7 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
     const searchInput = document.getElementById("project-search");
     searchInput.addEventListener("input", () => {
         searchQuery = searchInput.value;
-        displayedProjects = 0;
-        const container = document.getElementById("projects");
-        container.replaceChildren();
         const filtered = filterBySearch();
-        renderProjects(filtered);
+        updateFilters(filtered);
     });
 }));

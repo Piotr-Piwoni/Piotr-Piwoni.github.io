@@ -73,12 +73,8 @@ function filterByTag(tag: string): void {
 	else
 		activeTags.add(tag);
 
-	displayedProjects = 0;
-	const container = document.getElementById("projects") as HTMLElement;
-	container.replaceChildren();
-
 	const filtered = filterBySearch();
-	renderProjects(filtered);
+	updateFilters(filtered);
 }
 
 function buildFilters(): void {
@@ -168,11 +164,11 @@ function buildFilters(): void {
 	}
 }
 
-function resetFilters(): void {
+function updateFilters(filters?: ProjectMetadata[]): void {
 	displayedProjects = 0;
 	const container = document.getElementById("projects") as HTMLElement;
 	container.replaceChildren();
-	renderProjects();
+	renderProjects(filters);
 }
 
 async function loadProjects(): Promise<void> {
@@ -213,11 +209,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const searchInput = document.getElementById("project-search") as HTMLInputElement;
 	searchInput.addEventListener("input", () => {
 		searchQuery = searchInput.value;
-		displayedProjects = 0;
-		const container = document.getElementById("projects") as HTMLElement;
-		container.replaceChildren();
-
 		const filtered = filterBySearch();
-		renderProjects(filtered);
+		updateFilters(filtered);
 	});
 });
