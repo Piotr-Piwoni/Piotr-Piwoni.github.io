@@ -1,7 +1,7 @@
 export const websiteName = "Tusk Games";
 export const viewableProjects = [
     "John",
-    "a1",
-    "a2",
-    "a3",
+    "test1",
+    "test2",
+    "test3",
 ];
