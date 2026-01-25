@@ -1,0 +1,32 @@
+﻿{
+  "name": "John",
+  "short": "A Narrative driven, point-and-click game set in Scotland during the 70's.",
+  "long": "<p>A narrative-driven, point-and-click set in <em>Scotland during the 70's</em>.</p>\n<p>You are playing as <strong>John Mackilligan</strong>. A grieving, manic, enraged, recently laid-off carpet salesman, recounting your crimes to a <em>jury of your peers</em>.</p>\n<p>Your wee brother <strong>Rab</strong> has just died, and you have no way to pay for his funeral.</p>\n<p><em>If the negative symbol were removed from your debt, you'd be <u>swimming in it</u>.</em></p>\n<p>To get his revenge against his ex-boss <strong>Mark</strong> (and hopefully some cash), John plans to<strong> rob and terrorize his home.</strong></p>\n<p>One small problem.</p>\n<p><em>He's got the wrong house...</em></p>",
+  "tags": [
+    "Team",
+    "School",
+    "Unity",
+    "2D",
+    "Game",
+    "C#",
+    "PC"
+  ],
+  "outLinks": [
+    {
+      "name": "Itch",
+      "url": "https://gluetrap-games.itch.io/john"
+    }
+  ],
+  "cover": "images/cover.png",
+  "additionalAssets": [
+    "images/a1.png",
+    "images/a2.png",
+    "images/a3.png",
+    "images/a4.png",
+    "images/a5.png"
+  ],
+  "downloadFiles": [
+    "files/John.zip"
+  ],
+  "page": "index.html"
+}
