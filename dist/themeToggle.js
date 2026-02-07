@@ -1,4 +1,4 @@
-export function InitThemeToggle(toggleBtn) {
+export function initThemeToggle(toggleBtn) {
     if (!toggleBtn)
         return;
     const toggleIcon = toggleBtn.firstElementChild;
@@ -27,8 +27,7 @@ export function InitThemeToggle(toggleBtn) {
     updateIcon(initialTheme);
     // Toggle theme on button click.
     toggleBtn.addEventListener("click", () => {
-        var _a;
-        const current = (_a = document.documentElement.dataset.theme) !== null && _a !== void 0 ? _a : "light";
+        const current = document.documentElement.dataset.theme ?? "light";
         const next = current === "light" ? "dark" : "light";
         document.documentElement.setAttribute("data-theme", next);
         localStorage.setItem("theme", next);

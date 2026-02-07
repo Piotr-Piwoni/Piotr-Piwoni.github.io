@@ -1,15 +1,7 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import * as Vars from "./variables.js";
-import { InitThemeToggle } from "./themeToggle.js";
-function CreateActionButtons(meta) {
+import { initThemeToggle } from "./themeToggle.js";
+import { insertCodeblock } from "./utilities.js";
+function createActionButtons(meta) {
     // Get the required containers for the action buttons.
     const actionsContainer = document.getElementById("actions");
     const outlinkContainer = document.getElementById("outlinks");
@@ -49,44 +41,48 @@ function renderFormattedText(container, text) {
     });
     container.replaceChildren(fragment);
 }
-function loadPage() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const meta = yield fetch("metadata.json").then(res => res.json());
-        // Update page title.
-        let titleStr = document.title.split(" - ");
-        document.title = `${Vars.websiteName || titleStr[0]} - ${meta.name || titleStr[1]}`;
-        document.getElementById("title").textContent = meta.name;
-        document.getElementById("cover").src = `assets/${meta.cover}`;
-        const descriptionEl = document.getElementById("description");
-        renderFormattedText(descriptionEl, meta.long || meta.short);
-        // Create tag elements.
-        const tagsDiv = document.getElementById("tags");
-        [...new Set(meta.tags)].forEach(tag => {
-            const span = document.createElement("span");
-            span.className = "tag";
-            span.textContent = tag;
-            tagsDiv.appendChild(span);
-        });
-        CreateActionButtons(meta);
-        // Load addition project assets.
-        const gallery = document.getElementById("gallery");
-        meta.additionalAssets.forEach(asset => {
-            if (asset.endsWith(".mp4") || asset.endsWith(".webm")) {
-                const video = document.createElement("video");
-                video.src = `assets/${asset}`;
-                video.controls = true;
-                video.width = 150;
-                gallery.appendChild(video);
-            }
-            else {
-                const img = document.createElement("img");
-                img.src = `assets/${asset}`;
-                gallery.appendChild(img);
-            }
-        });
+async function loadPage() {
+    const meta = await fetch("metadata.json").then(res => res.json());
+    // Update page title.
+    let titleStr = document.title.split(" - ");
+    document.title = `${Vars.websiteName || titleStr[0]} - ${meta.name || titleStr[1]}`;
+    document.getElementById("title").textContent = meta.name;
+    document.getElementById("cover").src = `assets/${meta.cover}`;
+    const descriptionEl = document.getElementById("description");
+    // Check if the paragraph is empty or only whitespace.
+    if (!descriptionEl.textContent || descriptionEl.textContent.trim() === "") {
+        renderFormattedText(descriptionEl, meta.short);
+    }
+    // Create tag elements.
+    const tagsDiv = document.getElementById("tags");
+    [...new Set(meta.tags)].forEach(tag => {
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.textContent = tag;
+        tagsDiv.appendChild(span);
     });
+    createActionButtons(meta);
+    // Load addition project assets.
+    const gallery = document.getElementById("gallery");
+    meta.additionalAssets.forEach(asset => {
+        if (asset.endsWith(".mp4") || asset.endsWith(".webm")) {
+            const video = document.createElement("video");
+            video.src = `assets/${asset}`;
+            video.controls = true;
+            video.width = 150;
+            gallery.appendChild(video);
+        }
+        else {
+            const img = document.createElement("img");
+            img.src = `assets/${asset}`;
+            gallery.appendChild(img);
+        }
+    });
+    // Insert codeblocks.
+    const codeblocks = document.querySelectorAll(".placeCodeblock");
+    codeblocks.forEach(cb => insertCodeblock(cb));
 }
-document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
-    yield loadPage();
-    InitThemeToggle(document.getElementById("theme-toggle"));
-}));
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadPage();
+    initThemeToggle(document.getElementById("theme-toggle"));
+});

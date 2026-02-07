@@ -1,14 +1,5 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import * as Vars from "./variables.js";
-import { InitThemeToggle } from "./themeToggle.js";
+import { initThemeToggle } from "./themeToggle.js";
 let allProjectsMeta = [];
 let displayedProjects = 0;
 const batchSize = 3;
@@ -147,29 +138,27 @@ function updateFilters(filters) {
     container.replaceChildren();
     renderProjects(filters);
 }
-function loadProjects() {
-    return __awaiter(this, void 0, void 0, function* () {
-        // Update page title.
-        if (Vars.websiteName)
-            document.title = Vars.websiteName;
-        const list = [];
-        // Load Projects meta data.
-        for (const folder of Vars.viewableProjects) {
-            const meta = yield fetch(`projects/${folder}/metadata.json`)
-                .then(res => res.json());
-            meta.folder = folder;
-            list.push(meta);
-        }
-        // Load Tag categories.
-        tagCategories = yield fetch("data/tag-categories.json").then(res => res.json());
-        allProjectsMeta = list;
-        renderProjects();
-        buildFilters();
-    });
+async function loadProjects() {
+    // Update page title.
+    if (Vars.websiteName)
+        document.title = Vars.websiteName;
+    const list = [];
+    // Load Projects meta data.
+    for (const folder of Vars.viewableProjects) {
+        const meta = await fetch(`projects/${folder}/metadata.json`)
+            .then(res => res.json());
+        meta.folder = folder;
+        list.push(meta);
+    }
+    // Load Tag categories.
+    tagCategories = await fetch("data/tag-categories.json").then(res => res.json());
+    allProjectsMeta = list;
+    renderProjects();
+    buildFilters();
 }
-document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
-    yield loadProjects();
-    InitThemeToggle(document.getElementById("theme-toggle"));
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadProjects();
+    initThemeToggle(document.getElementById("theme-toggle"));
     // Attach load more button AFTER it exists.
     const loadMoreButton = document.getElementById("loadMoreButton");
     if (loadMoreButton) {
@@ -182,4 +171,4 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         const filtered = filterBySearch();
         updateFilters(filtered);
     });
-}));
+});

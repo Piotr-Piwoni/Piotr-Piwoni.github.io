@@ -1,9 +1,10 @@
 ﻿import {ProjectMetadata} from "./types/types.js";
 import * as Vars from "./variables.js";
-import {InitThemeToggle} from "./themeToggle.js";
+import {initThemeToggle} from "./themeToggle.js";
+import {insertCodeblock} from "./utilities.js";
 
 
-function CreateActionButtons(meta: ProjectMetadata) {
+function createActionButtons(meta: ProjectMetadata) {
 	// Get the required containers for the action buttons.
 	const actionsContainer = document.getElementById("actions")!;
 	const outlinkContainer = document.getElementById("outlinks")!;
@@ -63,7 +64,12 @@ async function loadPage(): Promise<void> {
 	(document.getElementById("title") as HTMLElement).textContent = meta.name;
 	(document.getElementById("cover") as HTMLImageElement).src = `assets/${meta.cover}`;
 	const descriptionEl = document.getElementById("description")!;
-	renderFormattedText(descriptionEl, meta.long || meta.short);
+
+	// Check if the paragraph is empty or only whitespace.
+	if (!descriptionEl.textContent || descriptionEl.textContent.trim() === "") {
+		renderFormattedText(descriptionEl, meta.short);
+	}
+
 
 	// Create tag elements.
 	const tagsDiv = document.getElementById("tags") as HTMLElement;
@@ -74,7 +80,7 @@ async function loadPage(): Promise<void> {
 		tagsDiv.appendChild(span);
 	});
 
-	CreateActionButtons(meta);
+	createActionButtons(meta);
 
 	// Load addition project assets.
 	const gallery = document.getElementById("gallery") as HTMLElement;
@@ -92,10 +98,14 @@ async function loadPage(): Promise<void> {
 			gallery.appendChild(img);
 		}
 	});
+
+	// Insert codeblocks.
+	const codeblocks = document.querySelectorAll<HTMLElement>(".placeCodeblock");
+	codeblocks.forEach(cb => insertCodeblock(cb));
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
 	await loadPage();
 
-	InitThemeToggle(document.getElementById("theme-toggle") as HTMLButtonElement);
+	initThemeToggle(document.getElementById("theme-toggle") as HTMLButtonElement);
 });

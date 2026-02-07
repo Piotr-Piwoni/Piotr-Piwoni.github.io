@@ -5,6 +5,8 @@
 	<title>Portfolio Site - Loading...</title>
 	<link href = "../../../scss/pages/project.css" rel = "stylesheet">
 	<link href = "../../../assets/favicon.png" rel = "icon" sizes = "16x16" type = "image/png">
+	<link href = "../../scss/theme/MyRiderCodeStyle.css" rel = "stylesheet">
+	<script src = "../../third-party/highlight/highlight.min.js"></script>
 </head>
 
 <body>
@@ -64,6 +66,13 @@
 
 <template id = "outlink-template"><a class = "button" href = "">Out Link Name</a></template>
 <template id = "download-all-template"><a class = "button-important" download href = "">Download</a></template>
+<template id = "codeblock-template">
+	<div class = "codeblock"><h6 id = "codeblock-header">Script</h6>
+		<div id = "codeblock-body">
+			<pre><code class = ""></code></pre>
+		</div>
+	</div>
+</template>
 
 
 <main>
@@ -79,7 +88,11 @@
 
 		<div id = "grid">
 			<div id = "information">
+				<h2>Description</h2>
 				<p id = "description"></p>
+				<div id = "code">
+					<!--<div class = "placeCodeblock" data-path = "assets/files/scripts/test.cpp"></div>-->
+				</div>
 			</div>
 
 			<div id = "content">

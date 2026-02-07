@@ -1,4 +1,4 @@
-﻿export function InitThemeToggle(toggleBtn: HTMLButtonElement | null) {
+﻿export function initThemeToggle(toggleBtn: HTMLButtonElement | null) {
 	if (!toggleBtn) return;
 
 	const toggleIcon = toggleBtn.firstElementChild as HTMLImageElement;

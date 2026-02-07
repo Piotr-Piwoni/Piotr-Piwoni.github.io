@@ -1,6 +1,6 @@
 ﻿import {ProjectMetadata, TagCategories} from "./types/types.js";
 import * as Vars from "./variables.js";
-import {InitThemeToggle} from "./themeToggle.js";
+import {initThemeToggle} from "./themeToggle.js";
 
 
 let allProjectsMeta: ProjectMetadata[] = [];
@@ -186,7 +186,7 @@ async function loadProjects(): Promise<void> {
 document.addEventListener("DOMContentLoaded", async () => {
 	await loadProjects();
 
-	InitThemeToggle(document.getElementById("theme-toggle") as HTMLButtonElement);
+	initThemeToggle(document.getElementById("theme-toggle") as HTMLButtonElement);
 
 	// Attach load more button AFTER it exists.
 	const loadMoreButton = document.getElementById("loadMoreButton") as HTMLButtonElement;

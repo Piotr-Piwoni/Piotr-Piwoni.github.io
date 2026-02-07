@@ -1,0 +1,49 @@
+﻿.codeblock {
+  $border-width: 2px;
+
+  display: flex;
+  flex-direction: column;
+  margin: 1rem auto;
+  border-radius: $border-radius/2;
+  background-color: var(--colour-background-lighter);
+  border: $border-width solid var(--colour-accent);
+  box-shadow: var(--shadow-s);
+  overflow: hidden;
+
+  #codeblock-header {
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 1rem;
+    border-bottom: $border-width solid var(--colour-accent);
+  }
+
+  #codeblock-body {
+    padding: 0;
+    overflow: hidden;
+
+    pre {
+      margin: 0;
+      white-space: pre;
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-width: 100%;
+      border-radius: $border-radius/2;
+      max-height: 50vh;
+      box-sizing: border-box;
+    }
+
+    code {
+      padding: 0.25rem 1rem 1rem;
+      display: block;
+      font-size: 0.85rem;
+      line-height: 1.1rem;
+      min-width: 80ch;
+
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: pre;
+      box-sizing: border-box;
+      scrollbar-width: thin;
+    }
+  }
+}

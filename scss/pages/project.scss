@@ -13,6 +13,7 @@
 @import "../components/collapsible";
 @import "../components/project-card";
 @import "../components/navigation";
+@import "../components/codeblock";
 
 
 @include ExportTheme(light, ":root");
@@ -61,8 +62,9 @@
 
   #grid {
     display: grid;
-    grid-template-columns: 2.5fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 65% 35%;
+    gap: 5rem;
+    align-items: start;
 
     #information {
       display: flex;
@@ -70,6 +72,26 @@
       gap: 1rem;
       line-height: 1.6rem;
       padding: 0 0.5rem 0.5rem;
+
+      p {
+        margin: 0;
+      }
+
+      #code {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(55ch, 1fr));
+        gap: 1rem;
+        justify-content: center;
+        margin: 2rem 0;
+        max-width: 100%;
+
+        .codeblock {
+          display: flex;
+          flex-direction: column;
+          max-width: 100%;
+        }
+      }
+
     }
 
     #content {
@@ -105,12 +127,15 @@
           background: #000;
         }
       }
-
     }
   }
 }
 
 #returnBtn {
+  position: relative;
+  bottom: 0;
+  margin-top: 1rem;
   padding: 0.4rem 0.8rem;
   font-size: 0.9rem;
+  height: 1.4rem;
 }

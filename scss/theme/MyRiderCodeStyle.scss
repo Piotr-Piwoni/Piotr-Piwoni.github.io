@@ -1,0 +1,110 @@
+﻿/* Rider-inspired Highlight.js Theme */
+.hljs {
+  background: #1A1E2E; /* Editor background */
+  color: #ffffff; /* Default text */
+  display: block;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+  tab-size: 4;
+  -moz-tab-size: 4;
+}
+
+/* Comments */
+.hljs-comment,
+.hljs-quote {
+  color: #57CA31;
+  font-style: italic;
+}
+
+/* Keywords and control structures */
+.hljs-meta,
+.hljs-type,
+.hljs-builtin-name,
+.hljs-built_in,
+.hljs-keyword {
+  color: #4A93ED;
+}
+
+.hljs-selector-tag,
+.hljs-doctag {
+  color: #D1AB13;
+
+}
+
+.hljs-section,
+.hljs-operator {
+  color: #FBDE2D;
+  font-weight: bold;
+}
+
+/* Strings */
+.hljs-string,
+.hljs-title.string,
+.hljs-template-string,
+.hljs-attribute,
+.hljs-addition {
+  color: #EDB040;
+}
+
+/* Numbers */
+.hljs-number,
+.hljs-literal {
+  color: #5CD2FA;
+}
+
+/* Functions */
+.hljs-title.function_,
+.hljs-title.function_.invoke_,
+.hljs-function,
+.hljs-function.invoke {
+  color: #FFBF67;
+}
+
+.hljs-property,
+.hljs-params {
+  color: #A2DF91;
+}
+
+/* Variables */
+.hljs-variable,
+.hljs-template-variable {
+  color: #A2CBDE;
+}
+
+/* Constants */
+.hljs-constant,
+.hljs-symbol {
+  color: #b257ff;
+}
+
+/* Punctuation */
+.hljs-punctuation {
+  color: #ffffffaa;
+}
+
+/* Tags / HTML (if used) */
+.hljs-title,
+.hljs-title.class_,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #ff6400;
+}
+
+/* Emphasis / Strong */
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+/* Highlight additions */
+.hljs-deletion {
+  color: #ecad5a;
+}

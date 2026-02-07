@@ -5,12 +5,14 @@
 	<title>Portfolio Site - Loading...</title>
 	<link href = "../../scss/pages/project.css" rel = "stylesheet">
 	<link href = "../../assets/favicon.png" rel = "icon" sizes = "16x16" type = "image/png">
+	<link href = "../../scss/theme/MyRiderCodeStyle.css" rel = "stylesheet">
+	<script src = "../../third-party/highlight/highlight.min.js"></script>
 </head>
 
 <body>
 <header>
 	<div class = "header-left">
-		<a href = "index.html">
+		<a href = "../../index.html">
 			<svg height = "100%" style = "fill-rule:evenodd;clip-rule:evenodd;" version = "1.1" viewBox = "0 0 65 65"
 				 width = "100%" xml:space = "preserve"
 				 xmlns = "http://www.w3.org/2000/svg"
@@ -64,6 +66,13 @@
 
 <template id = "outlink-template"><a class = "button" href = "">Out Link Name</a></template>
 <template id = "download-all-template"><a class = "button-important" download href = "">Download</a></template>
+<template id = "codeblock-template">
+	<div class = "codeblock"><h6 id = "codeblock-header">Script</h6>
+		<div id = "codeblock-body">
+			<pre><code class = ""></code></pre>
+		</div>
+	</div>
+</template>
 
 
 <main>
@@ -79,7 +88,38 @@
 
 		<div id = "grid">
 			<div id = "information">
-				<p id = "description"></p>
+				<h2>Description</h2>
+				<p id = "description">A narrative-driven, point-and-click set in <em> Scotland during the 70's </em> .
+				</p>
+				<p>You are playing as <strong> John Mackilligan </strong> . A grieving, manic, enraged, recently
+				   laid-off carpet salesman, recounting your crimes to a <em> jury of your peers </em> .</p>
+				<p>Your wee brother Rab has just died, and you have no way to pay for his funeral.</p>
+				<p><em> If the negative symbol were removed from your debt, you'd be swimming in it. </em></p>
+				<p>To get his revenge against his ex-boss, Mark <em> (and hopefully some cash) </em> , John plans to rob
+				   and terrorise the home.</p>
+				<p>One small problem.</p>
+				<p><em> He's got the wrong house... </em></p>
+
+				<h2><br>Deep-Dive</h2>
+				<p>I was one of the programmers on John, primarily responsible for the grid-based movement system,
+				   system linking, and the creation of designer-friendly tools for level construction, alongside various
+				   other supporting tasks.</p>
+				<p>The movement system is built on Unity's Tilemap framework. Designers define walkable space
+				   directly by painting tiles onto a dedicated navigation Tilemap, which allows valid movement areas to
+				   be authored visually and iterated on quickly. Any tile present on this Tilemap is considered
+				   traversable by default.</p>
+				<div id = "code">
+					<div class = "placeCodeblock" data-path = "assets/files/scripts/PlayerGridController.cs"></div>
+					<div class = "placeCodeblock" data-path = "assets/files/scripts/GridMovement.cs"></div>
+				</div>
+				<p>Obstacles are handled dynamically. Environmental objects tagged as obstacles are scanned at runtime,
+				   and their world-space bounds are converted into occupied grid cells. These cells are then marked as
+				   invalid for navigation and excluded from pathfinding. This approach allows obstacles to be enabled,
+				   disabled, or moved without requiring manual repainting of navigation tiles.</p>
+				<p>Although the system supports collider-driven blocking, in practice, designers often prefer to
+				   manually remove navigation tiles in obstructed areas for clarity and control.</p>
+				<p>Pathfinding is handled via an A* implementation operating directly on the Tilemap, ensuring
+				   predictable, tile-accurate movement for both mouse and controller input.</p>
 			</div>
 
 			<div id = "content">

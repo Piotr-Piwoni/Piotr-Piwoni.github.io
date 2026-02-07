@@ -18,6 +18,8 @@
   box-shadow: var(--shadow-s);
   margin: 0.5rem;
   border: none;
+  text-align: center;
+  align-content: center;
 
   &:hover {
     filter: brightness($highlight-strength);

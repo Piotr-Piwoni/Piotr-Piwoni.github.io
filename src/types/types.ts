@@ -1,7 +1,6 @@
 ﻿export interface ProjectMetadata {
 	name: string;
 	short: string;
-	long?: string;
 	tags: string[];
 	cover: string;
 	outLinks: OutLink[];
