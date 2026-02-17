@@ -100,7 +100,7 @@
 				<p>One small problem.</p>
 				<p><em> He's got the wrong house... </em></p>
 
-				<h2><br>Deep-Dive</h2>
+				<h2>Deep-Dive</h2>
 				<p>I was one of the programmers on John, primarily responsible for the grid-based movement system,
 				   system linking, and the creation of designer-friendly tools for level construction, alongside various
 				   other supporting tasks.</p>
@@ -120,6 +120,75 @@
 				   manually remove navigation tiles in obstructed areas for clarity and control.</p>
 				<p>Pathfinding is handled via an A* implementation operating directly on the Tilemap, ensuring
 				   predictable, tile-accurate movement for both mouse and controller input.</p>
+				<h3>Rendering &amp; Shader Systems</h3>
+				<p>Alongside gameplay systems, I designed and implemented a suite of custom Shader Graph shaders that
+				   became central to the game's visual identity. Because the project leaned heavily on bold, patterned
+				   character designs, we needed a way to apply complex materials without increasing animators'
+				   workload.</p>
+				<h4>Chroma Key Shader (Initial Prototype)</h4>
+				<p>My first iteration was a custom chroma key shader built in Unity's Shader Graph. The goal was simple:
+				   allow a developer to select a key colour on a sprite and either remove it (making it transparent) or
+				   replace it with another texture.<br/>The shader operated by:</p>
+				<ul>
+					<li>Sampling the base texture.</li>
+					<li>Comparing each pixel against a selected key colour.</li>
+					<li>Generate a mask using a configurable hue range and fuzziness value.</li>
+					<li>Using that mask to drive a Lerp between the original sprite and either transparency or a
+						secondary texture.
+					</li>
+				</ul>
+				<p>The shader allowed us to adjust the tolerance per sprite, resulting in soft-edged blending rather
+				   than hard cutoffs. This gave designers direct control of the style in the material inspector.</p>
+				<p>While initially built for transparency, it quickly became clear that colour replacement was far more
+				   powerful than simple removal.</p>
+				<h4>Replacement Shader (Production Version)</h4>
+				<p>The chroma key prototype evolved into a full-replacement shader that became the standard
+				   character-rendering solution across the game.<br/>The production version supports:</p>
+				<ul>
+					<li>Up to three independent colour masks per sprite.</li>
+					<li>Individual tolerance controls per mask.</li>
+					<li>Separate replacement patterns for each keyed region.</li>
+					<li>Independent toggles to turn each layer on or off.</li>
+				</ul>
+				<p>Each pattern slot performs:</p>
+				<ol>
+					<li>Colour mask against the base texture.</li>
+					<li>Tolerance-based comparison.</li>
+					<li>Masked blend between the original pixel and a sampled pattern texture.</li>
+					<li>Merged alpha contribution to preserve sprite silhouette integrity.</li>
+				</ol>
+				<p>This shader made a real difference, as our game is visually pattern-heavy. characters, backgrounds,
+				   and props rely on stylised, repeating textures that evoke the feeling of old Hanna-Barbera
+				   cartoons.</p>
+				<p>Traditionally, animators would manually align patterns per frame whilst maintaining pattern
+				   consistency across sprite sheets, and update the animations when the pattern design changed. This is
+				   just an unreasonable amount of work.</p>
+				<p>Instead, animators painted flat colour regions (e.g., solid green for a jacket, solid magenta for
+				   trousers). The shader then replaced those colours with dynamic patterns at runtime.</p>
+				<p><br/>This gave us:</p>
+				<ul>
+					<li>Faster iteration when swapping patterns.</li>
+					<li>No need to re-export animations for design tweaks.</li>
+					<li>A consistent art pipeline.</li>
+					<li>Reduced texture memory usage.</li>
+				</ul>
+				<p>It effectively separated animation from material design.</p>
+				<h4>Outline Shader</h4>
+				<p>I also implemented a sprite outline shader, primarily used for interactable objects and environmental
+				   emphasis.</p>
+				<p>The shader works by:</p>
+				<ul>
+					<li>Sampling neighbouring pixels around the sprite's alpha.</li>
+					<li>Expanding the silhouette outward based on a configurable thickness.</li>
+					<li>Rendering a coloured border behind the sprite.</li>
+				</ul>
+				<p>This allowed us to highlight interactable objects, improve readability against busy patterned
+				   backgrounds, and add visual feedback without duplicating sprites or using additional render
+				   passes.</p>
+				<p>The shader was heavily inspired by Code Monkey's
+					<a class = "link" href = "https://www.youtube.com/watch?v=FvQFhkS90nI"
+					   target = "_blank">sprite outline shader</a>,
+				   but updated to work with newer versions of Unity.</p>
 			</div>
 
 			<div id = "content">

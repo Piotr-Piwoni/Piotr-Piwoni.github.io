@@ -73,8 +73,22 @@
       line-height: 1.6rem;
       padding: 0 0.5rem 0.5rem;
 
-      p {
+      h2 {
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      h3, h4, h5 {
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      p, ul, ol, li {
         margin: 0;
+      }
+
+      a {
+        text-decoration: underline;
       }
 
       #code {

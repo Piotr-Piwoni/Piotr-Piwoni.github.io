@@ -48,7 +48,8 @@
     "Feature",
     "Software",
     "Prototype",
-    "VR/AR"
+    "VR/AR",
+    "Shader"
   ],
   "Platforms": [
     "PC",
