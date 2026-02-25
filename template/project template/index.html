@@ -87,41 +87,43 @@
 	</span>
 </template>
 
-<main>
-	<div id = "project-title">
-		<h1 id = "title">Loading...</h1>
-		<div id = "tags"></div>
-	</div>
-
-	<div id = "project-container">
-		<div id = "actions">
-			<div id = "outlinks"></div>
+<div id = "page-background" style = "--page-pattern: url('../../projects/')">
+	<main>
+		<div id = "project-title">
+			<h1 id = "title">Loading...</h1>
+			<div id = "tags"></div>
 		</div>
 
-		<div id = "grid">
-			<div id = "information">
-				<h2>Description</h2>
-				<p id = "description"></p>
-				<div id = "code">
-					<!--<div class = "placeCodeblock" data-path = "assets/files/scripts/test.cpp"></div>-->
+		<div id = "project-container">
+			<div id = "actions">
+				<div id = "outlinks"></div>
+			</div>
+
+			<div id = "grid">
+				<div id = "information">
+					<h2 class = "section-title">Description</h2>
+					<p id = "description"></p>
+					<div id = "code">
+						<!--<div class = "placeCodeblock" data-path = "assets/files/scripts/test.cpp"></div>-->
+					</div>
+				</div>
+
+				<div id = "content">
+					<img alt = "Project Cover" id = "cover" src = "">
+					<div id = "gallery"></div>
 				</div>
 			</div>
 
-			<div id = "content">
-				<img alt = "Project Cover" id = "cover" src = "">
-				<div id = "gallery"></div>
-			</div>
+			<a class = "button" href = "../../index.html" id = "returnBtn">Back to homepage</a>
 		</div>
-	</div>
+	</main>
 
-	<a class = "button" href = "../../index.html" id = "returnBtn">Back to homepage</a>
-</main>
-
-<!-- Contact Section. -->
-<footer>
-	<h3>Contact Me</h3>
-	<p>Email: <a class = "link" href = "mailto:piotrpiwonibiz@gmail.com">piotrpiwonibiz@gmail.com</a></p>
-</footer>
+	<!-- Contact Section. -->
+	<footer>
+		<h3>Contact Me</h3>
+		<p>Email: <a class = "link" href = "mailto:piotrpiwonibiz@gmail.com">piotrpiwonibiz@gmail.com</a></p>
+	</footer>
+</div>
 
 <script src = "../../dist/projectPageLoader.js" type = "module"></script>
 </body>

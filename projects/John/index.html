@@ -87,177 +87,196 @@
 	</span>
 </template>
 
-<main>
-	<div id = "project-title">
-		<h1 id = "title">Loading...</h1>
-		<div id = "tags"></div>
-	</div>
-
-	<div id = "project-container">
-		<div id = "actions">
-			<div id = "outlinks"></div>
+<div id = "page-background" style = "--page-pattern: url('../../projects/John/assets/images/pattern.png')">
+	<main>
+		<div id = "project-title">
+			<h1 id = "title">Loading...</h1>
+			<div id = "tags"></div>
 		</div>
 
-		<div id = "grid">
-			<div id = "information">
-				<h2>Description</h2>
-				<p id = "description">A narrative-driven, point-and-click set in <em> Scotland during the 70's </em> .
-				</p>
-				<p>You are playing as <strong> John Mackilligan </strong> . A grieving, manic, enraged, recently
-				   laid-off carpet salesman, recounting your crimes to a <em> jury of your peers </em> .</p>
-				<p>Your wee brother Rab has just died, and you have no way to pay for his funeral.</p>
-				<p><em> If the negative symbol were removed from your debt, you'd be swimming in it. </em></p>
-				<p>To get his revenge against his ex-boss, Mark <em> (and hopefully some cash) </em> , John plans to rob
-				   and terrorise the home.</p>
-				<p>One small problem.</p>
-				<p><em> He's got the wrong house... </em></p>
+		<div id = "project-container">
+			<div id = "actions">
+				<div id = "outlinks"></div>
+			</div>
 
-				<h2>Deep-Dive</h2>
-				<p>I was one of the programmers on John, primarily responsible for the grid-based movement system,
-				   system linking, and the creation of designer-friendly tools for level construction, alongside various
-				   other supporting tasks.</p>
-				<p>The movement system is built on Unity's Tilemap framework. Designers define walkable space
-				   directly by painting tiles onto a dedicated navigation Tilemap, which allows valid movement areas to
-				   be authored visually and iterated on quickly. Any tile present on this Tilemap is considered
-				   traversable by default.</p>
-				<div id = "code">
-					<div class = "placeCodeblock" data-path = "assets/files/scripts/PlayerGridController.cs"></div>
-					<div class = "placeCodeblock" data-path = "assets/files/scripts/GridMovement.cs"></div>
-				</div>
-				<p>Obstacles are handled dynamically. Environmental objects tagged as obstacles are scanned at runtime,
-				   and their world-space bounds are converted into occupied grid cells. These cells are then marked as
-				   invalid for navigation and excluded from pathfinding. This approach allows obstacles to be enabled,
-				   disabled, or moved without requiring manual repainting of navigation tiles.</p>
-				<p>Although the system supports collider-driven blocking, in practice, designers often prefer to
-				   manually remove navigation tiles in obstructed areas for clarity and control.</p>
-				<p>Pathfinding is handled via an A* implementation operating directly on the Tilemap, ensuring
-				   predictable, tile-accurate movement for both mouse and controller input.</p>
-				<h3>Rendering &amp; Shader Systems</h3>
-				<p>Alongside gameplay systems, I designed and implemented a suite of custom Shader Graph shaders that
-				   became central to the game's visual identity. Because the project leaned heavily on bold, patterned
-				   character designs, we needed a way to apply complex materials without increasing animators'
-				   workload.</p>
-				<h4>Chroma Key Shader (Initial Prototype)</h4>
-				<p>My first iteration was a custom chroma key shader built in Unity's Shader Graph. The goal was simple:
-				   allow a developer to select a key colour on a sprite and either remove it (making it transparent) or
-				   replace it with another texture.<br/>The shader operated by:</p>
-				<ul>
-					<li>Sampling the base texture.</li>
-					<li>Comparing each pixel against a selected key colour.</li>
-					<li>Generate a mask using a configurable hue range and fuzziness value.</li>
-					<li>Using that mask to drive a Lerp between the original sprite and either transparency or a
-						secondary texture.
-					</li>
-				</ul>
-				<div class = "blog-material">
+			<div id = "grid">
+				<div id = "information">
+					<h2 class = "section-title">Description</h2>
+					<p id = "description">A narrative-driven, point-and-click set in <em> Scotland during the 70's </em>
+										  .
+					</p>
+					<p>You are playing as <strong> John Mackilligan </strong> . A grieving, manic, enraged, recently
+					   laid-off carpet salesman, recounting your crimes to a <em> jury of your peers </em> .</p>
+					<p>Your wee brother Rab has just died, and you have no way to pay for his funeral.</p>
+					<p><em> If the negative symbol were removed from your debt, you'd be swimming in it. </em></p>
+					<p>To get his revenge against his ex-boss, Mark <em> (and hopefully some cash) </em> , John plans to
+					   rob
+					   and terrorise the home.</p>
+					<p>One small problem.</p>
+					<p><em> He's got the wrong house... </em></p>
+
+					<h2>Deep-Dive</h2>
+					<p>I was one of the programmers on John, primarily responsible for the grid-based movement system,
+					   system linking, and the creation of designer-friendly tools for level construction, alongside
+					   various
+					   other supporting tasks.</p>
+					<p>The movement system is built on Unity's Tilemap framework. Designers define walkable space
+					   directly by painting tiles onto a dedicated navigation Tilemap, which allows valid movement areas
+					   to
+					   be authored visually and iterated on quickly. Any tile present on this Tilemap is considered
+					   traversable by default.</p>
+					<div id = "code">
+						<div class = "placeCodeblock" data-path = "assets/files/scripts/PlayerGridController.cs"></div>
+						<div class = "placeCodeblock" data-path = "assets/files/scripts/GridMovement.cs"></div>
+					</div>
+					<p>Obstacles are handled dynamically. Environmental objects tagged as obstacles are scanned at
+					   runtime,
+					   and their world-space bounds are converted into occupied grid cells. These cells are then marked
+					   as
+					   invalid for navigation and excluded from pathfinding. This approach allows obstacles to be
+					   enabled,
+					   disabled, or moved without requiring manual repainting of navigation tiles.</p>
+					<p>Although the system supports collider-driven blocking, in practice, designers often prefer to
+					   manually remove navigation tiles in obstructed areas for clarity and control.</p>
+					<p>Pathfinding is handled via an A* implementation operating directly on the Tilemap, ensuring
+					   predictable, tile-accurate movement for both mouse and controller input.</p>
+					<h3>Rendering &amp; Shader Systems</h3>
+					<p>Alongside gameplay systems, I designed and implemented a suite of custom Shader Graph shaders
+					   that
+					   became central to the game's visual identity. Because the project leaned heavily on bold,
+					   patterned
+					   character designs, we needed a way to apply complex materials without increasing animators'
+					   workload.</p>
+					<h4>Chroma Key Shader (Initial Prototype)</h4>
+					<p>My first iteration was a custom chroma key shader built in Unity's Shader Graph. The goal was
+					   simple:
+					   allow a developer to select a key colour on a sprite and either remove it (making it transparent)
+					   or
+					   replace it with another texture.</p>
+					<p>The shader operated by:</p>
+					<ul>
+						<li>Sampling the base texture.</li>
+						<li>Comparing each pixel against a selected key colour.</li>
+						<li>Generate a mask using a configurable hue range and fuzziness value.</li>
+						<li>Using that mask to drive a Lerp between the original sprite and either transparency or a
+							secondary texture.
+						</li>
+					</ul>
+					<div class = "blog-material">
 					<span class = "figure">
 						<img alt = "Chroma Key Shader - Unity Shader Graph"
 							 src = "assets/images/chroma_key_shader_graph.png">
 						<span class = "figure-caption"><em>(Unity Shader Graph) Chroma Key Shader</em></span>
 					</span>
-					<span class = "figure">
+						<span class = "figure">
 						<img alt = "Chroma Key Shader Example"
 							 src = "assets/images/chroma_key_shader_example.webp">
 						<span class = "figure-caption"><em>Chroma Key Shader Example</em></span>
 					</span>
-				</div>
-				<p>The shader allowed us to adjust the tolerance per sprite, resulting in soft-edged blending rather
-				   than hard cutoffs. This gave designers direct control of the style in the material inspector.</p>
-				<p>While initially built for transparency, it quickly became clear that colour replacement was far more
-				   powerful than simple removal.</p>
+					</div>
+					<p>The shader allowed us to adjust the tolerance per sprite, resulting in soft-edged blending rather
+					   than hard cutoffs. This gave designers direct control of the style in the material inspector.</p>
+					<p>While initially built for transparency, it quickly became clear that colour replacement was far
+					   more
+					   powerful than simple removal.</p>
 
-				<h4>Replacement Shader (Production Version)</h4>
-				<p>The chroma key prototype evolved into a full-replacement shader that became the standard
-				   character-rendering solution across the game.<br/>The production version supports:</p>
-				<ul>
-					<li>Up to three independent colour masks per sprite.</li>
-					<li>Individual tolerance controls per mask.</li>
-					<li>Separate replacement patterns for each keyed region.</li>
-					<li>Independent toggles to turn each layer on or off.</li>
-				</ul>
-				<p>Each pattern slot performs:</p>
-				<ol>
-					<li>Colour mask against the base texture.</li>
-					<li>Tolerance-based comparison.</li>
-					<li>Masked blend between the original pixel and a sampled pattern texture.</li>
-					<li>Merged alpha contribution to preserve sprite silhouette integrity.</li>
-				</ol>
-				<div class = "blog-material">
+					<h4>Replacement Shader (Production Version)</h4>
+					<p>The chroma key prototype evolved into a full-replacement shader that became the standard
+					   character-rendering solution across the game.</p>
+					<p>The production version supports:</p>
+					<ul>
+						<li>Up to three independent colour masks per sprite.</li>
+						<li>Individual tolerance controls per mask.</li>
+						<li>Separate replacement patterns for each keyed region.</li>
+						<li>Independent toggles to turn each layer on or off.</li>
+					</ul>
+					<p>Each pattern slot performs:</p>
+					<ol>
+						<li>Colour mask against the base texture.</li>
+						<li>Tolerance-based comparison.</li>
+						<li>Masked blend between the original pixel and a sampled pattern texture.</li>
+						<li>Merged alpha contribution to preserve sprite silhouette integrity.</li>
+					</ol>
+					<div class = "blog-material">
 					<span class = "figure">
 						<img alt = "Pattern Replacement Shader - Unity Shader Graph"
 							 src = "assets/images/replacement_shader_graph.png">
 						<span class = "figure-caption"><em>(Unity Shader Graph) Pattern Replacement Shader</em></span>
 					</span>
-					<span class = "figure">
+						<span class = "figure">
 						<img alt = "Pattern Replacement Shader Example"
 							 src = "assets/images/replacement_shader_example.webp">
 						<span class = "figure-caption"><em>Pattern Replacement Shader Example</em></span>
 					</span>
-				</div>
-				<p>This shader made a real difference, as our game is visually pattern-heavy. characters, backgrounds,
-				   and props rely on stylised, repeating textures that evoke the feeling of old Hanna-Barbera
-				   cartoons.</p>
-				<p>Traditionally, animators would manually align patterns per frame whilst maintaining pattern
-				   consistency across sprite sheets, and update the animations when the pattern design changed. This is
-				   just an unreasonable amount of work.</p>
-				<p>Instead, animators painted flat colour regions (e.g., solid green for a jacket, solid magenta for
-				   trousers). The shader then replaced those colours with dynamic patterns at runtime.</p>
-				<p><br/>This gave us:</p>
-				<ul>
-					<li>Faster iteration when swapping patterns.</li>
-					<li>No need to re-export animations for design tweaks.</li>
-					<li>A consistent art pipeline.</li>
-					<li>Reduced texture memory usage.</li>
-				</ul>
-				<p>It effectively separated animation from material design.</p>
-				<h4>Outline Shader</h4>
-				<p>I also implemented a sprite outline shader, primarily used for interactable objects and environmental
-				   emphasis.</p>
-				<p>The shader works by:</p>
-				<ul>
-					<li>Sampling neighbouring pixels around the sprite's alpha.</li>
-					<li>Expanding the silhouette outward based on a configurable thickness.</li>
-					<li>Rendering a coloured border behind the sprite.</li>
-				</ul>
-				<div class = "blog-material">
+					</div>
+					<p>This shader made a real difference, as our game is visually pattern-heavy. characters,
+					   backgrounds,
+					   and props rely on stylised, repeating textures that evoke the feeling of old Hanna-Barbera
+					   cartoons.</p>
+					<p>Traditionally, animators would manually align patterns per frame whilst maintaining pattern
+					   consistency across sprite sheets, and update the animations when the pattern design changed. This
+					   is
+					   just an unreasonable amount of work.</p>
+					<p>Instead, animators painted flat colour regions (e.g., solid green for a jacket, solid magenta for
+					   trousers). The shader then replaced those colours with dynamic patterns at runtime.</p>
+					<p>This gave us:</p>
+					<ul>
+						<li>Faster iteration when swapping patterns.</li>
+						<li>No need to re-export animations for design tweaks.</li>
+						<li>A consistent art pipeline.</li>
+						<li>Reduced texture memory usage.</li>
+					</ul>
+					<p>It effectively separated animation from material design.</p>
+					<h4>Outline Shader</h4>
+					<p>I also implemented a sprite outline shader, primarily used for interactable objects and
+					   environmental
+					   emphasis.</p>
+					<p>The shader works by:</p>
+					<ul>
+						<li>Sampling neighbouring pixels around the sprite's alpha.</li>
+						<li>Expanding the silhouette outward based on a configurable thickness.</li>
+						<li>Rendering a coloured border behind the sprite.</li>
+					</ul>
+					<div class = "blog-material">
 					<span class = "figure">
 						<img alt = "Outline Shader - Unity Shader Graph"
 							 src = "assets/images/outline_shader_graph.png">
 						<span class = "figure-caption"><em>(Unity Shader Graph) Outline Shader</em></span>
 					</span>
-					<span class = "figure">
+						<span class = "figure">
 						<img alt = "Outline Shader Example"
 							 src = "assets/images/outline_shader_example.webp">
 						<span class = "figure-caption"><em>Outline Shader Example</em></span>
 					</span>
+					</div>
+					<p>The shader's values, like Colour and Line Thickness, are set in the editor beforehand,
+					   as it's hard to modify them at runtime since Unity instances materials globally. In addition,
+					   the shader modifies the instance's copy of those values. This allowed us to highlight
+					   interactable objects, improve readability against busy patterned
+					   backgrounds, and add visual feedback without duplicating sprites or using additional render
+					   passes.</p>
+					<p>The shader was heavily inspired by Code Monkey's
+						<a class = "link" href = "https://www.youtube.com/watch?v=FvQFhkS90nI"
+						   target = "_blank">sprite outline shader</a>,
+					   but updated to work with newer versions of Unity.</p>
 				</div>
-				<p>The shader's values, like Colour and Line Thickness, are set in the editor beforehand, 
-				   as it's hard to modify them at runtime since Unity instances materials globally. In addition,
-				   the shader modifies the instance's copy of those values. This allowed us to highlight
-				   interactable objects, improve readability against busy patterned
-				   backgrounds, and add visual feedback without duplicating sprites or using additional render
-				   passes.</p>
-				<p>The shader was heavily inspired by Code Monkey's
-					<a class = "link" href = "https://www.youtube.com/watch?v=FvQFhkS90nI"
-					   target = "_blank">sprite outline shader</a>,
-				   but updated to work with newer versions of Unity.</p>
+
+				<div id = "content">
+					<img alt = "Project Cover" id = "cover" src = "">
+					<div id = "gallery"></div>
+				</div>
 			</div>
 
-			<div id = "content">
-				<img alt = "Project Cover" id = "cover" src = "">
-				<div id = "gallery"></div>
-			</div>
+			<a class = "button" href = "../../index.html" id = "returnBtn">Back to homepage</a>
 		</div>
-	</div>
+	</main>
 
-	<a class = "button" href = "../../index.html" id = "returnBtn">Back to homepage</a>
-</main>
-
-<!-- Contact Section. -->
-<footer>
-	<h3>Contact Me</h3>
-	<p>Email: <a class = "link" href = "mailto:piotrpiwonibiz@gmail.com">piotrpiwonibiz@gmail.com</a></p>
-</footer>
+	<!-- Contact Section. -->
+	<footer>
+		<h3>Contact Me</h3>
+		<p>Email: <a class = "link" href = "mailto:piotrpiwonibiz@gmail.com">piotrpiwonibiz@gmail.com</a></p>
+	</footer>
+</div>
 
 <script src = "../../dist/projectPageLoader.js" type = "module"></script>
 </body>
