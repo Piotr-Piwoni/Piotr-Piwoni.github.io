@@ -496,6 +496,32 @@ footer {
   flex-direction: column;
   max-width: 100%;
 }
+#project-container #grid #information .blog-material {
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 2rem;
+}
+#project-container #grid #information .blog-material > .figure:only-child {
+  grid-column: 1/-1;
+  justify-self: center;
+  max-width: 50%;
+}
+#project-container #grid #information .blog-material .figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#project-container #grid #information .blog-material img {
+  max-width: 100%;
+  border-radius: 0.75rem;
+  border: 2px solid var(--colour-accent);
+  box-shadow: var(--shadow-s);
+}
+#project-container #grid #information .blog-material .figure-caption {
+  margin-top: 1rem;
+}
 #project-container #grid #content {
   display: flex;
   flex-direction: column;
