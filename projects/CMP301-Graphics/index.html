@@ -140,7 +140,8 @@
 					</p>
 					<div class = "blog-material">
 						<span class = "figure">
-							<img alt = "" src = "assets/images/a2.png">
+							<img alt = "A top-down view of an island scene surrounded by water and a meteor coming
+							towards the island. " src = "assets/images/a2.png">
 							<span class = "figure-caption"><em>Showcase of the project scene.</em></span>
 						</span>
 					</div>
@@ -166,10 +167,58 @@
 						allowing the render pipeline to swap and combine shaders efficiently.
 					</p>
 
-
+					<h3>Lighting and Shadows</h3>
+					<p>Early in the project, I concentrated on developing a flexible lighting system capable of handling
+					   both directional and point lights, placing particular emphasis on achieving soft shadows and
+					   accommodating multi-light interactions. While the light shader itself was not used directly
+					   throughout the project, its underlying logic forms the foundation for the fragment shaders of
+					   most other shaders, including displacement shaders, which required specific handling due to
+					   vertex offsets.
+						<br><br>
+					   The system is structured around a constant buffer that can manage up to ten lights, storing each
+					   light’s position, direction, colour components, attenuation values, specular power, and type. In
+					   the pixel shader, a loop iterates through all active lights, calculating their contributions per
+					   pixel using <b>Blinn-Phong shading</b>. Point lights incorporate distance-based attenuation,
+					   whereas directional lights provide consistent illumination across the scene. For shadow handling,
+					   a single depth map from the directional light is utilized, employing 3×3 PCF (Percentage-Closer
+					   Filtering) sampling in the pixel shader to create soft edges. Point lights are intentionally left
+					   unshadowed for performance and simplicity.
+					</p>
 					<div id = "code">
-						<!--<div class = "placeCodeblock" data-path = "assets/files/scripts/test.cpp"></div>-->
+						<div class = "placeCodeblock"
+							 data-path = "assets/files/scripts/Lighting and Shadows In Fragment Shader"></div>
 					</div>
+					<p>
+						The introduction of displacement posed an additional challenge. Since vertex shaders alter
+						positions, as seen in the island heightmap, the original light shader pass could not accurately
+						illuminate displaced surfaces. To resolve this, I replicated the lighting and shadow
+						calculations directly in the displacement shaders, ensuring that all surfaces, including those
+						modified by vertex manipulation, received precise lighting and shadows.
+						<br><br>
+						From a technical perspective, managing multiple lights through a structured buffer simplifies
+						handling light parameters. However, this approach reduces flexibility when adding new light
+						types. Replicating calculations across shaders increases maintenance overhead and the risk of
+						subtle bugs. On the positive side, the method is efficient, performs per-pixel calculations, and
+						avoids the complexities of deferred shading or multiple shadow maps.
+					</p>
+					<div class = "blog-material">
+						<span class = "figure">
+							<img alt = "Lit Island without shadows" src = "assets/images/lighting_NoShadows.png">
+							<span class = "figure-caption"><em>Lit island without shadows.</em></span>
+						</span>
+						<span class = "figure">
+							<img alt = "Lit Island with shadows" src = "assets/images/lighting_WithShadows.png">
+							<span class = "figure-caption"><em>Lit island with shadows.</em></span>
+						</span>
+					</div>
+					<p>
+						Looking ahead, there are clear opportunities for improvement, such as storing displaced vertex
+						positions for deferred lighting, implementing cascaded shadow maps for enhanced directional
+						light shadows, or adopting physically-based rendering (PBR) for more realistic material
+						responses. Despite these trade-offs, the current system delivers smooth, dynamic lighting with
+						soft shadows, resulting in consistent, visually appealing illumination throughout the project.
+					</p>
+
 				</div>
 
 				<div id = "content">
