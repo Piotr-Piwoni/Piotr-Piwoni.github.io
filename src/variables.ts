@@ -1,4 +1,4 @@
 ﻿export const websiteName: string = "Tusk Games";
 export const viewableProjects: string[] = [
-	"John",
+	"John", "CMP301-Graphics",
 ];
