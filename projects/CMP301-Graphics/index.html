@@ -77,8 +77,8 @@
 		</div>
 	</div>
 </template>
-<template id = "blog-figures-section-template">
-	<div class = "blog-figures"></div>
+<template id = "blog-materials-section-template">
+	<div class = "blog-material"></div>
 </template>
 <template id = "blog-figure-template">
 	<span class = "figure">
@@ -102,7 +102,71 @@
 			<div id = "grid">
 				<div id = "information">
 					<h2 class = "section-title">Description</h2>
-					<p id = "description"></p>
+					<p id = "description">
+						This project is built using DirectX and highlights the learning of shader programming alongside
+						real-time rendering techniques. It features a custom island scene that includes displacement
+						effects, water simulation, and enhanced lighting. The project demonstrates various shader stages
+						and post-processing techniques. Additionally, it comes with a fully compiled application that
+						includes interactive controls for adjusting lighting and scene parameters.
+					</p>
+
+					<h2>Deep Dive</h2>
+					<p>
+						This project was a solo endeavour I undertook for my university coursework, focusing on
+						exploring and implementing shader programming using DirectX. Although I had some prior exposure
+						to shaders in engines like Unity, my experience was limited, and this was my first time working
+						extensively with multiple shader stages and understanding their roles in the graphics pipeline.
+						<br><br>
+						The project aimed to develop a single, self-contained scene that demonstrates the use of vertex,
+						pixel, and tessellation shaders, along with real-time lighting, shadows, and post-processing
+						effects. Throughout this project, I designed and implemented a fully interactive application
+						that allows users to have hands-on control over lights, shader parameters, and scene elements.
+						<br><br>
+						In the sections below, I will break down the key aspects of the project, including scene design
+						and interactivity, as well as the primary shaders and effects I developed. This will include
+						detailed discussions of how I integrated displacement, lighting, shadows, and post-processing
+						techniques such as bloom, while also covering supporting systems that enabled a functional and
+						interactive demonstration of the graphics pipeline.
+					</p>
+
+					<h3>Scene & Application Overview</h3>
+					<p>
+						The project's scene is intentionally minimalistic, featuring a small island, an ocean plane, and
+						a meteor object with a fire trail. This simplicity allows the focus to remain on graphical
+						techniques and shader integration rather than intricate environmental details. Each object has
+						its own transformation values for position, rotation, and scale, which are managed through the
+						application's internal logic to maintain proper spatial relationships, such as having the meteor
+						trail follow the meteor sphere with local offsets and rotation adjustments.
+					</p>
+					<div class = "blog-material">
+						<span class = "figure">
+							<img alt = "" src = "assets/images/a2.png">
+							<span class = "figure-caption"><em>Showcase of the project scene.</em></span>
+						</span>
+					</div>
+					<p>
+						The application is encapsulated within the <b>App1</b> class, which oversees the core update and
+						rendering loop. It manages all scene objects, lighting, and post-processing effects. For
+						instance, each frame involves updating the camera matrices, computing shadow maps, and executing
+						a series of rendering passes, including depth, displacement, lighting, and post-processing
+						effects like bloom and blur. This layered approach ensures that objects are rendered accurately
+						with shadows, lighting, and optional post-processing effects.
+						<br><br>
+						Light management is designed to be modular. Lights are created and stored in maps, each with its
+						parameters, including position, colour, type, attenuation, and specular power. During each
+						frame, the <b>UpdateLights()</b> function updates the corresponding DirectX <b>Light</b>
+						objects, recalculates projection matrices for shadow-casting lights, and optionally renders
+						debug spheres to visualize their positions within the scene.
+						<br><br>
+						Shader integration follows a standardized pattern derived from the <b>BaseShader</b> class. Each
+						shader implements a private <b>InitShader()</b> function to compile and set up shader stages, as
+						well as a public <b>SetShaderParameters()</b> function to bind object-specific parameters, such
+						as world matrices, textures, lights, and camera positions. This structure promotes consistency
+						across different shader types, whether for displacement, water, lighting, or post-processing,
+						allowing the render pipeline to swap and combine shaders efficiently.
+					</p>
+
+
 					<div id = "code">
 						<!--<div class = "placeCodeblock" data-path = "assets/files/scripts/test.cpp"></div>-->
 					</div>
