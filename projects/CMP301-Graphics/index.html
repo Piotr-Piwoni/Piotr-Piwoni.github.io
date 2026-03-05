@@ -282,6 +282,54 @@
 						they create a cohesive scene where dynamic terrain meets animated water, resulting in an
 						immersive environment without sacrificing frame rate.
 					</p>
+
+					<h3>Bloom</h3>
+					<p>
+						For the bloom effect, I aimed to give the scene's bright areas a natural glow without
+						compromising performance. The approach I settled on is a multi-pass post-processing pipeline
+						that can be toggled via a switch in the scene, which is enabled by default.
+						<br><br>
+						The process begins with a <b>bright pass</b>, where I isolate the pixels that truly matter,
+						those above a specified luminance threshold, so I'm not wasting resources blurring dark areas. I
+						calculated perceived brightness using standard luminance weights <b>(0.2126, 0.7152, 0.0722)</b>
+						and output only the highlights to a dedicated render target. Initially, I tried using the raw
+						colour data directly, but the highlights were too subtle. Fine-tuning the threshold was crucial
+						for making the bloom effect noticeable without washing out the scene.
+						<br><br>
+						Next came the <b>horizontal and vertical blur passes</b>. I started by trying a full 2D Gaussian
+						blur. Still, it killed performance, so I switched to a separable approach first blur
+						horizontally, then vertically. One challenge was getting the texel offsets correct since the
+						blur needed to scale with the resolution. I had to pass the screen width and height into the
+						shaders and calculate offsets dynamically. There were several iterations where the blur appeared
+						uneven at the edges. However, once I adjusted for proper texel scaling and clamped the alpha
+						channels, the glow smoothed out beautifully.
+						<br><br>
+						Finally, the <b>combine</b> pass brings everything together. The blurred highlights are added
+						back onto the original scene, modulated by an intensity factor. I wrapped the final colour with
+						a saturate call to avoid colour overflow, which helped maintain a visually consistent glow.
+					</p>
+					<div class = "blog-material">
+						<span class = "figure">
+							<img alt = "Island scene with bloom" src = "assets/images/bloom.png">
+							<span class = "figure-caption"><em>Scene with bloom enabled.</em></span>
+						</span>
+						<span class = "figure">
+							<img alt = "Island scene with extreme bloom" src = "assets/images/super_bloom.png">
+							<span class = "figure-caption"><em>Scene with bloom enabled and extreme values.</em></span>
+						</span>
+					</div>
+					<p>
+						I learned a lot throughout this process. Managing multiple render targets required careful
+						attention to the clearing and binding order. Using an orthographic full-screen quad for all
+						passes simplified the pipeline. I also realized that running the bloom effect at full resolution
+						was costly; downsampling could have significantly improved performance, but for this prototype,
+						I prioritized clarity and debug visibility.
+						<br><br>
+						In the end, the effect feels alive: bright areas exhibit a natural bloom, edges glow softly, and
+						the scene shows a subtle but noticeable increase in vibrancy. This project deepened my
+						understanding of multi-pass rendering, shader parameter management, and the practical trade-offs
+						between visual quality and GPU performance.
+					</p>
 				</div>
 
 				<div id = "content">
