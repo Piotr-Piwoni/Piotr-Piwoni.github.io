@@ -1,0 +1,31 @@
+﻿{
+  "name": "DX11 Shader Scene",
+  "short": "A project showing my shader work using DirectX 11.",
+  "tags": [
+    "Solo",
+    "School",
+    "Custom Engine",
+    "3D",
+    "Software",
+    "C++",
+    "PC",
+    "Shader"
+  ],
+  "outLinks": [
+    {
+      "name": "Github",
+      "url": "https://github.com/Abertay-University-SDI/cmp301_coursework-Mummoth-1"
+    }
+  ],
+  "cover": "images/cover.png",
+  "additionalAssets": [
+    "images/a1.png",
+    "images/a2.png",
+    "images/a3.png",
+    "images/a4.png"
+  ],
+  "downloadFiles": [
+    "files/DX11_Shader.zip"
+  ],
+  "page": "index.html"
+}

@@ -1,0 +1,110 @@
+// Displacement vertex shader
+Texture2D heightMapTxt : register(t0);
+SamplerState sampler0 : register(s0);
+
+#define C_maxLights 10
+cbuffer MatrixBuffer : register(b0)
+{
+	matrix worldMatrix;
+	matrix viewMatrix;
+	matrix projectionMatrix;
+    matrix lightViewMatrix[C_maxLights];
+    matrix lightProjectionMatrix[C_maxLights];
+};
+
+cbuffer CameraBuffer : register(b1)
+{
+	float3 cameraPosition;
+	float padding;
+};
+
+cbuffer DisplacementBuffer : register(b2)
+{
+	float2 textureSize;
+	float exaggeration;
+};
+
+struct InputType
+{
+	float4 position : POSITION;
+	float2 tex : TEXCOORD0;
+	float3 normal : NORMAL;
+};
+
+struct OutputType
+{
+	float4 position : SV_POSITION;
+	float2 tex : TEXCOORD0;
+	float3 normal : NORMAL;
+	float3 viewVector : TEXCOORD1;
+	float3 worldPosition : TEXCOORD2;
+    float4 lightViewPos[C_maxLights] : TEXCOORD3;
+};
+
+float GetHeight(float2 uv)
+{
+	float4 heightSample = heightMapTxt.SampleLevel(sampler0, uv, 0);
+	// Return the grayscale as the height.
+	return heightSample.r;
+}
+
+float3 CalculateDisplacedNormal(float2 uv)
+{
+	// Calculate texel size based on texture resolution.
+	float2 texelSize = 1.0 / textureSize;
+
+	// Sample the height map in four directions.
+	float heightL = GetHeight(uv + float2(-texelSize.x, 0.0)); 
+	float heightR = GetHeight(uv + float2(texelSize.x, 0.0));  
+	float heightD = GetHeight(uv + float2(0.0, -texelSize.y)); 
+	float heightU = GetHeight(uv + float2(0.0, texelSize.y));  
+
+	// Calculate the height changes.
+	float deltaX = heightR - heightL;
+	float deltaY = heightU - heightD;
+
+	// Return the normalised vector based on height changes.
+	return normalize(float3(-deltaX, 1.0, -deltaY));
+}
+
+OutputType main(InputType input)
+{
+	OutputType output;
+
+	// Height map displacement.
+	float height = GetHeight(input.tex);
+
+	// Displace vertex based on the height value.
+	float3 displacedPosition = input.position.xyz + input.normal * height *
+			exaggeration;
+
+	// Calculate the new normal based on the height map.
+	float3 displacedNormal = CalculateDisplacedNormal(input.tex);
+
+	// Calculate the position of the vertex against the world, view, and projection matrices.
+	float4 worldPosition = mul(float4(displacedPosition, 1.0f), worldMatrix);
+	output.position = worldPosition;
+	output.position = mul(output.position, viewMatrix);
+	output.position = mul(output.position, projectionMatrix);
+
+	// Calculate the position of the vertices as viewed by the light source.
+    for (int i = 0; i < C_maxLights; ++i)
+    {
+        float4 lightPos = mul(worldPosition, lightViewMatrix[i]);
+        lightPos = mul(lightPos, lightProjectionMatrix[i]);
+        output.lightViewPos[i] = lightPos;
+    }
+
+	// Store the texture coordinates for the pixel shader.
+	output.tex = input.tex;
+
+	// Calculate the normal vector against the world matrix only and normalise.
+	output.normal = normalize(mul(displacedNormal, (float3x3)worldMatrix));
+
+	output.worldPosition = worldPosition.xyz;
+	// Calculate the position of a vertex in the world.
+	output.viewVector = normalize(cameraPosition.xyz - worldPosition.xyz);
+
+
+	return output;
+}

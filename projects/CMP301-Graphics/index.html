@@ -78,7 +78,7 @@
 	</div>
 </template>
 <template id = "blog-materials-section-template">
-	<div class = "blog-figures"></div>
+	<div class = "blog-material"></div>
 </template>
 <template id = "blog-figure-template">
 	<span class = "figure">
@@ -87,7 +87,7 @@
 	</span>
 </template>
 
-<div id = "page-background" style = "--page-pattern: url('../../projects/John/assets/images/pattern.png')">
+<div id = "page-background" style = "--page-pattern: url('../../projects/CMP301-Graphics/assets/images/pattern.jpg')">
 	<main>
 		<div id = "project-title">
 			<h1 id = "title">Loading...</h1>
@@ -102,163 +102,234 @@
 			<div id = "grid">
 				<div id = "information">
 					<h2 class = "section-title">Description</h2>
-					<p id = "description">A narrative-driven, point-and-click set in <em> Scotland during the 70's </em>
-										  .
+					<p id = "description">
+						This project is built using DirectX and highlights the learning of shader programming alongside
+						real-time rendering techniques. It features a custom island scene that includes displacement
+						effects, water simulation, and enhanced lighting. The project demonstrates various shader stages
+						and post-processing techniques. Additionally, it comes with a fully compiled application that
+						includes interactive controls for adjusting lighting and scene parameters.
 					</p>
-					<p>You are playing as <strong> John Mackilligan </strong> . A grieving, manic, enraged, recently
-					   laid-off carpet salesman, recounting your crimes to a <em> jury of your peers </em> .</p>
-					<p>Your wee brother Rab has just died, and you have no way to pay for his funeral.</p>
-					<p><em> If the negative symbol were removed from your debt, you'd be swimming in it. </em></p>
-					<p>To get his revenge against his ex-boss, Mark <em> (and hopefully some cash) </em> , John plans to
-					   rob
-					   and terrorise the home.</p>
-					<p>One small problem.</p>
-					<p><em> He's got the wrong house... </em></p>
 
-					<h2>Deep-Dive</h2>
-					<p>I was one of the programmers on John, primarily responsible for the grid-based movement system,
-					   system linking, and the creation of designer-friendly tools for level construction, alongside
-					   various
-					   other supporting tasks.</p>
-					<p>The movement system is built on Unity's Tilemap framework. Designers define walkable space
-					   directly by painting tiles onto a dedicated navigation Tilemap, which allows valid movement areas
-					   to
-					   be authored visually and iterated on quickly. Any tile present on this Tilemap is considered
-					   traversable by default.</p>
-					<div id = "code">
-						<div class = "placeCodeblock" data-path = "assets/files/scripts/PlayerGridController.cs"></div>
-						<div class = "placeCodeblock" data-path = "assets/files/scripts/GridMovement.cs"></div>
-					</div>
-					<p>Obstacles are handled dynamically. Environmental objects tagged as obstacles are scanned at
-					   runtime,
-					   and their world-space bounds are converted into occupied grid cells. These cells are then marked
-					   as
-					   invalid for navigation and excluded from pathfinding. This approach allows obstacles to be
-					   enabled,
-					   disabled, or moved without requiring manual repainting of navigation tiles.</p>
-					<p>Although the system supports collider-driven blocking, in practice, designers often prefer to
-					   manually remove navigation tiles in obstructed areas for clarity and control.</p>
-					<p>Pathfinding is handled via an A* implementation operating directly on the Tilemap, ensuring
-					   predictable, tile-accurate movement for both mouse and controller input.</p>
-					<h3>Rendering &amp; Shader Systems</h3>
-					<p>Alongside gameplay systems, I designed and implemented a suite of custom Shader Graph shaders
-					   that
-					   became central to the game's visual identity. Because the project leaned heavily on bold,
-					   patterned
-					   character designs, we needed a way to apply complex materials without increasing animators'
-					   workload.</p>
-					<h4>Chroma Key Shader (Initial Prototype)</h4>
-					<p>My first iteration was a custom chroma key shader built in Unity's Shader Graph. The goal was
-					   simple:
-					   allow a developer to select a key colour on a sprite and either remove it (making it transparent)
-					   or
-					   replace it with another texture.</p>
-					<p>The shader operated by:</p>
-					<ul>
-						<li>Sampling the base texture.</li>
-						<li>Comparing each pixel against a selected key colour.</li>
-						<li>Generate a mask using a configurable hue range and fuzziness value.</li>
-						<li>Using that mask to drive a Lerp between the original sprite and either transparency or a
-							secondary texture.
-						</li>
-					</ul>
-					<div class = "blog-material">
-					<span class = "figure">
-						<img alt = "Chroma Key Shader - Unity Shader Graph"
-							 src = "assets/images/chroma_key_shader_graph.png">
-						<span class = "figure-caption"><em>(Unity Shader Graph) Chroma Key Shader</em></span>
-					</span>
-						<span class = "figure">
-						<img alt = "Chroma Key Shader Example"
-							 src = "assets/images/chroma_key_shader_example.webp">
-						<span class = "figure-caption"><em>Chroma Key Shader Example</em></span>
-					</span>
-					</div>
-					<p>The shader allowed us to adjust the tolerance per sprite, resulting in soft-edged blending rather
-					   than hard cutoffs. This gave designers direct control of the style in the material inspector.</p>
-					<p>While initially built for transparency, it quickly became clear that colour replacement was far
-					   more
-					   powerful than simple removal.</p>
+					<h2>Deep Dive</h2>
+					<p>
+						This project was a solo endeavour I undertook for my university coursework, focusing on
+						exploring and implementing shader programming using DirectX. Although I had some prior exposure
+						to shaders in engines like Unity, my experience was limited, and this was my first time working
+						extensively with multiple shader stages and understanding their roles in the graphics pipeline.
+						<br><br>
+						The project aimed to develop a single, self-contained scene that demonstrates the use of vertex,
+						pixel, and tessellation shaders, along with real-time lighting, shadows, and post-processing
+						effects. Throughout this project, I designed and implemented a fully interactive application
+						that allows users to have hands-on control over lights, shader parameters, and scene elements.
+						<br><br>
+						In the sections below, I will break down the key aspects of the project, including scene design
+						and interactivity, as well as the primary shaders and effects I developed. This will include
+						detailed discussions of how I integrated displacement, lighting, shadows, and post-processing
+						techniques such as bloom, while also covering supporting systems that enabled a functional and
+						interactive demonstration of the graphics pipeline.
+					</p>
 
-					<h4>Replacement Shader (Production Version)</h4>
-					<p>The chroma key prototype evolved into a full-replacement shader that became the standard
-					   character-rendering solution across the game.</p>
-					<p>The production version supports:</p>
-					<ul>
-						<li>Up to three independent colour masks per sprite.</li>
-						<li>Individual tolerance controls per mask.</li>
-						<li>Separate replacement patterns for each keyed region.</li>
-						<li>Independent toggles to turn each layer on or off.</li>
-					</ul>
-					<p>Each pattern slot performs:</p>
-					<ol>
-						<li>Colour mask against the base texture.</li>
-						<li>Tolerance-based comparison.</li>
-						<li>Masked blend between the original pixel and a sampled pattern texture.</li>
-						<li>Merged alpha contribution to preserve sprite silhouette integrity.</li>
-					</ol>
+					<h3>Scene & Application Overview</h3>
+					<p>
+						The project's scene is intentionally minimalistic, featuring a small island, an ocean plane, and
+						a meteor object with a fire trail. This simplicity allows the focus to remain on graphical
+						techniques and shader integration rather than intricate environmental details. Each object has
+						its own transformation values for position, rotation, and scale, which are managed through the
+						application's internal logic to maintain proper spatial relationships, such as having the meteor
+						trail follow the meteor sphere with local offsets and rotation adjustments.
+					</p>
 					<div class = "blog-material">
-					<span class = "figure">
-						<img alt = "Pattern Replacement Shader - Unity Shader Graph"
-							 src = "assets/images/replacement_shader_graph.png">
-						<span class = "figure-caption"><em>(Unity Shader Graph) Pattern Replacement Shader</em></span>
-					</span>
 						<span class = "figure">
-						<img alt = "Pattern Replacement Shader Example"
-							 src = "assets/images/replacement_shader_example.webp">
-						<span class = "figure-caption"><em>Pattern Replacement Shader Example</em></span>
-					</span>
+							<img alt = "A top-down view of an island scene surrounded by water and a meteor coming
+							towards the island. " src = "assets/images/a2.png">
+							<span class = "figure-caption"><em>Showcase of the project scene.</em></span>
+						</span>
 					</div>
-					<p>This shader made a real difference, as our game is visually pattern-heavy. characters,
-					   backgrounds,
-					   and props rely on stylised, repeating textures that evoke the feeling of old Hanna-Barbera
-					   cartoons.</p>
-					<p>Traditionally, animators would manually align patterns per frame whilst maintaining pattern
-					   consistency across sprite sheets, and update the animations when the pattern design changed. This
-					   is
-					   just an unreasonable amount of work.</p>
-					<p>Instead, animators painted flat colour regions (e.g., solid green for a jacket, solid magenta for
-					   trousers). The shader then replaced those colours with dynamic patterns at runtime.</p>
-					<p>This gave us:</p>
-					<ul>
-						<li>Faster iteration when swapping patterns.</li>
-						<li>No need to re-export animations for design tweaks.</li>
-						<li>A consistent art pipeline.</li>
-						<li>Reduced texture memory usage.</li>
-					</ul>
-					<p>It effectively separated animation from material design.</p>
-					<h4>Outline Shader</h4>
-					<p>I also implemented a sprite outline shader, primarily used for interactable objects and
-					   environmental
-					   emphasis.</p>
-					<p>The shader works by:</p>
-					<ul>
-						<li>Sampling neighbouring pixels around the sprite's alpha.</li>
-						<li>Expanding the silhouette outward based on a configurable thickness.</li>
-						<li>Rendering a coloured border behind the sprite.</li>
-					</ul>
+					<p>
+						The application is encapsulated within the <b>App1</b> class, which oversees the core update and
+						rendering loop. It manages all scene objects, lighting, and post-processing effects. For
+						instance, each frame involves updating the camera matrices, computing shadow maps, and executing
+						a series of rendering passes, including depth, displacement, lighting, and post-processing
+						effects like bloom and blur. This layered approach ensures that objects are rendered accurately
+						with shadows, lighting, and optional post-processing effects.
+						<br><br>
+						Light management is designed to be modular. Lights are created and stored in maps, each with its
+						parameters, including position, colour, type, attenuation, and specular power. During each
+						frame, the <b>UpdateLights()</b> function updates the corresponding DirectX <b>Light</b>
+						objects, recalculates projection matrices for shadow-casting lights, and optionally renders
+						debug spheres to visualize their positions within the scene.
+						<br><br>
+						Shader integration follows a standardized pattern derived from the <b>BaseShader</b> class. Each
+						shader implements a private <b>InitShader()</b> function to compile and set up shader stages, as
+						well as a public <b>SetShaderParameters()</b> function to bind object-specific parameters, such
+						as world matrices, textures, lights, and camera positions. This structure promotes consistency
+						across different shader types, whether for displacement, water, lighting, or post-processing,
+						allowing the render pipeline to swap and combine shaders efficiently.
+					</p>
+
+					<h3>Lighting and Shadows</h3>
+					<p>Early in the project, I concentrated on developing a flexible lighting system capable of handling
+					   both directional and point lights, placing particular emphasis on achieving soft shadows and
+					   accommodating multi-light interactions. While the light shader itself was not used directly
+					   throughout the project, its underlying logic forms the foundation for the fragment shaders of
+					   most other shaders, including displacement shaders, which required specific handling due to
+					   vertex offsets.
+						<br><br>
+					   The system is structured around a constant buffer that can manage up to ten lights, storing each
+					   light’s position, direction, colour components, attenuation values, specular power, and type. In
+					   the pixel shader, a loop iterates through all active lights, calculating their contributions per
+					   pixel using <b>Blinn-Phong shading</b>. Point lights incorporate distance-based attenuation,
+					   whereas directional lights provide consistent illumination across the scene. For shadow handling,
+					   a single depth map from the directional light is utilized, employing 3×3 PCF (Percentage-Closer
+					   Filtering) sampling in the pixel shader to create soft edges. Point lights are intentionally left
+					   unshadowed for performance and simplicity.
+					</p>
+					<div class = "code">
+						<div class = "placeCodeblock"
+							 data-path = "assets/files/scripts/Lighting and Shadows In Fragment Shader"></div>
+					</div>
+					<p>
+						The introduction of displacement posed an additional challenge. Since vertex shaders alter
+						positions, as seen in the island heightmap, the original light shader pass could not accurately
+						illuminate displaced surfaces. To resolve this, I replicated the lighting and shadow
+						calculations directly in the displacement shaders, ensuring that all surfaces, including those
+						modified by vertex manipulation, received precise lighting and shadows.
+						<br><br>
+						From a technical perspective, managing multiple lights through a structured buffer simplifies
+						handling light parameters. However, this approach reduces flexibility when adding new light
+						types. Replicating calculations across shaders increases maintenance overhead and the risk of
+						subtle bugs. On the positive side, the method is efficient, performs per-pixel calculations, and
+						avoids the complexities of deferred shading or multiple shadow maps.
+					</p>
 					<div class = "blog-material">
-					<span class = "figure">
-						<img alt = "Outline Shader - Unity Shader Graph"
-							 src = "assets/images/outline_shader_graph.png">
-						<span class = "figure-caption"><em>(Unity Shader Graph) Outline Shader</em></span>
-					</span>
 						<span class = "figure">
-						<img alt = "Outline Shader Example"
-							 src = "assets/images/outline_shader_example.webp">
-						<span class = "figure-caption"><em>Outline Shader Example</em></span>
-					</span>
+							<img alt = "Lit Island without shadows" src = "assets/images/lighting_NoShadows.png">
+							<span class = "figure-caption"><em>Lit island without shadows.</em></span>
+						</span>
+						<span class = "figure">
+							<img alt = "Lit Island with shadows" src = "assets/images/lighting_WithShadows.png">
+							<span class = "figure-caption"><em>Lit island with shadows.</em></span>
+						</span>
 					</div>
-					<p>The shader's values, like Colour and Line Thickness, are set in the editor beforehand,
-					   as it's hard to modify them at runtime since Unity instances materials globally. In addition,
-					   the shader modifies the instance's copy of those values. This allowed us to highlight
-					   interactable objects, improve readability against busy patterned
-					   backgrounds, and add visual feedback without duplicating sprites or using additional render
-					   passes.</p>
-					<p>The shader was heavily inspired by Code Monkey's
-						<a class = "link" href = "https://www.youtube.com/watch?v=FvQFhkS90nI"
-						   target = "_blank">sprite outline shader</a>,
-					   but updated to work with newer versions of Unity.</p>
+					<p>
+						Looking ahead, there are clear opportunities for improvement, such as storing displaced vertex
+						positions for deferred lighting, implementing cascaded shadow maps for enhanced directional
+						light shadows, or adopting physically-based rendering (PBR) for more realistic material
+						responses. Despite these trade-offs, the current system delivers smooth, dynamic lighting with
+						soft shadows, resulting in consistent, visually appealing illumination throughout the project.
+					</p>
+
+					<h3>Island Displacement and Water</h3>
+					<p>
+						One of the most visually striking features of the project is the height-mapped island, combined
+						with an animated water surface. Both elements rely on vertex displacement, but they utilize this
+						technique in very different ways.
+						<br><br>
+						The <b>island displacement shader</b> transforms a flat mesh into terrain using a grayscale
+						height map. Each vertex's vertical position is adjusted in the vertex shader, multiplied by an
+						exaggeration factor to enhance terrain steepness. Since the geometry is dynamically modified,
+						normals cannot be derived from the original mesh; instead, they must be recalculated in real
+						time. This is achieved by sampling neighbouring height values and computing surface slopes,
+						which produces normals that accurately represent the deformed surface and yield realistic
+						lighting effects in the pixel shader.
+					</p>
+					<div class = "blog-material">
+						<div class = "code">
+							<div class = "placeCodeblock"
+								 data-path = "assets/files/scripts/Island Displacement Vertex Shader"></div>
+						</div>
+						<span class = "figure">
+							<img alt = "Displacement shader" src = "assets/images/diplacement_shader.png">
+							<span class = "figure-caption">
+								<em>Island created through the use of a height map.</em>
+							</span>
+						</span>
+					</div>
+					<p>
+						This technique works well for direct lighting but comes with some drawbacks. Since the displaced
+						vertex positions are available only at the vertex shader stage, deferred lighting is not an
+						option; any separate lighting pass would lack those positions. To address this, lighting
+						calculations are integrated directly into the pixel shader, incorporating soft shadows as
+						previously mentioned. A separate shader variant is available for islands without shadows, and a
+						runtime user switch determines which shader to use.
+						<br><br>
+						In contrast, the <b>water shader</b> is simpler yet effective. It animates a flat plane mesh
+						using sine and cosine waves to simulate gentle ripples. Unlike the island shader, the UV
+						coordinates remain static, preventing texture stretching and ensuring visual consistency on the
+						water's surface. Light interacts with the animated vertices in the same manner as it does with
+						the island, producing reflections and highlights, without the need for additional geometry
+						manipulation. Its simplicity allows for high frame rates while still conveying the illusion of
+						moving water.
+					</p>
+					<div class = "blog-material">
+						<div class = "code">
+							<div class = "placeCodeblock"
+								 data-path = "assets/files/scripts/Water Vertex Shader"></div>
+						</div>
+						<span class = "figure">
+							<img alt = "Water shader" src = "assets/images/water_shader.png">
+							<span class = "figure-caption">
+								<em>Simulation of water by distorting a mesh through sine waves.</em>
+							</span>
+						</span>
+					</div>
+					<p>
+						From a design perspective, combining these shaders illustrates a key tension in real-time
+						rendering: accuracy versus performance. The island shader demonstrates precise vertex
+						displacement with per-pixel lighting and shadows. Still, it requires a tight coupling between
+						geometry and lighting. On the other hand, the water shader shows that a simpler, procedural
+						approach can create convincing motion without complicating the rendering pipeline. Together,
+						they create a cohesive scene where dynamic terrain meets animated water, resulting in an
+						immersive environment without sacrificing frame rate.
+					</p>
+
+					<h3>Bloom</h3>
+					<p>
+						For the bloom effect, I aimed to give the scene's bright areas a natural glow without
+						compromising performance. The approach I settled on is a multi-pass post-processing pipeline
+						that can be toggled via a switch in the scene, which is enabled by default.
+						<br><br>
+						The process begins with a <b>bright pass</b>, where I isolate the pixels that truly matter,
+						those above a specified luminance threshold, so I'm not wasting resources blurring dark areas. I
+						calculated perceived brightness using standard luminance weights <b>(0.2126, 0.7152, 0.0722)</b>
+						and output only the highlights to a dedicated render target. Initially, I tried using the raw
+						colour data directly, but the highlights were too subtle. Fine-tuning the threshold was crucial
+						for making the bloom effect noticeable without washing out the scene.
+						<br><br>
+						Next came the <b>horizontal and vertical blur passes</b>. I started by trying a full 2D Gaussian
+						blur. Still, it killed performance, so I switched to a separable approach first blur
+						horizontally, then vertically. One challenge was getting the texel offsets correct since the
+						blur needed to scale with the resolution. I had to pass the screen width and height into the
+						shaders and calculate offsets dynamically. There were several iterations where the blur appeared
+						uneven at the edges. However, once I adjusted for proper texel scaling and clamped the alpha
+						channels, the glow smoothed out beautifully.
+						<br><br>
+						Finally, the <b>combine</b> pass brings everything together. The blurred highlights are added
+						back onto the original scene, modulated by an intensity factor. I wrapped the final colour with
+						a saturate call to avoid colour overflow, which helped maintain a visually consistent glow.
+					</p>
+					<div class = "blog-material">
+						<span class = "figure">
+							<img alt = "Island scene with bloom" src = "assets/images/bloom.png">
+							<span class = "figure-caption"><em>Scene with bloom enabled.</em></span>
+						</span>
+						<span class = "figure">
+							<img alt = "Island scene with extreme bloom" src = "assets/images/super_bloom.png">
+							<span class = "figure-caption"><em>Scene with bloom enabled and extreme values.</em></span>
+						</span>
+					</div>
+					<p>
+						I learned a lot throughout this process. Managing multiple render targets required careful
+						attention to the clearing and binding order. Using an orthographic full-screen quad for all
+						passes simplified the pipeline. I also realized that running the bloom effect at full resolution
+						was costly; downsampling could have significantly improved performance, but for this prototype,
+						I prioritized clarity and debug visibility.
+						<br><br>
+						In the end, the effect feels alive: bright areas exhibit a natural bloom, edges glow softly, and
+						the scene shows a subtle but noticeable increase in vibrancy. This project deepened my
+						understanding of multi-pass rendering, shader parameter management, and the practical trade-offs
+						between visual quality and GPU performance.
+					</p>
 				</div>
 
 				<div id = "content">
