@@ -500,15 +500,15 @@ footer {
 #project-container #grid #information a {
   text-decoration: underline;
 }
-#project-container #grid #information #code {
+#project-container #grid #information .code {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(33ch, 75ch));
   gap: 1rem;
   justify-content: center;
   margin: 2rem 0;
   max-width: 100%;
 }
-#project-container #grid #information #code .codeblock {
+#project-container #grid #information .code .codeblock {
   display: flex;
   flex-direction: column;
   max-width: 100%;
@@ -529,6 +529,7 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 #project-container #grid #information .blog-material img {
   max-width: 100%;

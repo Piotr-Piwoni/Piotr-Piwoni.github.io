@@ -184,7 +184,7 @@
 					   Filtering) sampling in the pixel shader to create soft edges. Point lights are intentionally left
 					   unshadowed for performance and simplicity.
 					</p>
-					<div id = "code">
+					<div class = "code">
 						<div class = "placeCodeblock"
 							 data-path = "assets/files/scripts/Lighting and Shadows In Fragment Shader"></div>
 					</div>
@@ -219,6 +219,69 @@
 						soft shadows, resulting in consistent, visually appealing illumination throughout the project.
 					</p>
 
+					<h3>Island Displacement and Water</h3>
+					<p>
+						One of the most visually striking features of the project is the height-mapped island, combined
+						with an animated water surface. Both elements rely on vertex displacement, but they utilize this
+						technique in very different ways.
+						<br><br>
+						The <b>island displacement shader</b> transforms a flat mesh into terrain using a grayscale
+						height map. Each vertex's vertical position is adjusted in the vertex shader, multiplied by an
+						exaggeration factor to enhance terrain steepness. Since the geometry is dynamically modified,
+						normals cannot be derived from the original mesh; instead, they must be recalculated in real
+						time. This is achieved by sampling neighbouring height values and computing surface slopes,
+						which produces normals that accurately represent the deformed surface and yield realistic
+						lighting effects in the pixel shader.
+					</p>
+					<div class = "blog-material">
+						<div class = "code">
+							<div class = "placeCodeblock"
+								 data-path = "assets/files/scripts/Island Displacement Vertex Shader"></div>
+						</div>
+						<span class = "figure">
+							<img alt = "Displacement shader" src = "assets/images/diplacement_shader.png">
+							<span class = "figure-caption">
+								<em>Island created through the use of a height map.</em>
+							</span>
+						</span>
+					</div>
+					<p>
+						This technique works well for direct lighting but comes with some drawbacks. Since the displaced
+						vertex positions are available only at the vertex shader stage, deferred lighting is not an
+						option; any separate lighting pass would lack those positions. To address this, lighting
+						calculations are integrated directly into the pixel shader, incorporating soft shadows as
+						previously mentioned. A separate shader variant is available for islands without shadows, and a
+						runtime user switch determines which shader to use.
+						<br><br>
+						In contrast, the <b>water shader</b> is simpler yet effective. It animates a flat plane mesh
+						using sine and cosine waves to simulate gentle ripples. Unlike the island shader, the UV
+						coordinates remain static, preventing texture stretching and ensuring visual consistency on the
+						water's surface. Light interacts with the animated vertices in the same manner as it does with
+						the island, producing reflections and highlights, without the need for additional geometry
+						manipulation. Its simplicity allows for high frame rates while still conveying the illusion of
+						moving water.
+					</p>
+					<div class = "blog-material">
+						<div class = "code">
+							<div class = "placeCodeblock"
+								 data-path = "assets/files/scripts/Water Vertex Shader"></div>
+						</div>
+						<span class = "figure">
+							<img alt = "Water shader" src = "assets/images/water_shader.png">
+							<span class = "figure-caption">
+								<em>Simulation of water by distorting a mesh through sine waves.</em>
+							</span>
+						</span>
+					</div>
+					<p>
+						From a design perspective, combining these shaders illustrates a key tension in real-time
+						rendering: accuracy versus performance. The island shader demonstrates precise vertex
+						displacement with per-pixel lighting and shadows. Still, it requires a tight coupling between
+						geometry and lighting. On the other hand, the water shader shows that a simpler, procedural
+						approach can create convincing motion without complicating the rendering pipeline. Together,
+						they create a cohesive scene where dynamic terrain meets animated water, resulting in an
+						immersive environment without sacrificing frame rate.
+					</p>
 				</div>
 
 				<div id = "content">

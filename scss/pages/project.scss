@@ -118,9 +118,9 @@
         text-decoration: underline;
       }
 
-      #code {
+      .code {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(33ch, 75ch));
         gap: 1rem;
         justify-content: center;
         margin: 2rem 0;
@@ -151,6 +151,7 @@
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          text-align: center;
         }
 
         img {
