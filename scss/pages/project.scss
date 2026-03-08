@@ -43,6 +43,7 @@
 
   #title {
     margin-bottom: 1rem;
+    color: white;
   }
 
   #tags {
@@ -85,7 +86,7 @@
 
   #grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(200px, 2fr) minmax(150px, 1fr);
     align-items: start;
     gap: 5rem;
 
@@ -119,17 +120,25 @@
       }
 
       .code {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(33ch, 75ch));
-        gap: 1rem;
+        display: flex;
+        flex-direction: row;
         justify-content: center;
         margin: 2rem 0;
-        max-width: 100%;
 
         .codeblock {
           display: flex;
           flex-direction: column;
-          max-width: 100%;
+          width: 100%;
+          margin: 0.5rem;
+
+          &:only-child {
+            max-width: 80ch;
+          }
+
+          &:not(:only-child) {
+            flex: 1 1 0;
+            max-width: 50ch;
+          }
         }
       }
 
@@ -344,4 +353,32 @@
 
 [data-theme="dark"] {
   --viewport-shadow: var(--shadow-highlight-s);
+}
+
+
+@media (min-width: 320px) { /* smartphones, iPhone, portrait 480x320 phones */
+}
+
+@media (min-width: 481px) { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  #project-container #grid #information .blog-material .figure-caption {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 641px) { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  #project-container #grid #information .blog-material .figure-caption {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 961px) { /* tablet, landscape iPad, lo-res laptops ands desktops */
+  #project-container #grid #information .blog-material .figure-caption {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1025px) { /* big landscape tablets, laptops, and desktops */
+}
+
+@media (min-width: 1281px) { /* hi-res laptops and desktops */
 }

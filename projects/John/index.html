@@ -78,7 +78,7 @@
 	</div>
 </template>
 <template id = "blog-materials-section-template">
-	<div class = "blog-figures"></div>
+	<div class = "blog-material"></div>
 </template>
 <template id = "blog-figure-template">
 	<span class = "figure">
@@ -93,12 +93,10 @@
 			<h1 id = "title">Loading...</h1>
 			<div id = "tags"></div>
 		</div>
-
 		<div id = "project-container">
 			<div id = "actions">
 				<div id = "outlinks"></div>
 			</div>
-
 			<div id = "grid">
 				<div id = "information">
 					<h2 class = "section-title">Description</h2>
@@ -125,7 +123,7 @@
 					   to
 					   be authored visually and iterated on quickly. Any tile present on this Tilemap is considered
 					   traversable by default.</p>
-					<div id = "code">
+					<div class = "code">
 						<div class = "placeCodeblock" data-path = "assets/files/scripts/PlayerGridController.cs"></div>
 						<div class = "placeCodeblock" data-path = "assets/files/scripts/GridMovement.cs"></div>
 					</div>
@@ -260,13 +258,25 @@
 						   target = "_blank">sprite outline shader</a>,
 					   but updated to work with newer versions of Unity.</p>
 				</div>
-
 				<div id = "content">
-					<img alt = "Project Cover" id = "cover" src = "">
+					<button class = "dialog-open"><img alt = "Project Cover" id = "cover" src = ""></button>
 					<div id = "gallery"></div>
 				</div>
-			</div>
+				<dialog id = "gallery-dialog">
+					<div class = "main-focus-wrapper">
+						<button class = "button-important dialog-close">✖</button>
+						<div class = "main-focus"></div>
+					</div>
+					<div class = "carousel">
+						<button class = "button nav prev">&lsaquo;</button>
+						<div class = "viewport">
+							<div class = "track"></div>
+						</div>
+						<button class = "button nav next">&rsaquo;</button>
+					</div>
 
+				</dialog>
+			</div>
 			<a class = "button" href = "../../index.html" id = "returnBtn">Back to homepage</a>
 		</div>
 	</main>
