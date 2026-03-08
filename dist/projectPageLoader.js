@@ -1,6 +1,9 @@
 import * as Vars from "./variables.js";
 import { initThemeToggle } from "./themeToggle.js";
 import { insertCodeblock } from "./utilities.js";
+let index = 0;
+let galleryTrack = null;
+let galleryTrackItems = null;
 function createActionButtons(meta) {
     // Get the required containers for the action buttons.
     const actionsContainer = document.getElementById("actions");
@@ -41,13 +44,39 @@ function renderFormattedText(container, text) {
     });
     container.replaceChildren(fragment);
 }
+function updateCarousel() {
+    if (!galleryTrackItems || !galleryTrack)
+        return;
+    const viewport = galleryTrack.parentElement;
+    const selected = galleryTrackItems[index];
+    const viewportWidth = viewport.offsetWidth;
+    const itemCenter = selected.offsetLeft + selected.offsetWidth / 2;
+    const offset = itemCenter - viewportWidth / 2;
+    galleryTrack.style.transform = `translateX(${-offset}px)`;
+}
+function galleryNext() {
+    if (!galleryTrackItems)
+        return;
+    index = Math.min(index + 1, galleryTrackItems.length - 1);
+    updateCarousel();
+}
+function galleryPrev() {
+    index = Math.max(index - 1, 0);
+    updateCarousel();
+}
+function setMainFocus(item) {
+    const focus = document.querySelector("#gallery-dialog .main-focus");
+    // Clear previous content.
+    focus.innerHTML = "";
+    // Clone the clicked element so we don't move it from the carousel.
+    focus.appendChild(item.cloneNode(true));
+}
 async function loadPage() {
     const meta = await fetch("metadata.json").then(res => res.json());
     // Update page title.
     let titleStr = document.title.split(" - ");
     document.title = `${Vars.websiteName || titleStr[0]} - ${meta.name || titleStr[1]}`;
     document.getElementById("title").textContent = meta.name;
-    document.getElementById("cover").src = `assets/${meta.cover}`;
     const descriptionEl = document.getElementById("description");
     // Check if the paragraph is empty or only whitespace.
     if (!descriptionEl.textContent || descriptionEl.textContent.trim() === "") {
@@ -62,22 +91,74 @@ async function loadPage() {
         tagsDiv.appendChild(span);
     });
     createActionButtons(meta);
+    // Set up gallery dialog.
+    const enlargedGallery = document.getElementById("gallery-dialog");
+    galleryTrack = enlargedGallery.querySelector(".carousel .track");
+    // Set up the cover image.
+    const cover = document.getElementById("cover");
+    cover.src = `assets/${meta.cover}`;
+    // Try and add the cover to the gallery dialog track.
+    galleryTrack?.appendChild(cover.cloneNode(true));
+    // Set up the cover's button.
+    const coverButton = cover.parentElement;
+    coverButton.onclick = () => {
+        index = 0;
+        enlargedGallery?.showModal();
+        // Wait until the dialog has rendered its layout.
+        requestAnimationFrame(() => {
+            updateCarousel();
+            const item = galleryTrackItems?.[index];
+            if (item)
+                setMainFocus(item);
+        });
+    };
     // Load addition project assets.
     const gallery = document.getElementById("gallery");
-    meta.additionalAssets.forEach(asset => {
+    meta.additionalAssets.forEach((asset, i) => {
+        const button = document.createElement("button");
+        button.className = "dialog-open";
+        button.onclick = () => {
+            index = i + 1;
+            enlargedGallery?.showModal();
+            // Wait until the dialog has rendered its layout.
+            requestAnimationFrame(() => {
+                updateCarousel();
+                const item = galleryTrackItems?.[index];
+                if (item)
+                    setMainFocus(item);
+            });
+        };
         if (asset.endsWith(".mp4") || asset.endsWith(".webm")) {
             const video = document.createElement("video");
             video.src = `assets/${asset}`;
             video.controls = true;
             video.width = 150;
-            gallery.appendChild(video);
+            button.append(video);
         }
         else {
             const img = document.createElement("img");
             img.src = `assets/${asset}`;
-            gallery.appendChild(img);
+            button.appendChild(img);
         }
+        gallery.appendChild(button);
+        galleryTrack?.appendChild(button.firstChild?.cloneNode(true));
     });
+    galleryTrackItems = enlargedGallery.querySelectorAll(".carousel .track > *");
+    if (galleryTrack && galleryTrackItems) {
+        enlargedGallery.querySelector(".dialog-close").onclick = () => {
+            enlargedGallery.close();
+        };
+        enlargedGallery.querySelector(".next").onclick = galleryNext;
+        enlargedGallery.querySelector(".prev").onclick = galleryPrev;
+        galleryTrackItems.forEach((item, i) => {
+            item.onclick = () => {
+                index = i;
+                const selected = galleryTrackItems[index];
+                setMainFocus(selected);
+                updateCarousel();
+            };
+        });
+    }
     // Insert codeblocks.
     const codeblocks = document.querySelectorAll(".placeCodeblock");
     codeblocks.forEach(cb => insertCodeblock(cb));

@@ -331,13 +331,24 @@
 						between visual quality and GPU performance.
 					</p>
 				</div>
-
 				<div id = "content">
-					<img alt = "Project Cover" id = "cover" src = "">
+					<button class="dialog-open"><img alt = "Project Cover" id = "cover" src = ""></button>
 					<div id = "gallery"></div>
 				</div>
-			</div>
+				<dialog id = "gallery-dialog">
+					<div class = "main-focus"></div>
+					<div class = "carousel">
+						<button class = "nav prev"></button>
+						<div class = "viewport">
+							<div class = "track"></div>
+						</div>
+						<button class = "nav next"></button>
+					</div>
 
+					<button class = "dialog-close" class = "button">Close</button>
+				</dialog>
+			</div>
+			
 			<a class = "button" href = "../../index.html" id = "returnBtn">Back to homepage</a>
 		</div>
 	</main>
