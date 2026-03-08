@@ -4,7 +4,8 @@ import {initThemeToggle} from "./themeToggle.js";
 import {insertCodeblock} from "./utilities.js";
 
 
-let index: number = 0;
+let trackIndex: number = 0;
+let selectedTrackItem: number = 0;
 let galleryTrack: HTMLElement | null = null;
 let galleryTrackItems: NodeListOf<HTMLElement> | null = null;
 
@@ -63,7 +64,7 @@ function updateCarousel() {
 	if (!galleryTrackItems || !galleryTrack) return;
 
 	const viewport = galleryTrack.parentElement as HTMLElement;
-	const selected = galleryTrackItems[index];
+	const selected = galleryTrackItems[trackIndex];
 
 	const viewportWidth = viewport.offsetWidth;
 	const itemCenter = selected.offsetLeft + selected.offsetWidth / 2;
@@ -75,12 +76,12 @@ function updateCarousel() {
 
 function galleryNext() {
 	if (!galleryTrackItems) return;
-	index = Math.min(index + 1, galleryTrackItems.length - 1);
+	trackIndex = Math.min(trackIndex + 1, galleryTrackItems.length - 1);
 	updateCarousel();
 }
 
 function galleryPrev() {
-	index = Math.max(index - 1, 0);
+	trackIndex = Math.max(trackIndex - 1, 0);
 	updateCarousel();
 }
 
@@ -90,6 +91,25 @@ function setMainFocus(item: HTMLElement) {
 	focus.innerHTML = "";
 	// Clone the clicked element so we don't move it from the carousel.
 	focus.appendChild(item.cloneNode(true));
+}
+
+function setSelectedMedia(indexValue: number, galleryModel: HTMLDialogElement | null) {
+	trackIndex = indexValue;
+
+	if (galleryModel && !galleryModel.open) {
+		galleryModel.showModal();
+	}
+
+	// Wait until the dialog has rendered its layout.
+	requestAnimationFrame(() => {
+		updateCarousel();
+		const item = galleryTrackItems?.[trackIndex];
+		if (item) {
+			selectedTrackItem = trackIndex;
+			item.classList.add("selected");
+			setMainFocus(item);
+		}
+	});
 }
 
 async function loadPage(): Promise<void> {
@@ -133,17 +153,7 @@ async function loadPage(): Promise<void> {
 
 	// Set up the cover's button.
 	const coverButton = cover.parentElement as HTMLButtonElement;
-	coverButton.onclick = () => {
-		index = 0;
-		enlargedGallery?.showModal();
-
-		// Wait until the dialog has rendered its layout.
-		requestAnimationFrame(() => {
-			updateCarousel();
-			const item = galleryTrackItems?.[index];
-			if (item) setMainFocus(item);
-		});
-	};
+	coverButton.onclick = () => {setSelectedMedia(0, enlargedGallery);};
 
 
 	// Load addition project assets.
@@ -151,17 +161,7 @@ async function loadPage(): Promise<void> {
 	meta.additionalAssets.forEach((asset, i) => {
 		const button = document.createElement("button");
 		button.className = "dialog-open";
-		button.onclick = () => {
-			index = i + 1;
-			enlargedGallery?.showModal();
-
-			// Wait until the dialog has rendered its layout.
-			requestAnimationFrame(() => {
-				updateCarousel();
-				const item = galleryTrackItems?.[index];
-				if (item) setMainFocus(item);
-			});
-		};
+		button.onclick = () => {setSelectedMedia(i + 1, enlargedGallery);};
 
 		if (asset.endsWith(".mp4") || asset.endsWith(".webm")) {
 			const video = document.createElement("video");
@@ -182,19 +182,20 @@ async function loadPage(): Promise<void> {
 
 	galleryTrackItems = enlargedGallery.querySelectorAll(".carousel .track > *");
 	if (galleryTrack && galleryTrackItems) {
+		// Set the close button on click function.
 		enlargedGallery.querySelector<HTMLButtonElement>(".dialog-close")!.onclick = () => {
 			enlargedGallery.close();
+			galleryTrackItems![selectedTrackItem].classList.remove("selected");
 		};
 
 		enlargedGallery.querySelector<HTMLButtonElement>(".next")!.onclick = galleryNext;
 		enlargedGallery.querySelector<HTMLButtonElement>(".prev")!.onclick = galleryPrev;
 
+		// Set the on click function for all the tack items.
 		galleryTrackItems.forEach((item, i) => {
 			item.onclick = () => {
-				index = i;
-				const selected = galleryTrackItems![index];
-				setMainFocus(selected);
-				updateCarousel();
+				galleryTrackItems![selectedTrackItem].classList.remove("selected");
+				setSelectedMedia(i, null);
 			};
 		});
 	}

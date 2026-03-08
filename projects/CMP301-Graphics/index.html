@@ -332,23 +332,25 @@
 					</p>
 				</div>
 				<div id = "content">
-					<button class="dialog-open"><img alt = "Project Cover" id = "cover" src = ""></button>
+					<button class = "dialog-open"><img alt = "Project Cover" id = "cover" src = ""></button>
 					<div id = "gallery"></div>
 				</div>
 				<dialog id = "gallery-dialog">
-					<div class = "main-focus"></div>
+					<div class = "main-focus-wrapper">
+						<button class = "button-important dialog-close">✖</button>
+						<div class = "main-focus"></div>
+					</div>
 					<div class = "carousel">
-						<button class = "nav prev"></button>
+						<button class = "button nav prev">&lsaquo;</button>
 						<div class = "viewport">
 							<div class = "track"></div>
 						</div>
-						<button class = "nav next"></button>
+						<button class = "button nav next">&rsaquo;</button>
 					</div>
 
-					<button class = "dialog-close" class = "button">Close</button>
 				</dialog>
 			</div>
-			
+
 			<a class = "button" href = "../../index.html" id = "returnBtn">Back to homepage</a>
 		</div>
 	</main>
