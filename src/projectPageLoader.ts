@@ -4,6 +4,12 @@ import {initThemeToggle} from "./themeToggle.js";
 import {insertCodeblock} from "./utilities.js";
 
 
+let trackIndex: number = 0;
+let selectedTrackItem: number = 0;
+let galleryTrack: HTMLElement | null = null;
+let galleryTrackItems: NodeListOf<HTMLElement> | null = null;
+
+
 function createActionButtons(meta: ProjectMetadata) {
 	// Get the required containers for the action buttons.
 	const actionsContainer = document.getElementById("actions")!;
@@ -54,6 +60,58 @@ function renderFormattedText(container: HTMLElement, text: string) {
 	container.replaceChildren(fragment);
 }
 
+function updateCarousel() {
+	if (!galleryTrackItems || !galleryTrack) return;
+
+	const viewport = galleryTrack.parentElement as HTMLElement;
+	const selected = galleryTrackItems[trackIndex];
+
+	const viewportWidth = viewport.offsetWidth;
+	const itemCenter = selected.offsetLeft + selected.offsetWidth / 2;
+
+	const offset = itemCenter - viewportWidth / 2;
+
+	galleryTrack.style.transform = `translateX(${-offset}px)`;
+}
+
+function galleryNext() {
+	if (!galleryTrackItems) return;
+	trackIndex = Math.min(trackIndex + 1, galleryTrackItems.length - 1);
+	updateCarousel();
+}
+
+function galleryPrev() {
+	trackIndex = Math.max(trackIndex - 1, 0);
+	updateCarousel();
+}
+
+function setMainFocus(item: HTMLElement) {
+	const focus = document.querySelector("#gallery-dialog .main-focus") as HTMLElement;
+	// Clear previous content.
+	focus.innerHTML = "";
+	// Clone the clicked element so we don't move it from the carousel.
+	focus.appendChild(item.cloneNode(true));
+}
+
+function setSelectedMedia(indexValue: number, galleryModel: HTMLDialogElement | null) {
+	trackIndex = indexValue;
+
+	if (galleryModel && !galleryModel.open) {
+		galleryModel.showModal();
+	}
+
+	// Wait until the dialog has rendered its layout.
+	requestAnimationFrame(() => {
+		updateCarousel();
+		const item = galleryTrackItems?.[trackIndex];
+		if (item) {
+			selectedTrackItem = trackIndex;
+			item.classList.add("selected");
+			setMainFocus(item);
+		}
+	});
+}
+
 async function loadPage(): Promise<void> {
 	const meta = await fetch("metadata.json").then(res => res.json()) as ProjectMetadata;
 
@@ -62,7 +120,6 @@ async function loadPage(): Promise<void> {
 	document.title = `${Vars.websiteName || titleStr[0]} - ${meta.name || titleStr[1]}`;
 
 	(document.getElementById("title") as HTMLElement).textContent = meta.name;
-	(document.getElementById("cover") as HTMLImageElement).src = `assets/${meta.cover}`;
 	const descriptionEl = document.getElementById("description")!;
 
 	// Check if the paragraph is empty or only whitespace.
@@ -82,22 +139,66 @@ async function loadPage(): Promise<void> {
 
 	createActionButtons(meta);
 
+
+	// Set up gallery dialog.
+	const enlargedGallery = document.getElementById("gallery-dialog") as HTMLDialogElement;
+	galleryTrack = enlargedGallery.querySelector(".carousel .track") as HTMLElement;
+
+	// Set up the cover image.
+	const cover = document.getElementById("cover") as HTMLImageElement;
+	cover.src = `assets/${meta.cover}`;
+
+	// Try and add the cover to the gallery dialog track.
+	galleryTrack?.appendChild(cover.cloneNode(true));
+
+	// Set up the cover's button.
+	const coverButton = cover.parentElement as HTMLButtonElement;
+	coverButton.onclick = () => {setSelectedMedia(0, enlargedGallery);};
+
+
 	// Load addition project assets.
 	const gallery = document.getElementById("gallery") as HTMLElement;
-	meta.additionalAssets.forEach(asset => {
+	meta.additionalAssets.forEach((asset, i) => {
+		const button = document.createElement("button");
+		button.className = "dialog-open";
+		button.onclick = () => {setSelectedMedia(i + 1, enlargedGallery);};
+
 		if (asset.endsWith(".mp4") || asset.endsWith(".webm")) {
 			const video = document.createElement("video");
 			video.src = `assets/${asset}`;
 			video.controls = true;
 			video.width = 150;
-			gallery.appendChild(video);
+			button.append(video);
 		}
 		else {
 			const img = document.createElement("img");
 			img.src = `assets/${asset}`;
-			gallery.appendChild(img);
+			button.appendChild(img);
 		}
+
+		gallery.appendChild(button);
+		galleryTrack?.appendChild(button.firstChild?.cloneNode(true) as HTMLElement);
 	});
+
+	galleryTrackItems = enlargedGallery.querySelectorAll(".carousel .track > *");
+	if (galleryTrack && galleryTrackItems) {
+		// Set the close button on click function.
+		enlargedGallery.querySelector<HTMLButtonElement>(".dialog-close")!.onclick = () => {
+			enlargedGallery.close();
+			galleryTrackItems![selectedTrackItem].classList.remove("selected");
+		};
+
+		enlargedGallery.querySelector<HTMLButtonElement>(".next")!.onclick = galleryNext;
+		enlargedGallery.querySelector<HTMLButtonElement>(".prev")!.onclick = galleryPrev;
+
+		// Set the on click function for all the tack items.
+		galleryTrackItems.forEach((item, i) => {
+			item.onclick = () => {
+				galleryTrackItems![selectedTrackItem].classList.remove("selected");
+				setSelectedMedia(i, null);
+			};
+		});
+	}
 
 	// Insert codeblocks.
 	const codeblocks = document.querySelectorAll<HTMLElement>(".placeCodeblock");

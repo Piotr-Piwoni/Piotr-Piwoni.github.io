@@ -98,7 +98,6 @@
 			<div id = "actions">
 				<div id = "outlinks"></div>
 			</div>
-
 			<div id = "grid">
 				<div id = "information">
 					<h2 class = "section-title">Description</h2>
@@ -331,13 +330,25 @@
 						between visual quality and GPU performance.
 					</p>
 				</div>
-
 				<div id = "content">
-					<img alt = "Project Cover" id = "cover" src = "">
+					<button class = "dialog-open"><img alt = "Project Cover" id = "cover" src = ""></button>
 					<div id = "gallery"></div>
 				</div>
-			</div>
+				<dialog id = "gallery-dialog">
+					<div class = "main-focus-wrapper">
+						<button class = "button-important dialog-close">✖</button>
+						<div class = "main-focus"></div>
+					</div>
+					<div class = "carousel">
+						<button class = "button nav prev">&lsaquo;</button>
+						<div class = "viewport">
+							<div class = "track"></div>
+						</div>
+						<button class = "button nav next">&rsaquo;</button>
+					</div>
 
+				</dialog>
+			</div>
 			<a class = "button" href = "../../index.html" id = "returnBtn">Back to homepage</a>
 		</div>
 	</main>
